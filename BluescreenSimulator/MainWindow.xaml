@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BluescreenSimulator"
         mc:Ignorable="d"
         Icon="frown.ico"
+        ResizeMode="NoResize"
         Title="BluescreenSimulator v1.0.0" Height="340" Width="525">
     <Grid>
         <StackPanel>

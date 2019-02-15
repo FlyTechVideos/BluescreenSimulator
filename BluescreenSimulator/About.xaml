@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BluescreenSimulator"
         mc:Ignorable="d"
         Icon="frown.ico"
+        ResizeMode="NoResize"
         Title="Instructions" Height="400" Width="680">
     <StackPanel>
         <TextBlock Padding="10" FontWeight="Bold">
