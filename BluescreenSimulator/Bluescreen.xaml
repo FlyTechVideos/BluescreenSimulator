@@ -16,38 +16,51 @@
         Width="1920"
         Height="1080"
         Title="Bluescreen"
+        Background="#1370A9"
         PreviewKeyDown="Window_PreviewKeyDown">
-    <StackPanel Margin="200,180,0,0">
-        <TextBlock FontSize="160" FontFamily="Segoe UI" FontWeight="Normal" Name="Emoticon">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*" />
+            <RowDefinition Height="88*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="90*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock FontSize="160" FontFamily="Segoe UI" FontWeight="Normal" Name="Emoticon">
             :(
-        </TextBlock>
-        <TextBlock Margin="0,40,0,0" Name="MainText1">
+            </TextBlock>
+            <TextBlock Margin="0,40,0,0" Name="MainText1">
             Your PC ran into a problem and needs to restart. We're just
-        </TextBlock>
-        <TextBlock Margin="0,10,0,0" Name="MainText2">
+            </TextBlock>
+            <TextBlock Margin="0,10,0,0" Name="MainText2">
             collecting some error info, and then we'll restart for you.
-        </TextBlock>
-        <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
-            <TextBlock Margin="0,0,10,0" Name="Progress">
+            </TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+                <TextBlock Margin="0,0,10,0" Name="Progress">
                 0%
-            </TextBlock>
-            <TextBlock Name="Complete">
+                </TextBlock>
+                <TextBlock Name="Complete">
                  complete
-            </TextBlock>
-        </StackPanel>
-        <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
-            <Image Margin="0,0,20,0" Height="116" Width="116" Source="Resources/qr.png"></Image>
-            <StackPanel>
-                <TextBlock TextWrapping="WrapWithOverflow" LineHeight="50" FontSize="18" Name="MoreInfo">
-                    For more information about this issue and possible fixes, visit https://www.windows.com/stopcode
-                </TextBlock>
-                <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Name="SupportPerson">
-                    If you call a support person, give them this info:
-                </TextBlock>
-                <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Name="StopCode">
-                    Stop Code: MANUALLY_INITIATED_CRASH
                 </TextBlock>
             </StackPanel>
+            <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
+                <Image Margin="0,0,20,0" Height="116" Width="116" Source="Resources/qr.png"></Image>
+                <StackPanel>
+                    <TextBlock TextWrapping="WrapWithOverflow" LineHeight="50" FontSize="18" Name="MoreInfo">
+                    For more information about this issue and possible fixes, visit https://www.windows.com/stopcode
+                    </TextBlock>
+                    <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Name="SupportPerson">
+                    If you call a support person, give them this info:
+                    </TextBlock>
+                    <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Name="StopCode">
+                    Stop Code: MANUALLY_INITIATED_CRASH
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>
