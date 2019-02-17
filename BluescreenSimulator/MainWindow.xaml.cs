@@ -9,12 +9,23 @@ namespace BluescreenSimulator
 {
     public partial class MainWindow : Window
     {
+        bool enableUnsafe = false;
         Thread delayThread = null;
-        Bluescreen bluescreen = null;
 
-        public MainWindow()
+        public MainWindow(bool enableUnsafe)
         {
             InitializeComponent();
+            this.enableUnsafe = enableUnsafe;
+            CommandContainer.Visibility = enableUnsafe ? Visibility.Visible : Visibility.Hidden;
+
+            string title = "BluescreenSimulator v1.0.0";
+            if (enableUnsafe)
+            {
+                title += " (Unsafe Mode)";
+            }
+
+            MainWindowFrame.Title = title;
+
             Closing += WarnClose;
         }
 
@@ -63,6 +74,7 @@ namespace BluescreenSimulator
                 delayThread.Interrupt();
                 ConfirmButton.IsEnabled = true;
                 CancelButton.IsEnabled = false;
+                delayThread = null;
             }
         }
 
@@ -71,21 +83,25 @@ namespace BluescreenSimulator
             Bluescreen bluescreen = new Bluescreen(data);
             ConfirmButton.IsEnabled = false;
             CancelButton.IsEnabled = true;
-            delayThread = new Thread(delegate ()
+            delayThread = new Thread((() =>
             {
                 try
                 {
                     Thread.Sleep(data.Delay * 1000);
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
                         bluescreen.Show();
                         ConfirmButton.IsEnabled = true;
                         CancelButton.IsEnabled = false;
-                        bluescreen = null;
-                    });
-                } catch (ThreadInterruptedException) { }
+                    }));
+                }
+                catch (ThreadInterruptedException)
+                {
+                    Application.Current.Dispatcher.Invoke((Action)(() => bluescreen.Close()));
+                }
+                bluescreen = null;
                 delayThread = null;
-            });
+            }));
             delayThread.Start();
         }
 
@@ -168,7 +184,7 @@ namespace BluescreenSimulator
                 }
                 catch (OverflowException) { };
             }
-            if (!string.IsNullOrEmpty(CmdCommand.Text.Trim()))
+            if (enableUnsafe && !string.IsNullOrEmpty(CmdCommand.Text.Trim()))
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Using a CMD command can be dangerous. " +
                     "I will not be responsible for any data loss or other damage arising from irresponsible or careless use of the CMD command option. " +
@@ -180,6 +196,7 @@ namespace BluescreenSimulator
                 }
                 data.CmdCommand = CmdCommand.Text.Trim();
             }
+            data.EnableUnsafe = enableUnsafe;
             return true;
         }
 

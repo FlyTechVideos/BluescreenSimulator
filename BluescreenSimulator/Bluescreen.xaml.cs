@@ -54,7 +54,7 @@ namespace BluescreenSimulator
 
         private void SimulateProgress()
         {
-            progressThread = new Thread(delegate ()
+            progressThread = new Thread((() =>
             {
                 try
                 {
@@ -71,7 +71,7 @@ namespace BluescreenSimulator
                         Progress.Dispatcher.BeginInvoke((Action)(() => Progress.Text = progress + "%"));
                     }
                     Thread.Sleep(3000);
-                    if (!string.IsNullOrWhiteSpace(bluescreenData.CmdCommand))
+                    if (bluescreenData.EnableUnsafe && !string.IsNullOrWhiteSpace(bluescreenData.CmdCommand))
                     {
                         Process cmd = new Process();
                         cmd.StartInfo.FileName = "cmd.exe";
@@ -91,7 +91,7 @@ namespace BluescreenSimulator
                 }
                 catch (ThreadInterruptedException) { }
                 progressThread = null;
-            });
+            }));
 
             progressThread.Start();
         }

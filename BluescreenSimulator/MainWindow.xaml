@@ -7,65 +7,64 @@
         mc:Ignorable="d"
         Icon="frown.ico"
         ResizeMode="NoResize"
-        Title="BluescreenSimulator v1.0.0" Height="340" Width="525">
-    <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Emoticon</Label>
-                    <TextBox Width="365" Name="Emoticon" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Main Text (Line 1)</Label>
-                    <TextBox Width="365" Name="MainText1" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Main Text (Line 2)</Label>
-                    <TextBox Width="365" Name="MainText2" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Progress ("complete")</Label>
-                    <TextBox Width="365" Name="Complete" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">More Info</Label>
-                    <TextBox Width="365" Name="MoreInfo" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Support Person</Label>
-                    <TextBox Width="365" Name="SupportPerson" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Stop code</Label>
-                    <TextBox Width="365" Name="StopCode" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Background color</Label>
-                    <StackPanel Width="365" Orientation="Horizontal">
-                        <Label Width="50">Red</Label>
-                        <TextBox Width="50" Name="Red" PreviewTextInput="ValidateNumber" />
+        Name="MainWindowFrame"
+        Height="340" Width="525">
+    <StackPanel>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Emoticon</Label>
+                <TextBox Width="365" Name="Emoticon" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Main Text (Line 1)</Label>
+                <TextBox Width="365" Name="MainText1" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Main Text (Line 2)</Label>
+                <TextBox Width="365" Name="MainText2" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Progress ("complete")</Label>
+                <TextBox Width="365" Name="Complete" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">More Info</Label>
+                <TextBox Width="365" Name="MoreInfo" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Support Person</Label>
+                <TextBox Width="365" Name="SupportPerson" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Stop code</Label>
+                <TextBox Width="365" Name="StopCode" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Background color</Label>
+                <StackPanel Width="365" Orientation="Horizontal">
+                    <Label Width="50">Red</Label>
+                    <TextBox Width="50" Name="Red" PreviewTextInput="ValidateNumber" />
 
-                        <Label Width="50">Green</Label>
-                        <TextBox Width="50" Name="Green" PreviewTextInput="ValidateNumber" />
+                    <Label Width="50">Green</Label>
+                    <TextBox Width="50" Name="Green" PreviewTextInput="ValidateNumber" />
 
-                        <Label Width="50">Blue</Label>
-                        <TextBox Width="50" Name="Blue" PreviewTextInput="ValidateNumber" />
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Delay (in seconds)</Label>
-                    <TextBox Width="365" Name="Delay" PreviewTextInput="ValidateNumber" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Width="150">Command after complete</Label>
-                    <TextBox Width="365" Name="CmdCommand" />
+                    <Label Width="50">Blue</Label>
+                    <TextBox Width="50" Name="Blue" PreviewTextInput="ValidateNumber" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Click="CancelBSOD" Margin="10,10,10,0" Width="150" Name="CancelButton" IsEnabled="False">Cancel BSOD</Button>
-                <Button Click="OpenAbout" Margin="10,10,10,0" Width="150" Name="AboutButton">Instructions</Button>
-                <Button Click="ShowBSOD" Margin="10,10,10,0" Width="150" Name="ConfirmButton">Give me an error</Button>
+                <Label Width="150">Delay (in seconds)</Label>
+                <TextBox Width="365" Name="Delay" PreviewTextInput="ValidateNumber" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Name="CommandContainer">
+                <Label Width="150">Command after complete</Label>
+                <TextBox Width="365" Name="CmdCommand" />
             </StackPanel>
         </StackPanel>
-    </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Button Click="CancelBSOD" Margin="10,10,10,0" Width="150" Name="CancelButton" IsEnabled="False">Cancel BSOD</Button>
+            <Button Click="OpenAbout" Margin="10,10,10,0" Width="150" Name="AboutButton">Instructions</Button>
+            <Button Click="ShowBSOD" Margin="10,10,10,0" Width="150" Name="ConfirmButton">Give me an error</Button>
+        </StackPanel>
+    </StackPanel>
 </Window>

@@ -16,6 +16,7 @@
         private byte blue = 169;
 
         private int delay = 0;
+        private bool enableUnsafe = false;
 
         public string Emoticon
         {
@@ -170,6 +171,19 @@
             set
             {
                 _CmdCommand = value;
+            }
+        }
+
+        public bool EnableUnsafe
+        {
+            get
+            {
+                return enableUnsafe;
+            }
+
+            set
+            {
+                enableUnsafe = value;
             }
         }
     }
