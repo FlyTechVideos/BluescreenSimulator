@@ -10,6 +10,7 @@ namespace BluescreenSimulator
     public partial class MainWindow : Window
     {
         Thread delayThread = null;
+        Bluescreen bluescreen = null;
 
         public MainWindow()
         {
@@ -41,10 +42,10 @@ namespace BluescreenSimulator
         private void WarnClose(object sender, CancelEventArgs e)
         {
             if (delayThread != null) { 
-                MessageBoxResult messageBoxResult = MessageBox.Show("Do you want to exit? The scheduled BSOD will be canceled.", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Do you want to exit? The scheduled BSOD will remain scheduled. If you want to interrupt it, you have to kill the process.",
+                    "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    InterruptBluescreenDelay();
                     e.Cancel = false;
                 }
                 else
@@ -67,6 +68,7 @@ namespace BluescreenSimulator
 
         private void StartBluescreenWithDelay(BluescreenData data)
         {
+            Bluescreen bluescreen = new Bluescreen(data);
             ConfirmButton.IsEnabled = false;
             CancelButton.IsEnabled = true;
             delayThread = new Thread(delegate ()
@@ -76,10 +78,10 @@ namespace BluescreenSimulator
                     Thread.Sleep(data.Delay * 1000);
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        Bluescreen bluescreen = new Bluescreen(data);
                         bluescreen.Show();
                         ConfirmButton.IsEnabled = true;
                         CancelButton.IsEnabled = false;
+                        bluescreen = null;
                     });
                 } catch (ThreadInterruptedException) { }
                 delayThread = null;
