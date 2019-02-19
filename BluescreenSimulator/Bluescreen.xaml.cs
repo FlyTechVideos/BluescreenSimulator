@@ -17,6 +17,8 @@ namespace BluescreenSimulator
         {
             InitializeComponent();
 
+            this.Cursor = Cursors.None;
+
             this.bluescreenData = bluescreenData;
             InitializeTexts();
 

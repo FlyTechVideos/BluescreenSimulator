@@ -8,7 +8,7 @@
         Icon="frown.ico"
         ResizeMode="NoResize"
         Name="MainWindowFrame"
-        Height="340" Width="525">
+        Height="340" Width="545">
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
