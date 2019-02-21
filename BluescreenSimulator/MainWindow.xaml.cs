@@ -19,7 +19,7 @@ namespace BluescreenSimulator
             this.enableUnsafe = enableUnsafe;
             CommandContainer.Visibility = enableUnsafe ? Visibility.Visible : Visibility.Hidden;
 
-            string title = "BluescreenSimulator v2.0.0";
+            string title = "BluescreenSimulator v2.0";
             if (enableUnsafe)
             {
                 title += " (Unsafe Mode)";
