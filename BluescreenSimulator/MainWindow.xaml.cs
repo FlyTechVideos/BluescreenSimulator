@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Threading;
 using System;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace BluescreenSimulator
 {
@@ -18,7 +19,7 @@ namespace BluescreenSimulator
             this.enableUnsafe = enableUnsafe;
             CommandContainer.Visibility = enableUnsafe ? Visibility.Visible : Visibility.Hidden;
 
-            string title = "BluescreenSimulator v1.0.0";
+            string title = "BluescreenSimulator v2.0.0";
             if (enableUnsafe)
             {
                 title += " (Unsafe Mode)";
@@ -48,6 +49,29 @@ namespace BluescreenSimulator
         {
             About about = new About();
             about.Show();
+        }
+
+        private void UseOriginalQR_Click(object sender, RoutedEventArgs e)
+        {
+            HandleCheckboxes(UseOriginalQR, HideQR);
+        }
+
+        private void HideQR_Click(object sender, RoutedEventArgs e)
+        {
+            HandleCheckboxes(HideQR, UseOriginalQR);
+        }
+
+        private void HandleCheckboxes(CheckBox clicked, CheckBox other)
+        {
+            if (clicked.IsChecked == true) // it's a 'bool?' so we need explicit boolean comparison
+            {
+                other.IsChecked = false;
+                other.IsEnabled = false;
+            }
+            else
+            {
+                other.IsEnabled = true;
+            }
         }
 
         private void WarnClose(object sender, CancelEventArgs e)
@@ -135,39 +159,78 @@ namespace BluescreenSimulator
             {
                 data.StopCode = StopCode.Text;
             }
-            if (!string.IsNullOrEmpty(Red.Text))
+            if (!string.IsNullOrEmpty(BgRed.Text))
             {
                 try
                 {
-                    byte red = byte.Parse(Red.Text);
-                    data.Red = red;
+                    byte red = byte.Parse(BgRed.Text);
+                    data.BgRed = red;
                 }
                 catch (OverflowException) {
-                    MessageBox.Show("Color value for red is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Background color value for red is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 };
             }
-            if (!string.IsNullOrEmpty(Green.Text))
+            if (!string.IsNullOrEmpty(BgGreen.Text))
             {
                 try
                 {
-                    byte green = byte.Parse(Green.Text);
-                    data.Green = green;
+                    byte green = byte.Parse(BgGreen.Text);
+                    data.BgGreen = green;
                 }
                 catch (OverflowException) {
-                    MessageBox.Show("Color value for green is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Background color value for green is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 };
             }
-            if (!string.IsNullOrEmpty(Blue.Text))
+            if (!string.IsNullOrEmpty(BgBlue.Text))
             {
                 try
                 {
-                    byte blue = byte.Parse(Blue.Text);
-                    data.Blue = blue;
+                    byte blue = byte.Parse(BgBlue.Text);
+                    data.BgBlue = blue;
                 }
                 catch (OverflowException) {
-                    MessageBox.Show("Color value for blue is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Background color value for blue is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                };
+            }
+            if (!string.IsNullOrEmpty(FgRed.Text))
+            {
+                try
+                {
+                    byte red = byte.Parse(FgRed.Text);
+                    data.FgRed = red;
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("Foreground color value for red is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                };
+            }
+            if (!string.IsNullOrEmpty(FgGreen.Text))
+            {
+                try
+                {
+                    byte green = byte.Parse(FgGreen.Text);
+                    data.FgGreen = green;
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("Foreground color value for green is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                };
+            }
+            if (!string.IsNullOrEmpty(FgBlue.Text))
+            {
+                try
+                {
+                    byte blue = byte.Parse(FgBlue.Text);
+                    data.FgBlue = blue;
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("Foreground color value for blue is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 };
             }
@@ -197,6 +260,8 @@ namespace BluescreenSimulator
                 data.CmdCommand = CmdCommand.Text.Trim();
             }
             data.EnableUnsafe = enableUnsafe;
+            data.HideQR = HideQR.IsChecked == true; // is a bool? -> need explicit check
+            data.UseOriginalQR = UseOriginalQR.IsChecked == true; // is a bool? -> need explicit check
             return true;
         }
 
@@ -204,6 +269,11 @@ namespace BluescreenSimulator
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void RemoveSpaces(object sender, TextChangedEventArgs e)
+        {
+            ((TextBox)sender).Text = ((TextBox)sender).Text.Replace(" ", "");
         }
     }
 }

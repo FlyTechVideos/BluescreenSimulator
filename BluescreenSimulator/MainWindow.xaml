@@ -8,7 +8,7 @@
         Icon="frown.ico"
         ResizeMode="NoResize"
         Name="MainWindowFrame"
-        Height="340" Width="545">
+        Height="390" Width="545">
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
@@ -43,19 +43,50 @@
                 <Label Width="150">Background color</Label>
                 <StackPanel Width="365" Orientation="Horizontal">
                     <Label Width="50">Red</Label>
-                    <TextBox Width="50" Name="Red" PreviewTextInput="ValidateNumber" />
+                    <TextBox Width="50" Name="BgRed" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
 
                     <Label Width="50">Green</Label>
-                    <TextBox Width="50" Name="Green" PreviewTextInput="ValidateNumber" />
+                    <TextBox Width="50" Name="BgGreen" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
 
                     <Label Width="50">Blue</Label>
-                    <TextBox Width="50" Name="Blue" PreviewTextInput="ValidateNumber" />
+                    <TextBox Width="50" Name="BgBlue" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Foreground color (text)</Label>
+                <StackPanel Width="365" Orientation="Horizontal">
+                    <Label Width="50">Red</Label>
+                    <TextBox Width="50" Name="FgRed" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
+
+                    <Label Width="50">Green</Label>
+                    <TextBox Width="50" Name="FgGreen" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
+
+                    <Label Width="50">Blue</Label>
+                    <TextBox Width="50" Name="FgBlue" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150">Delay (in seconds)</Label>
-                <TextBox Width="365" Name="Delay" PreviewTextInput="ValidateNumber" />
+                <TextBox Width="365" Name="Delay" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
             </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150">Use original blue QR code</Label>
+                    <CheckBox Name="UseOriginalQR" Margin="6,6,0,0" Click="UseOriginalQR_Click" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Label Width="150">Hide QR code completely</Label>
+                    <CheckBox Name="HideQR" Margin="6,6,0,0" Click="HideQR_Click" />
+                </StackPanel>
+            </Grid>
             <StackPanel Orientation="Horizontal" Name="CommandContainer">
                 <Label Width="150">Command after complete</Label>
                 <TextBox Width="365" Name="CmdCommand" />

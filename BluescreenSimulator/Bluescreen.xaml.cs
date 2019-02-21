@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Media.Imaging;
 
 namespace BluescreenSimulator
 {
@@ -20,7 +21,7 @@ namespace BluescreenSimulator
             this.Cursor = Cursors.None;
 
             this.bluescreenData = bluescreenData;
-            InitializeTexts();
+            InitializeScreen();
 
             Loaded += new RoutedEventHandler(Bluescreen_Loaded);
             Closing += Close;
@@ -34,7 +35,7 @@ namespace BluescreenSimulator
             }
         }
 
-        private void InitializeTexts()
+        private void InitializeScreen()
         {
             Emoticon.Text = bluescreenData.Emoticon;
             MainText1.Text = bluescreenData.MainText1;
@@ -45,8 +46,22 @@ namespace BluescreenSimulator
             SupportPerson.Text = bluescreenData.SupportPerson;
             StopCode.Text = bluescreenData.StopCode;
 
-            Color color = Color.FromRgb(bluescreenData.Red, bluescreenData.Green, bluescreenData.Blue);
-            Background = new SolidColorBrush(color);
+            Color backgroundColor = Color.FromRgb(bluescreenData.BgRed, bluescreenData.BgGreen, bluescreenData.BgBlue);
+            Color foregroundColor = Color.FromRgb(bluescreenData.FgRed, bluescreenData.FgGreen, bluescreenData.FgBlue);
+            Background = new SolidColorBrush(backgroundColor);
+            Foreground = new SolidColorBrush(foregroundColor);
+
+            QRCode.Visibility = (bluescreenData.HideQR) ? Visibility.Hidden : Visibility.Visible;
+            if (bluescreenData.HideQR)
+            {
+                QRCode.Width = 0;
+                QRCode.Margin = new Thickness(0);
+            }
+
+            var qr = new BitmapImage(new Uri("Resources/qr.png", UriKind.RelativeOrAbsolute));
+            var qrTransparent = new BitmapImage(new Uri("Resources/qr_transparent.png", UriKind.RelativeOrAbsolute));
+
+            QRCode.Source = (bluescreenData.UseOriginalQR) ? qr : qrTransparent;
         }
 
         void Bluescreen_Loaded(object sender, RoutedEventArgs e)

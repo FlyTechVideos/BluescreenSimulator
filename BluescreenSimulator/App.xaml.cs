@@ -22,7 +22,7 @@ namespace BluescreenSimulator
         {
 
             string[] args = Environment.GetCommandLineArgs();
-            if (args.Length > 0)
+            if (args.Length > 1) // #0 is file path
             {
                 BluescreenData bluescreenData = new BluescreenData();
                 bool show_help = false;
@@ -34,12 +34,23 @@ namespace BluescreenSimulator
                     { "m2|main2=", "{Text} for Main Text (Line 2)", t => bluescreenData.MainText2 = t },
                     { "p|progress=", "{Text} for Progress (\"complete\")", t => bluescreenData.Complete = t },
                     { "mi|moreinfo=", "{Text} for More Info", t => bluescreenData.MoreInfo = t },
-                    { "s|supportperson=",  "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
+                    { "s|supportperson=", "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
                     { "sc|stopcode=", "{Text} for Stop code", t => bluescreenData.StopCode = t },
-                    { "r|red=", "Background color {value} for red (0-255)", (byte r) => bluescreenData.Red = r },
-                    { "g|green=", "Background color {value} for green (0-255)", (byte g) => bluescreenData.Green = g },
-                    { "b|blue=", "Background color {value} for blue (0-255)", (byte b) => bluescreenData.Blue = b },
-                    { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => bluescreenData.Delay = d },
+                    { "br|bgred=", "Background color {value} for red (0-255)", (byte r) => bluescreenData.BgRed = r },
+                    { "bg|bggreen=", "Background color {value} for green (0-255)", (byte g) => bluescreenData.BgGreen = g },
+                    { "bb|bgblue=", "Background color {value} for blue (0-255)", (byte b) => bluescreenData.BgBlue = b },
+                    { "fr|fgred=", "Foreground (text) color {value} for red (0-255)", (byte r) => bluescreenData.FgRed = r },
+                    { "fg|fggreen=", "Foreground (text) color {value} for green (0-255)", (byte g) => bluescreenData.FgGreen = g },
+                    { "fb|fgblue=", "Foreground (text) color {value} for blue (0-255)", (byte b) => bluescreenData.FgBlue = b },
+                    { "oq|origqr", "Use original QR code", o => bluescreenData.UseOriginalQR = o != null },
+                    { "hq|hideqr", "Hides the QR code", h => bluescreenData.HideQR = h != null },
+                    { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => {
+                        if (d > 86400)
+                        {
+                            throw new OptionException("Delay maximum is 86400 seconds (24 hours)", "d|delay=");
+                        }
+                        bluescreenData.Delay = d;
+                    }},
                     { "c|cmd=", "The {command} to run after complete (Careful!)", c => { bluescreenData.CmdCommand = c; bluescreenData.EnableUnsafe = true; } },
                     { "u|enable-unsafe",  "Enable unsafe mode (forces GUI mode and discards all other settings)", eu => enable_unsafe = eu != null },
                     { "h|help",  "Show this message and exit", h => show_help = h != null }
@@ -95,7 +106,8 @@ namespace BluescreenSimulator
                     }));
                     delayThread.Start();
                 }
-            } else
+            }
+            else
             {
                 RunGui(false);
             }

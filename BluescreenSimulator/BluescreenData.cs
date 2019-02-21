@@ -11,12 +11,19 @@
         private string _StopCode = "Stop code: DRIVER_IRQL_NOT_LESS_OR_EQUAL";
         private string _CmdCommand = null;
 
-        private byte red = 10;
-        private byte green = 112;
-        private byte blue = 169;
+        private byte _BgRed = 10;
+        private byte _BgGreen = 112;
+        private byte _BgBlue = 169;
 
-        private int delay = 0;
-        private bool enableUnsafe = false;
+        private byte _FgRed = 255;
+        private byte _FgGreen = 255;
+        private byte _FgBlue = 255;
+
+        private int _Delay = 0;
+        private bool _EnableUnsafe = false;
+
+        private bool _HideQR = false;
+        private bool _UseOriginalQR = false;
 
         public string Emoticon
         {
@@ -109,58 +116,6 @@
             }
         }
 
-        public byte Red
-        {
-            get
-            {
-                return red;
-            }
-
-            set
-            {
-                red = value;
-            }
-        }
-
-        public byte Green
-        {
-            get
-            {
-                return green;
-            }
-
-            set
-            {
-                green = value;
-            }
-        }
-
-        public byte Blue
-        {
-            get
-            {
-                return blue;
-            }
-
-            set
-            {
-                blue = value;
-            }
-        }
-
-        public int Delay
-        {
-            get
-            {
-                return delay;
-            }
-
-            set
-            {
-                delay = value;
-            }
-        }
-
         public string CmdCommand
         {
             get
@@ -174,16 +129,133 @@
             }
         }
 
-        public bool EnableUnsafe
+        public byte BgRed
         {
             get
             {
-                return enableUnsafe;
+                return _BgRed;
             }
 
             set
             {
-                enableUnsafe = value;
+                _BgRed = value;
+            }
+        }
+
+        public byte BgGreen
+        {
+            get
+            {
+                return _BgGreen;
+            }
+
+            set
+            {
+                _BgGreen = value;
+            }
+        }
+
+        public byte BgBlue
+        {
+            get
+            {
+                return _BgBlue;
+            }
+
+            set
+            {
+                _BgBlue = value;
+            }
+        }
+
+        public byte FgRed
+        {
+            get
+            {
+                return _FgRed;
+            }
+
+            set
+            {
+                _FgRed = value;
+            }
+        }
+
+        public byte FgGreen
+        {
+            get
+            {
+                return _FgGreen;
+            }
+
+            set
+            {
+                _FgGreen = value;
+            }
+        }
+
+        public byte FgBlue
+        {
+            get
+            {
+                return _FgBlue;
+            }
+
+            set
+            {
+                _FgBlue = value;
+            }
+        }
+
+        public int Delay
+        {
+            get
+            {
+                return _Delay;
+            }
+
+            set
+            {
+                _Delay = value;
+            }
+        }
+
+        public bool EnableUnsafe
+        {
+            get
+            {
+                return _EnableUnsafe;
+            }
+
+            set
+            {
+                _EnableUnsafe = value;
+            }
+        }
+
+        public bool HideQR
+        {
+            get
+            {
+                return _HideQR;
+            }
+
+            set
+            {
+                _HideQR = value;
+            }
+        }
+
+        public bool UseOriginalQR
+        {
+            get
+            {
+                return _UseOriginalQR;
+            }
+
+            set
+            {
+                _UseOriginalQR = value;
             }
         }
     }

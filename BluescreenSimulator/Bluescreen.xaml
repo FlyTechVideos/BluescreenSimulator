@@ -48,7 +48,7 @@
                 </TextBlock>
             </StackPanel>
             <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
-                <Image Margin="0,0,20,0" Height="116" Width="116" Source="Resources/qr.png"></Image>
+                <Image Margin="0,0,20,0" Height="116" Width="116" Name="QRCode" Source="Resources/qr_transparent.png"></Image>
                 <StackPanel>
                     <TextBlock TextWrapping="WrapWithOverflow" LineHeight="50" FontSize="18" Name="MoreInfo">
                     For more information about this issue and possible fixes, visit https://www.windows.com/stopcode

@@ -10,7 +10,7 @@
         Title="Instructions" Height="440" Width="680">
     <StackPanel>
         <TextBlock Padding="10" FontWeight="Bold">
-            BlueScreen Simulator v1.0.0
+            BlueScreen Simulator v2.0.0
         </TextBlock>
         <TextBlock Padding="10" TextWrapping="WrapWithOverflow">
             This program simulates a BSOD without any danger or harm for your PC.
