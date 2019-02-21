@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="frown.ico"
         ResizeMode="NoResize"
-        Title="Instructions" Height="440" Width="680">
+        Title="Instructions" Height="490" Width="680">
     <StackPanel>
         <TextBlock Padding="10" FontWeight="Bold">
             BlueScreen Simulator v2.0.0
@@ -20,14 +20,16 @@
         </TextBlock>
         <TextBlock Padding="15,0,0,0" TextWrapping="Wrap">
             • You can use the first fields (up to "Background color") to change the text on the BSOD. <LineBreak />
-            • In the "Background color" fields you can set a background color (RGB format). <LineBreak />
+            • In the "Background/Foreground color" fields you can set a background/foreground (text) color (RGB format). <LineBreak />
             • With "Delay", you can set a BSOD to trigger after a specified amount of seconds. <LineBreak />
+            • QR code is transparent by default. You can choose to hide it (for Windows 8/8.1 style) or use the original-colored one.<LineBreak />
             • Click "Give me an error" to trigger the BSOD. <LineBreak />
             • To leave the BSOD screen, press Alt + F4 or F7. <LineBreak />
             • If you have specified a delay, you can cancel it by clicking "Cancel BSOD". <LineBreak />
             • Leaving fields empty will set them to default values, which are set to replicate a Windows 10 BSOD. <LineBreak />
             • Delay defaults to 0 and command defaults to "no command". <LineBreak />
-            • The progress counter advances automatically.
+            • The progress counter advances automatically. <LineBreak />
+            • A command line interface exists. Run <TextBlock FontFamily="Consolas">BluescreenSimulator --help</TextBlock> for more info.
         </TextBlock>
         <TextBlock Padding="10,10,0,0" FontWeight="Bold">
             What is Unsafe Mode? How to enable it?
@@ -48,6 +50,11 @@
         </TextBlock>
         <TextBlock Padding="10,0,0,0">
             <Hyperlink NavigateUri="https://www.youtube.com/FlyTechVideos" Click="Hyperlink_Click">FlyTech Videos – YouTube Channel</Hyperlink>
+        </TextBlock>
+        <TextBlock Padding="10,10,0,0">
+            This software is using the MIT-licensed library 'NDesk.Options'. |
+            <Hyperlink NavigateUri="https://opensource.org/licenses/mit-license.php" Click="Hyperlink_Click">MIT License</Hyperlink> |
+            <Hyperlink NavigateUri="http://www.ndesk.org/Options" Click="Hyperlink_Click">Project page</Hyperlink>
         </TextBlock>
     </StackPanel>
 </Window>
