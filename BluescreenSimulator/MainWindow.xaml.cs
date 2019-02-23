@@ -5,6 +5,9 @@ using System.Threading;
 using System;
 using System.ComponentModel;
 using System.Windows.Controls;
+using System.IO;
+using System.Diagnostics;
+using Microsoft.VisualBasic;
 
 namespace BluescreenSimulator
 {
@@ -19,7 +22,7 @@ namespace BluescreenSimulator
             this.enableUnsafe = enableUnsafe;
             CommandContainer.Visibility = enableUnsafe ? Visibility.Visible : Visibility.Hidden;
 
-            string title = "BluescreenSimulator v2.0";
+            string title = "BluescreenSimulator v2.1";
             if (enableUnsafe)
             {
                 title += " (Unsafe Mode)";
@@ -49,6 +52,243 @@ namespace BluescreenSimulator
         {
             About about = new About();
             about.Show();
+        }
+
+        private void GenerateExe(object sender, RoutedEventArgs e)
+        {
+            string response = Interaction.InputBox("Please enter the file name of the EXE-File", "Enter Filename", "BSOD", 5, 5);
+            string optionfilecontent = "[Version]\n" +
+                                        "Class = IEXPRESS\n" +
+                                        "SEDVersion = 3\n" +
+                                        "[Options]\n" +
+                                        "PackagePurpose = InstallApp\n" +
+                                        "ShowInstallProgramWindow = 1\n" +
+                                        "HideExtractAnimation = 1\n" +
+                                        "UseLongFileName = 1\n" +
+                                        "InsideCompressed = 0\n" +
+                                        "CAB_FixedSize = 0\n" +
+                                        "CAB_ResvCodeSigning = 0\n" +
+                                        "RebootMode = N\n" +
+                                        "InstallPrompt =% InstallPrompt %\n" +
+                                        "DisplayLicense =% DisplayLicense %\n" +
+                                        "FinishMessage =% FinishMessage %\n" +
+                                        "TargetName =% TargetName %\n" +
+                                        "FriendlyName =% FriendlyName %\n" +
+                                        "AppLaunched =% AppLaunched %\n" +
+                                        "PostInstallCmd =% PostInstallCmd %\n" +
+                                        "AdminQuietInstCmd =% AdminQuietInstCmd %\n" +
+                                        "UserQuietInstCmd =% UserQuietInstCmd %\n" +
+                                        "SourceFiles = SourceFiles\n" +
+                                        "[Strings]\n" +
+                                        "InstallPrompt =\n" +
+                                        "DisplayLicense =\n" +
+                                        "FinishMessage =\n" +
+                                        "TargetName = File.exe\n" +
+                                        "FriendlyName = etlksnslgdfg\n" +
+                                        "AppLaunched = BluescreenSimulatorV2.1.exe " + GetOwO(0) + GetOwO(1) + GetOwO(2) + GetOwO(3) + GetOwO(4) + GetOwO(5) + GetOwO(6) + GetOwO(7) + GetOwO(8) + GetOwO(9) + GetOwO(10) + GetOwO(11) + GetOwO(12) + GetOwO(13) + GetOwO(14) + GetOwO(15) + "\n" +
+                                        "PostInstallCmd =<None>\n" +
+                                        "AdminQuietInstCmd =\n" +
+                                        "UserQuietInstCmd =\n" +
+                                        "FILE0 = BluescreenSimulatorV2.1.exe\n" +
+                                        "[SourceFiles]\n" +
+                                        "SourceFiles0 = " + Path.GetTempPath() + "\n" + 
+                                        "[SourceFiles0]\n" +
+                                        "%FILE0%=\n";
+            File.WriteAllText(Path.GetTempPath() + "\\optionfile.SED", optionfilecontent);
+            string thisFile = System.AppDomain.CurrentDomain.FriendlyName;
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\" + thisFile;
+            string Filepath = Path.GetTempPath() + "\\BluescreenSimulatorV2.1.exe";
+            try
+            {
+                if (!File.Exists(Filepath))
+                {
+                    System.IO.File.Copy(path, Filepath);
+                }
+            }
+            catch (Exception ignored)
+            {
+                
+            }
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C iexpress.exe /N " + Path.GetTempPath() + "\\optionfile.SED";
+            process.StartInfo = startInfo;
+            process.Start();
+            process.WaitForExit();
+            File.Move("File.exe", response + ".exe");
+            File.Delete(Path.GetTempPath() + "\\optionfile.SED");
+            File.Delete(Path.GetTempPath() + "\\BluescreenSimulatorV2.1.exe");
+            File.Delete(Path.GetTempPath() + "\\File.exe");
+            MessageBox.Show("Your EXE-File has been created.", "Bluescreen Simulator");
+        }
+
+        private string GetOwO(int what)
+        {
+            if (what == 0)
+            {
+                if (Emoticon.Text.Length > 0)
+                {
+                    return "--emoticon \"" + Emoticon.Text + "\" ";
+                } else
+                {
+                    return "";
+                }
+            } else if (what == 1)
+            {
+                if (MainText1.Text.Length > 0)
+                {
+                    return "--m1 \"" + MainText1.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 2)
+            {
+                if (MainText2.Text.Length > 0)
+                {
+                    return "--m2 \"" + MainText2.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 3)
+            {
+                if (Complete.Text.Length > 0)
+                {
+                    return "--progress \"" + Complete.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 4)
+            {
+                if (MoreInfo.Text.Length > 0)
+                {
+                    return "--mi \"" + MoreInfo.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 5)
+            {
+                if (SupportPerson.Text.Length > 0)
+                {
+                    return "--supportperson \"" + SupportPerson.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 6)
+            {
+                if (StopCode.Text.Length > 0)
+                {
+                    return "--sc \"" + StopCode.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 7)
+            {
+                if (BgRed.Text.Length > 0)
+                {
+                    return "--br \"" + BgRed.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 8)
+            {
+                if (BgGreen.Text.Length > 0)
+                {
+                    return "--bg \"" + BgGreen.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 9)
+            {
+                if (BgBlue.Text.Length > 0)
+                {
+                    return "--bb \"" + BgBlue.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 10)
+            {
+                if (FgRed.Text.Length > 0)
+                {
+                    return "--fr \"" + FgRed.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 11)
+            {
+                if (FgGreen.Text.Length > 0)
+                {
+                    return "--fg \"" + FgGreen.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 12)
+            {
+                if (FgBlue.Text.Length > 0)
+                {
+                    return "--fb \"" + FgBlue.Text + "\" ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 13)
+            {
+                if (UseOriginalQR.IsChecked.Value)
+                {
+                    return "--oq ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 14)
+            {
+                if (HideQR.IsChecked.Value)
+                {
+                    return "--hq ";
+                }
+                else
+                {
+                    return "";
+                }
+            } else if (what == 15)
+            {
+                if (Delay.Text.Length > 0)
+                {
+                    return "--delay " + Delay.Text;
+                } else
+                {
+                    return "";
+                }
+            }
+            else
+            {
+                return "notices buldge";
+            }
         }
 
         private void UseOriginalQR_Click(object sender, RoutedEventArgs e)

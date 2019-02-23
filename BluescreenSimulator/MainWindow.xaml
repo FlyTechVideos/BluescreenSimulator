@@ -92,10 +92,11 @@
                 <TextBox Width="365" Name="CmdCommand" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Button Click="CancelBSOD" Margin="10,10,10,0" Width="150" Name="CancelButton" IsEnabled="False">Cancel BSOD</Button>
-            <Button Click="OpenAbout" Margin="10,10,10,0" Width="150" Name="AboutButton">Instructions</Button>
-            <Button Click="ShowBSOD" Margin="10,10,10,0" Width="150" Name="ConfirmButton">Give me an error</Button>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Click="CancelBSOD" Margin="10,10,10,0" Width="101" Name="CancelButton" IsEnabled="False">Cancel BSOD</Button>
+            <Button Click="OpenAbout" Margin="10,10,10,0" Width="101" Name="AboutButton">Instructions</Button>
+            <Button Click="ShowBSOD" Margin="10,10,10,0" Width="101" Name="ConfirmButton">Give me an error</Button>
+            <Button Click="GenerateExe" Margin="10,10,10,0" Width="101" x:Name="GenExe" Content="Generate EXE-File"/>
         </StackPanel>
     </StackPanel>
 </Window>
