@@ -16,5 +16,11 @@ namespace BluescreenSimulator
             var link = (Hyperlink)sender;
             Process.Start(link.NavigateUri.ToString());
         }
+        
+        private void Hyperlink_Github_Click(object sender, RoutedEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            Process.Start(link.NavigateUri.ToString());
+        }
     }
 }
