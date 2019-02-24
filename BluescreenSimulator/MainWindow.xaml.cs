@@ -5,6 +5,10 @@ using System.Threading;
 using System;
 using System.ComponentModel;
 using System.Windows.Controls;
+using Microsoft.VisualBasic;
+using System.Text;
+using System.IO;
+using System.Windows.Media;
 
 namespace BluescreenSimulator
 {
@@ -61,6 +65,103 @@ namespace BluescreenSimulator
             HandleCheckboxes(HideQR, UseOriginalQR);
         }
 
+        private void GenerateExe(object sender, RoutedEventArgs e)
+        {
+            string command = GenerateCommand();
+            if (command == null)
+            {
+                return;
+            }
+
+            string path = Environment.GetCommandLineArgs()[0];
+            int filenameStartIndex = path.LastIndexOf('\\') + 1;
+            string folder = path.Substring(0, filenameStartIndex);
+            string filename = path.Substring(filenameStartIndex);
+
+            ExeCreator exeCreator = new ExeCreator();
+            exeCreator.Owner = this;
+            exeCreator.CommandBox.Text = filename + " " + command;
+            exeCreator.ShowDialog();
+
+            if (exeCreator.DialogResult != true)
+            {
+                return;
+            }
+
+            string desiredFilename = exeCreator.FileName.Text;
+            if (string.IsNullOrEmpty(desiredFilename))
+            {
+                return;
+            }
+
+            string iexpressSED =
+                $@"
+                [Version]
+                Class=IEXPRESS
+                SEDVersion=3
+                [Options]
+                PackagePurpose=InstallApp
+                ShowInstallProgramWindow=1
+                HideExtractAnimation=1
+                UseLongFileName=1
+                InsideCompressed=0
+                RebootMode=N
+                TargetName={folder}\{desiredFilename}.exe
+                AppLaunched=cmd /c %FILE0% {command}
+                PostInstallCmd=<None>
+                SourceFiles=SourceFiles
+                [Strings]
+                FILE0=""{filename}""
+                [SourceFiles]
+                SourceFiles0 = {folder}
+                [SourceFiles0]
+                %FILE0%=";
+
+
+            string SEDPath = Path.GetTempPath() + "\\optionfile.SED";
+
+            File.WriteAllText(SEDPath, iexpressSED);
+            Utils.ExecuteCmdCommands($"iexpress /N {SEDPath}");
+            File.Delete(SEDPath);
+
+            MessageBox.Show("Your EXE-File has been created.", "Bluescreen Simulator", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private string GenerateCommand()
+        {
+            BluescreenData data = new BluescreenData();
+            bool success = PopulateData(data);
+            if (success)
+            {
+                StringBuilder commandBuilder = new StringBuilder();
+                commandBuilder.Append($"-e \"{data.Emoticon}\" ");
+                commandBuilder.Append($"--m1 \"{data.MainText1}\" ");
+                commandBuilder.Append($"--m2 \"{data.MainText2}\" ");
+                commandBuilder.Append($"-p \"{data.Complete}\" ");
+                commandBuilder.Append($"--mi \"{data.MoreInfo}\" ");
+                commandBuilder.Append($"-s \"{data.SupportPerson}\" ");
+                commandBuilder.Append($"--sc \"{data.StopCode}\" ");
+                commandBuilder.Append($"--br {data.BgRed} ");
+                commandBuilder.Append($"--bg {data.BgGreen} ");
+                commandBuilder.Append($"--bb {data.BgBlue} ");
+                commandBuilder.Append($"--fr {data.FgRed} ");
+                commandBuilder.Append($"--fg {data.FgGreen} ");
+                commandBuilder.Append($"--fb {data.FgBlue} ");
+                commandBuilder.Append($"-c \"{data.CmdCommand}\" ");
+
+                if (data.UseOriginalQR)
+                {
+                    commandBuilder.Append("--origqr ");
+                }
+                if (data.HideQR)
+                {
+                    commandBuilder.Append("--hideqr ");
+                }
+                return commandBuilder.ToString();
+            }
+            return null;
+        }
+
         private void HandleCheckboxes(CheckBox clicked, CheckBox other)
         {
             if (clicked.IsChecked == true) // it's a 'bool?' so we need explicit boolean comparison
@@ -96,8 +197,8 @@ namespace BluescreenSimulator
             if (delayThread != null)
             {
                 delayThread.Interrupt();
-                ConfirmButton.IsEnabled = true;
-                CancelButton.IsEnabled = false;
+                ConfirmButton.Visibility = Visibility.Visible;
+                CancelButton.Visibility = Visibility.Hidden;
                 delayThread = null;
             }
         }
@@ -105,8 +206,8 @@ namespace BluescreenSimulator
         private void StartBluescreenWithDelay(BluescreenData data)
         {
             Bluescreen bluescreen = new Bluescreen(data);
-            ConfirmButton.IsEnabled = false;
-            CancelButton.IsEnabled = true;
+            ConfirmButton.Visibility = Visibility.Hidden;
+            CancelButton.Visibility = Visibility.Visible;
             delayThread = new Thread((() =>
             {
                 try
@@ -115,8 +216,8 @@ namespace BluescreenSimulator
                     Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
                         bluescreen.Show();
-                        ConfirmButton.IsEnabled = true;
-                        CancelButton.IsEnabled = false;
+                        ConfirmButton.Visibility = Visibility.Visible;
+                        CancelButton.Visibility = Visibility.Hidden;
                     }));
                 }
                 catch (ThreadInterruptedException)
@@ -274,6 +375,41 @@ namespace BluescreenSimulator
         private void RemoveSpaces(object sender, TextChangedEventArgs e)
         {
             ((TextBox)sender).Text = ((TextBox)sender).Text.Replace(" ", "");
+        }
+
+        private void ResetAllFields(object sender, RoutedEventArgs e)
+        {
+            ClearFields(this);
+        }
+
+        void ClearFields(DependencyObject obj)
+        {
+            ClearTextBox(obj);
+            ClearCheckBox(obj);
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                ClearFields(VisualTreeHelper.GetChild(obj, i));
+            }
+        }
+
+        void ClearTextBox(DependencyObject obj)
+        {
+            TextBox tb = obj as TextBox;
+            if (tb != null)
+            {
+                tb.Text = "";
+            }
+        }
+
+        void ClearCheckBox(DependencyObject obj)
+        {
+            CheckBox cb = obj as CheckBox;
+            if (cb != null)
+            {
+                cb.IsChecked = false;
+                cb.IsEnabled = true;
+            }
         }
     }
 }
