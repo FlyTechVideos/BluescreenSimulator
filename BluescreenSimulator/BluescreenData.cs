@@ -14,6 +14,7 @@
         private byte _BgRed = 10;
         private byte _BgGreen = 112;
         private byte _BgBlue = 169;
+        private bool _RainbowMode = false;
 
         private byte _FgRed = 255;
         private byte _FgGreen = 255;
@@ -256,6 +257,19 @@
             set
             {
                 _UseOriginalQR = value;
+            }
+        }
+
+        public bool RainbowMode
+        {
+            get
+            {
+                return _RainbowMode;
+            }
+
+            set
+            {
+                _RainbowMode = value;
             }
         }
     }

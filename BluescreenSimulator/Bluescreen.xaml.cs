@@ -46,10 +46,59 @@ namespace BluescreenSimulator
             SupportPerson.Text = bluescreenData.SupportPerson;
             StopCode.Text = bluescreenData.StopCode;
 
-            Color backgroundColor = Color.FromRgb(bluescreenData.BgRed, bluescreenData.BgGreen, bluescreenData.BgBlue);
             Color foregroundColor = Color.FromRgb(bluescreenData.FgRed, bluescreenData.FgGreen, bluescreenData.FgBlue);
-            Background = new SolidColorBrush(backgroundColor);
             Foreground = new SolidColorBrush(foregroundColor);
+
+            if (bluescreenData.RainbowMode)
+            {
+                LinearGradientBrush rainbowBackground = new LinearGradientBrush();
+                rainbowBackground.StartPoint = new Point(0, 0);
+                rainbowBackground.EndPoint = new Point(1, 1);
+
+                // Create and add Gradient stops
+
+                GradientStop redGS = new GradientStop();
+                redGS.Color = Colors.Red;
+                redGS.Offset = 0.1;
+                rainbowBackground.GradientStops.Add(redGS);
+
+                GradientStop orangeGS = new GradientStop();
+                orangeGS.Color = Colors.Orange;
+                orangeGS.Offset = 0.2;
+                rainbowBackground.GradientStops.Add(orangeGS);
+
+                GradientStop yellowGS = new GradientStop();
+                yellowGS.Color = Colors.Yellow;
+                yellowGS.Offset = 0.3;
+                rainbowBackground.GradientStops.Add(yellowGS);
+
+                GradientStop greenGS = new GradientStop();
+                greenGS.Color = Colors.Green;
+                greenGS.Offset = 0.5;
+                rainbowBackground.GradientStops.Add(greenGS);
+
+                GradientStop cyanGS = new GradientStop();
+                cyanGS.Color = Colors.Cyan;
+                cyanGS.Offset = 0.6;
+                rainbowBackground.GradientStops.Add(cyanGS);
+
+                GradientStop blueGS = new GradientStop();
+                blueGS.Color = Colors.Blue;
+                blueGS.Offset = 0.7;
+                rainbowBackground.GradientStops.Add(blueGS);
+
+                GradientStop purpleGS = new GradientStop();
+                purpleGS.Color = Colors.Purple;
+                purpleGS.Offset = 0.9;
+                rainbowBackground.GradientStops.Add(purpleGS);
+
+                Background = rainbowBackground;
+            }
+            else
+            {
+                Color backgroundColor = Color.FromRgb(bluescreenData.BgRed, bluescreenData.BgGreen, bluescreenData.BgBlue);
+                Background = new SolidColorBrush(backgroundColor);
+            }
 
             QRCode.Visibility = (bluescreenData.HideQR) ? Visibility.Hidden : Visibility.Visible;
             if (bluescreenData.HideQR)

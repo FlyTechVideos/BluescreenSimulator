@@ -52,6 +52,7 @@ namespace BluescreenSimulator
                         bluescreenData.Delay = d;
                     }},
                     { "c|cmd=", "The {command} to run after complete (Careful!)", c => { bluescreenData.CmdCommand = c; bluescreenData.EnableUnsafe = true; } },
+                    { "r|rainbow", "Enable rainbow mode (discards background color settings)", r => bluescreenData.RainbowMode = r != null },
                     { "u|enable-unsafe",  "Enable unsafe mode (forces GUI mode and discards all other settings)", eu => enable_unsafe = eu != null },
                     { "h|help",  "Show this message and exit", h => show_help = h != null }
                 };
