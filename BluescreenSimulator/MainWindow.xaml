@@ -92,10 +92,22 @@
                 <TextBox Width="365" Name="CmdCommand" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Button Click="CancelBSOD" Margin="10,10,10,0" Width="150" Name="CancelButton" IsEnabled="False">Cancel BSOD</Button>
-            <Button Click="OpenAbout" Margin="10,10,10,0" Width="150" Name="AboutButton">Instructions</Button>
-            <Button Click="ShowBSOD" Margin="10,10,10,0" Width="150" Name="ConfirmButton">Give me an error</Button>
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Click="ResetAllFields" Margin="10,10,10,0" Name="ResetAll">Reset fields</Button>
+            <Button Grid.Column="1" Click="OpenAbout" Margin="10,10,10,0" Name="AboutButton">Instructions</Button>
+            <Button Grid.Column="2" Click="GenerateExe" Margin="10,10,10,0" Name="GenExe">Generate EXE/Cmd</Button>
+            <Button Grid.Column="3" Click="ShowBSOD" Margin="10,10,10,0" Name="ConfirmButton">Give me an error</Button>
+            <Button Grid.Column="3" Click="CancelBSOD" Margin="10,10,10,0" Name="CancelButton" Visibility="Hidden">Cancel BSOD</Button>
+        </Grid>
     </StackPanel>
 </Window>
