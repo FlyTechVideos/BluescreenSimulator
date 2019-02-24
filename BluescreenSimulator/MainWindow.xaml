@@ -8,7 +8,7 @@
         Icon="frown.ico"
         ResizeMode="NoResize"
         Name="MainWindowFrame"
-        Height="390" Width="545">
+        Height="410" Width="545">
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
@@ -64,6 +64,10 @@
                     <Label Width="50">Blue</Label>
                     <TextBox Width="50" Name="FgBlue" PreviewTextInput="ValidateNumber" TextChanged="RemoveSpaces" />
                 </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="150">Rainbow background</Label>
+                <CheckBox Name="RainbowMode" Margin="6,6,0,0" Checked="RainbowMode_Checked" Unchecked="RainbowMode_Unchecked" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Width="150">Delay (in seconds)</Label>

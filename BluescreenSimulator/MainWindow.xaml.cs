@@ -260,7 +260,7 @@ namespace BluescreenSimulator
             {
                 data.StopCode = StopCode.Text;
             }
-            if (!string.IsNullOrEmpty(BgRed.Text))
+            if (!string.IsNullOrEmpty(BgRed.Text) && BgRed.IsEnabled)
             {
                 try
                 {
@@ -272,7 +272,7 @@ namespace BluescreenSimulator
                     return false;
                 };
             }
-            if (!string.IsNullOrEmpty(BgGreen.Text))
+            if (!string.IsNullOrEmpty(BgGreen.Text) && BgGreen.IsEnabled)
             {
                 try
                 {
@@ -284,7 +284,7 @@ namespace BluescreenSimulator
                     return false;
                 };
             }
-            if (!string.IsNullOrEmpty(BgBlue.Text))
+            if (!string.IsNullOrEmpty(BgBlue.Text) && BgBlue.IsEnabled)
             {
                 try
                 {
@@ -363,6 +363,7 @@ namespace BluescreenSimulator
             data.EnableUnsafe = enableUnsafe;
             data.HideQR = HideQR.IsChecked == true; // is a bool? -> need explicit check
             data.UseOriginalQR = UseOriginalQR.IsChecked == true; // is a bool? -> need explicit check
+            data.RainbowMode = RainbowMode.IsChecked == true; // is a bool? -> need explicit check
             return true;
         }
 
@@ -410,6 +411,20 @@ namespace BluescreenSimulator
                 cb.IsChecked = false;
                 cb.IsEnabled = true;
             }
+        }
+
+        private void RainbowMode_Checked(object sender, RoutedEventArgs e)
+        {
+            BgRed.IsEnabled = false;
+            BgGreen.IsEnabled = false;
+            BgBlue.IsEnabled = false;
+        }
+
+        private void RainbowMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            BgRed.IsEnabled = true;
+            BgGreen.IsEnabled = true;
+            BgBlue.IsEnabled = true;
         }
     }
 }
