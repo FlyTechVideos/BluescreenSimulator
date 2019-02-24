@@ -40,10 +40,12 @@
             line with the argument "--enable-unsafe", like this: <TextBlock Margin="10,0,0,0" FontFamily="Consolas">BluescreenSimulator --enable-unsafe</TextBlock>
         </TextBlock>
         <TextBlock Padding="10,10,10,0">
-            Ideas, suggestions, issues? Send me an email:
+            Bluescreen Simulator is open source!
         </TextBlock>
-        <TextBlock Padding="10,0,0,0" FontWeight="Bold">
-            flytech.videos@gmail.com
+        <TextBlock Padding="10,0,0,0">
+            <Hyperlink NavigateUri="https://github.com/FlyTechVideos/BluescreenSimulator" Click="Hyperlink_Github_Click">
+                Check out our Github repository
+            </Hyperlink>
         </TextBlock>
         <TextBlock Padding="10,10,0,0">
             I would be glad if you could subscribe to my channel!
