@@ -17,6 +17,7 @@
         Height="1080"
         Title="Bluescreen"
         Background="#1370A9"
+        Topmost="True"
         PreviewKeyDown="Window_PreviewKeyDown">
 
     <Grid>
