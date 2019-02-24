@@ -25,6 +25,16 @@ namespace BluescreenSimulator
 
             Loaded += new RoutedEventHandler(Bluescreen_Loaded);
             Closing += Close;
+
+            this.KeyDown += Bluescreen_KeyDown;
+        }
+
+        void Bluescreen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.System && e.SystemKey == Key.F4)
+            {
+                e.Handled = true;
+            }
         }
 
         private void Close(object sender, CancelEventArgs e)
