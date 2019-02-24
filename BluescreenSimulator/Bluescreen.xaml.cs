@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
+using System.Runtime.InteropServices;
 
 namespace BluescreenSimulator
 {
@@ -32,6 +33,14 @@ namespace BluescreenSimulator
         void Bluescreen_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.System && e.SystemKey == Key.F4)
+            {
+                e.Handled = true;
+            }
+            if (e.Key == Key.LWin)
+            {
+                e.Handled = true;
+            }
+            if (e.Key == Key.RWin)
             {
                 e.Handled = true;
             }
@@ -166,6 +175,13 @@ namespace BluescreenSimulator
             {
                 case Key.F7:
                     this.Close();
+                    break;
+                //Doesn't work
+                case Key.RWin:
+                    e.Handled = true;
+                    break;
+                case Key.LWin:
+                    e.Handled = true;
                     break;
             }
         }
