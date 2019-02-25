@@ -18,6 +18,7 @@
         Title="BluescreenWindow"
         Topmost="True"
         PreviewKeyDown="Window_PreviewKeyDown"
+        Cursor="None"
         d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
     <Window.Style>
         <Style TargetType="Window">
