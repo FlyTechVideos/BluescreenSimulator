@@ -1,16 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using BluescreenSimulator.ViewModels;
 
 namespace BluescreenSimulator.Views
@@ -118,7 +109,7 @@ namespace BluescreenSimulator.Views
         }
         private void WarnClose(object sender, CancelEventArgs e)
         {
-            if (!_vm.IsWaiting)
+            if (_vm.IsWaiting)
             {
                 var messageBoxResult = MessageBox.Show("Do you want to exit? The scheduled BSOD will remain scheduled. If you want to interrupt it, you have to kill the process.",
                     "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -144,9 +135,27 @@ namespace BluescreenSimulator.Views
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var bluescreenView = new BluescreenWindow(vm);
-                bluescreenView.Show();
+                foreach (var s in System.Windows.Forms.Screen.AllScreens)
+                {
+                    var bluescreenView = new BluescreenWindow(vm);
+                    ShowOnMonitor(s, bluescreenView);
+                }
             });
+        }
+
+        private static void ShowOnMonitor(System.Windows.Forms.Screen screen, Window window)
+        {
+            window.WindowStyle = WindowStyle.None;
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            window.WindowState = WindowState.Normal;
+
+            window.Left = screen.Bounds.Left;
+            window.Top = screen.Bounds.Top;
+
+            window.SourceInitialized += (snd, arg) => window.WindowState = WindowState.Maximized;
+
+            window.Show();
         }
 
         private bool CheckData()
