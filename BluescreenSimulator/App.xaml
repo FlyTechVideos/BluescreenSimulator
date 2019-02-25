@@ -4,5 +4,14 @@
              xmlns:local="clr-namespace:BluescreenSimulator"
              Startup="Application_Startup">
     <Application.Resources>
+        <LinearGradientBrush x:Key="RainbowBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Red" Offset="0.1"/>
+            <GradientStop Color="Orange" Offset="0.2"/>
+            <GradientStop Color="Yellow" Offset="0.3"/>
+            <GradientStop Color="Green" Offset="0.5"/>
+            <GradientStop Color="Cyan" Offset="0.6"/>
+            <GradientStop Color="Blue" Offset="0.7"/>
+            <GradientStop Color="Purple" Offset="0.9"/>
+        </LinearGradientBrush>
     </Application.Resources>
 </Application>

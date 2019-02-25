@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,6 +54,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Win32Resource>
@@ -111,53 +113,58 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BluescreenWin7.xaml.cs">
-      <DependentUpon>BluescreenWin7.xaml</DependentUpon>
+    <Compile Include="CmdParameterAttribute.cs" />
+    <Compile Include="Controls\ColorPickerForm.xaml.cs">
+      <DependentUpon>ColorPickerForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BluescreenWin7Data.cs" />
-    <Compile Include="bluescreenWin7Menu.xaml.cs">
-      <DependentUpon>bluescreenWin7Menu.xaml</DependentUpon>
+    <Compile Include="Converters\NotConverter.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ViewModels\BluescreenDataViewModel.cs" />
+    <Compile Include="Views\ColorChooserWindow.xaml.cs">
+      <DependentUpon>ColorChooserWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExeCreator.xaml.cs">
+    <Compile Include="Views\ExeCreator.xaml.cs">
       <DependentUpon>ExeCreator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PropertyChangedObject.cs" />
     <Compile Include="Utils.cs" />
-    <Page Include="About.xaml">
+    <Compile Include="ViewModelBase.cs" />
+    <Page Include="Controls\ColorPickerForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Bluescreen.xaml">
+    <Page Include="Views\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BluescreenWin7.xaml">
+    <Page Include="Views\BluescreenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="bluescreenWin7Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ExeCreator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\ColorChooserWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="About.xaml.cs">
+    <Page Include="Views\ExeCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bluescreen.xaml.cs">
-      <DependentUpon>Bluescreen.xaml</DependentUpon>
+    <Compile Include="Views\BluescreenWindow.xaml.cs">
+      <DependentUpon>BluescreenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BluescreenData.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Models\BluescreenData.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -219,6 +226,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
