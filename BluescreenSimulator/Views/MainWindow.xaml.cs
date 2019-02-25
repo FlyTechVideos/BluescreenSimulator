@@ -113,23 +113,20 @@ namespace BluescreenSimulator.Views
         private string GenerateCommand()
         {
             var success = CheckData();
-            if (success)
+            if (!success) return null;
+            var commandBuilder = new StringBuilder();
+            foreach (var info in typeof(BluescreenDataViewModel).GetProperties().Select(p => new
             {
-                var commandBuilder = new StringBuilder();
-                foreach (var info in typeof(BluescreenDataViewModel).GetProperties().Select(p => new
-                {
-                    Value = p.PropertyType == typeof(bool) ? "" : p.GetValue(_vm),
-                    p.GetCustomAttribute<CmdParameterAttribute>()?.Parameter,
-                    IsStandalone = p.PropertyType == typeof(bool),
-                }).Where(p => p.Parameter != null && p.Value != null))
-                {
-                    var value = info.Value.ToString();
-                    if (value.Contains(' ')) value = $@"""{value}"""; // string
-                    commandBuilder.Append($"{info.Parameter} {value} ");
-                }
-                return commandBuilder.ToString();
+                Value = p.PropertyType == typeof(bool) ? "" : p.GetValue(_vm),
+                p.GetCustomAttribute<CmdParameterAttribute>()?.Parameter,
+                IsStandalone = p.PropertyType == typeof(bool),
+            }).Where(p => p.Parameter != null && p.Value != null))
+            {
+                var value = info.Value.ToString();
+                if (value.Contains(' ')) value = $@"""{value}"""; // string
+                commandBuilder.Append($"{info.Parameter} {value} ");
             }
-            return null;
+            return commandBuilder.ToString();
         }
         private void WarnClose(object sender, CancelEventArgs e)
         {

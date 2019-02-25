@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -112,7 +115,7 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value);
         }
         private int _progress;
-        
+
         public int Progress
         {
             get => _progress;
@@ -179,7 +182,10 @@ namespace BluescreenSimulator.ViewModels
         public int Delay
         {
             get => Model.Delay;
-            set => SetModelProperty(value);
+            set
+            {
+                value = Math.Min(Math.Max(value, 0), 86400); SetModelProperty(value);
+            }
         }
 
         public bool EnableUnsafe
@@ -208,5 +214,21 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value);
         }
 
+        public string CreateCommandParameters()
+        {
+            var commandBuilder = new StringBuilder();
+            foreach (var info in GetType().GetProperties().Select(p => new
+            {
+                Value = p.PropertyType == typeof(bool) ? "" : p.GetValue(this),
+                p.GetCustomAttribute<CmdParameterAttribute>()?.Parameter,
+                IsStandalone = p.PropertyType == typeof(bool),
+            }).Where(p => p.Parameter != null && p.Value != null))
+            {
+                var value = info.Value.ToString();
+                if (value.Contains(' ')) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
+                commandBuilder.Append($"{info.Parameter} {value} ");
+            }
+            return commandBuilder.ToString();
+        }
     }
 }

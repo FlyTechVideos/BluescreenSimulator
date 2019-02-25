@@ -40,11 +40,11 @@ namespace BluescreenSimulator
                     { "mi|moreinfo=", "{Text} for More Info", t => bluescreenData.MoreInfo = t },
                     { "s|supportperson=", "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
                     { "sc|stopcode=", "{Text} for Stop code", t => bluescreenData.StopCode = t },
-                    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", (string r) => bluescreenData.BackgroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.BackgroundColor) },
-                    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", (string r) => bluescreenData.ForegroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.ForegroundColor) },
+                    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", r => bluescreenData.BackgroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.BackgroundColor) },
+                    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", r => bluescreenData.ForegroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.ForegroundColor) },
                     { "oq|origqr", "Use original QR code", o => bluescreenData.UseOriginalQR = o != null },
                     { "hq|hideqr", "Hides the QR code", h => bluescreenData.HideQR = h != null },
-                    { "d|delay=", "BluescreenWindow Delay {duration} in seconds (0-86400)", (int d) => {
+                    { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => {
                         if (d > 86400)
                         {
                             throw new OptionException("Delay maximum is 86400 seconds (24 hours)", "d|delay=");
