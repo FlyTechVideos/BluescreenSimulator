@@ -15,7 +15,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Height="1080"
         Title="BluescreenWindow"
         Topmost="True"
-        d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance viewModels:Windows9xBluescreenViewModel, IsDesignTimeCreatable=True}">
 
     <Window.Style>
         <Style TargetType="Window">
@@ -42,15 +42,20 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     </Window.Resources>
 
     <Grid VerticalAlignment="Center">
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock HorizontalAlignment="Center" Foreground="DarkBlue" Background="#aaaaaa" Text="Windows" Padding="7 0" FontSize="30" />
-            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text1" Margin="0, 40, 1400, 0" />
-            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text2" Margin="0, 70, 1400, 0" />
-
-            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text3" Margin="0, 70, 1400, 0" />
-            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text4" Margin="0, 0, 1400, 0" />
-
-            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Error: 34475667435436756734" Margin="0, 70, 1400, 0" />
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" Foreground="DarkBlue" Background="#aaaaaa" Text="{Binding Header}" Padding="7 0" FontSize="30" Margin="25"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center">
+            <Run Text="{Binding InfoLine1}"/>
+            <LineBreak /> <LineBreak />
+            <Run Text="{Binding InfoLine2}"/>
+            <LineBreak /> <LineBreak />
+            <Run Text="{Binding Instructions}"/>
+            <LineBreak />
+        </TextBlock>
+        <TextBlock Grid.Row="2" Text="{Binding ToContinue}" HorizontalAlignment="Center"/>
     </Grid>
 </Window>

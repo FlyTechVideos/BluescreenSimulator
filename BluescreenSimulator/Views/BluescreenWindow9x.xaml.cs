@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BluescreenSimulator.ViewModels;
 
 namespace BluescreenSimulator.Views
 {
@@ -19,8 +20,10 @@ namespace BluescreenSimulator.Views
     /// </summary>
     public partial class BluescreenWindow9x : Window
     {
-        public BluescreenWindow9x()
+        private Windows9xBluescreenViewModel _vm;
+        public BluescreenWindow9x(Windows9xBluescreenViewModel vm)
         {
+            DataContext = _vm = vm ?? new Windows9xBluescreenViewModel();
             InitializeComponent();
         }
     }
