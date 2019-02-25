@@ -11,7 +11,7 @@ namespace BluescreenSimulator.Views
     /// </summary>
     public partial class ColorChooserWindow : Window
     {
-        private ColorWindowData _data;
+        private readonly ColorWindowData _data;
         public ColorChooserWindow(Color? color = null)
         {
             _data = new ColorWindowData();
@@ -82,7 +82,7 @@ namespace BluescreenSimulator.Views
                     try
                     {
                         var c = ColorTranslator.FromHtml(value);
-                        SetValueFromDrawingColor(c);                     
+                        SetValueFromDrawingColor(c);
                     }
                     catch (Exception)
                     {
@@ -96,7 +96,7 @@ namespace BluescreenSimulator.Views
                 _hue = c.GetHue() / 3.6;
                 _lightness = c.GetBrightness() * 100;
                 _saturation = c.GetSaturation() * 100;
-                _opacity = c.A / (float) 255;
+                _opacity = c.A / (float)255;
                 OnPropertyChanged(nameof(Hue));
                 OnPropertyChanged(nameof(Lightness));
                 OnPropertyChanged(nameof(Saturation));
@@ -215,9 +215,6 @@ namespace BluescreenSimulator.Views
     {
         public Color Color { get; }
 
-        public ColorRequestEventArgs(Color c)
-        {
-            Color = c;
-        }
+        public ColorRequestEventArgs(Color c) => Color = c;
     }
 }
