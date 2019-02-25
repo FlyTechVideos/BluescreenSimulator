@@ -12,9 +12,15 @@ namespace BluescreenSimulator.Views
     public partial class ColorChooserWindow : Window
     {
         private ColorWindowData _data;
-        public ColorChooserWindow()
+        public ColorChooserWindow(Color? color = null)
         {
             _data = new ColorWindowData();
+            if (color != null)
+            {
+                var drawingColor =
+                    System.Drawing.Color.FromArgb(color.Value.A, color.Value.R, color.Value.G, color.Value.B);
+                _data.SetValueFromDrawingColor(drawingColor);
+            }
             DataContext = _data;
             InitializeComponent();
         }
@@ -76,16 +82,7 @@ namespace BluescreenSimulator.Views
                     try
                     {
                         var c = ColorTranslator.FromHtml(value);
-                        _hue = c.GetHue() / 3.6;
-                        _lightness = c.GetBrightness() * 100;
-                        _saturation = c.GetSaturation() * 100;
-                        _opacity = c.A / (float)255;
-                        OnPropertyChanged(nameof(Hue));
-                        OnPropertyChanged(nameof(Lightness));
-                        OnPropertyChanged(nameof(Saturation));
-                        OnPropertyChanged(nameof(Opacity));
-                        OnPropertyChanged(nameof(ResultColor));
-                        OnPropertyChanged(nameof(FullSaturationColor));
+                        SetValueFromDrawingColor(c);                     
                     }
                     catch (Exception)
                     {
@@ -93,6 +90,21 @@ namespace BluescreenSimulator.Views
                     }
                 }
             }
+
+            public void SetValueFromDrawingColor(System.Drawing.Color c)
+            {
+                _hue = c.GetHue() / 3.6;
+                _lightness = c.GetBrightness() * 100;
+                _saturation = c.GetSaturation() * 100;
+                _opacity = c.A / (float) 255;
+                OnPropertyChanged(nameof(Hue));
+                OnPropertyChanged(nameof(Lightness));
+                OnPropertyChanged(nameof(Saturation));
+                OnPropertyChanged(nameof(Opacity));
+                OnPropertyChanged(nameof(ResultColor));
+                OnPropertyChanged(nameof(FullSaturationColor));
+            }
+
             public Color FullSaturationColor => ChangeOpacity(HslToRgb(_hue / 100, 1, _lightness / 100));
 
 

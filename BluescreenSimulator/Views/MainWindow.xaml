@@ -11,7 +11,7 @@
         Icon="/frown.ico"
         ResizeMode="NoResize"
         Name="MainWindowFrame"
-        Height="475" Width="545"
+        Height="475" Width="545" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:BluescreenDataViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <converters:NotConverter x:Key="NotConverter"/>
@@ -44,6 +44,7 @@
             <Grid.Resources>
                 <Style TargetType="Label">
                     <Setter Property="Grid.Column" Value="0"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
                 </Style>
                 <Style TargetType="TextBox">
                     <Setter Property="Grid.Column" Value="1"/>
@@ -59,9 +60,13 @@
             <Label Grid.Row="2">Main Text (Line 2)</Label>
             <TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}"/>
 
-            <Label Grid.Row="3">Progress ("complete")</Label>
-            <TextBox Name="Complete" Grid.Row="3" Text="{Binding Progress}"/>
+            <Label Grid.Row="3">Progress indicator</Label>
 
+            <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
+                <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left"/>
+                <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center"/>
+            </DockPanel>
             <Label Grid.Row="4">More Info</Label>
             <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}"/>
 

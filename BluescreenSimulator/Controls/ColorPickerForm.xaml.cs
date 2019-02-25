@@ -37,7 +37,7 @@ namespace BluescreenSimulator.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ColorChooserWindow
+            var window = new ColorChooserWindow(Color)
             {
                 Owner = Window.GetWindow(this)
             };
