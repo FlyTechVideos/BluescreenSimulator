@@ -16,6 +16,9 @@
     <Window.Background>
         <SolidColorBrush Color="{Binding BackgroundColor}"/>
     </Window.Background>
+    <Window.Foreground>
+        <SolidColorBrush Color="{Binding ForegroundColor}"/>
+    </Window.Foreground>
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>

@@ -100,7 +100,7 @@ namespace BluescreenSimulator.ViewModels
             {
                 if (info.Value is false || info.Value == info.DefaultValue) continue; // is default
                 var value = info.Value.ToString();
-                if (value.Contains(' ')) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
+                if (value.Contains(' ') || value.Any(c => !char.IsLetterOrDigit(c))) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {(info.Value is bool ? "" : value)} ");
             }
             return commandBuilder.ToString();
