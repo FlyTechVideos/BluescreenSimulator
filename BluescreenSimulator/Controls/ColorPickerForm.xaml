@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="BluescreenSimulator.Controls.ColorPickerForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BluescreenSimulator.Controls"
+             mc:Ignorable="d" x:Name="Control"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <Rectangle Width="80" Stroke="{Binding BorderBrush, ElementName=PickButton}" StrokeThickness="1" Margin="0,0,-1,0">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.50"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="{Binding Color, ElementName=Control}"></SolidColorBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Button Click="Button_Click" x:Name="PickButton">Pick a color...</Button>
+    </DockPanel>
+</UserControl>
