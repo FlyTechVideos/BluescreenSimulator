@@ -21,6 +21,7 @@ namespace BluescreenSimulator.Views
         {
             DataContext = _vm = data;
             InitializeComponent();
+            Cursor = Cursors.None;
             Loaded += Bluescreen_Loaded;
             Closing += Close;
             KeyDown += Window_PreviewKeyDown;
