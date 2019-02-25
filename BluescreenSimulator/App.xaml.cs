@@ -27,7 +27,7 @@ namespace BluescreenSimulator
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // #0 is file path
             {
-                var bluescreenData = new BluescreenDataViewModel();
+                var bluescreenData = new Windows10BluescreenViewModel();
                 var showHelp = false;
                 var enableUnsafe = false;
 

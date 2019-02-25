@@ -12,7 +12,7 @@
         ResizeMode="NoResize"
         Name="MainWindowFrame"
         Height="475" Width="545" WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance viewModels:BluescreenDataViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <converters:NotConverter x:Key="NotConverter"/>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter"></BooleanToVisibilityConverter>

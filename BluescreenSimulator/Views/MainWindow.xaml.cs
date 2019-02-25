@@ -25,11 +25,11 @@ namespace BluescreenSimulator.Views
         }
 
         private bool enableUnsafe;
-        private BluescreenDataViewModel _vm;
+        private Windows10BluescreenViewModel _vm;
         public MainWindow(bool enableUnsafe)
         {
             InitializeComponent();
-            DataContext = _vm = new BluescreenDataViewModel();
+            DataContext = _vm = new Windows10BluescreenViewModel();
             this.enableUnsafe = enableUnsafe;
 
             var title = "BluescreenSimulator v2.0";
@@ -164,7 +164,7 @@ namespace BluescreenSimulator.Views
             ShowBluescreenWindowWin10(_vm);
         }
 
-        public static void ShowBluescreenWindowWin10(BluescreenDataViewModel vm)
+        public static void ShowBluescreenWindowWin10(Windows10BluescreenViewModel vm)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -178,7 +178,7 @@ namespace BluescreenSimulator.Views
             ShowBluescreenWindowWin9x(_vm);
         }
 
-        public static void ShowBluescreenWindowWin9x(BluescreenDataViewModel vm)
+        public static void ShowBluescreenWindowWin9x(Windows10BluescreenViewModel vm)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {

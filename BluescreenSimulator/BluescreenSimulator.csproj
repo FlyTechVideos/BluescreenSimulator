@@ -119,7 +119,11 @@
     </Compile>
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="ViewModels\BluescreenDataViewModel.cs" />
+    <Compile Include="Models\BluescreenBase.cs" />
+    <Compile Include="Models\Windows9xBluescreen.cs" />
+    <Compile Include="ViewModels\BaseBluescreenDataViewModel.cs" />
+    <Compile Include="ViewModels\Windows10BluescreenViewModel.cs" />
+    <Compile Include="ViewModels\Windows9xBluescreenViewModel.cs" />
     <Compile Include="Views\BluescreenWindow9x.xaml.cs">
       <DependentUpon>BluescreenWindow9x.xaml</DependentUpon>
     </Compile>
@@ -170,7 +174,7 @@
     <Compile Include="Views\BluescreenWindow.xaml.cs">
       <DependentUpon>BluescreenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\BluescreenData.cs" />
+    <Compile Include="Models\Windows10Bluescreen.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

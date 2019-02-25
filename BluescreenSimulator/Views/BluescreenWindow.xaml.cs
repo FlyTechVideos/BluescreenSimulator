@@ -12,9 +12,9 @@ namespace BluescreenSimulator.Views
 {
     public partial class BluescreenWindow : Window
     {
-        private readonly BluescreenDataViewModel _vm;
+        private readonly Windows10BluescreenViewModel _vm;
         private readonly CancellationTokenSource _source = new CancellationTokenSource();
-        public BluescreenWindow(BluescreenDataViewModel data)
+        public BluescreenWindow(Windows10BluescreenViewModel data)
         {
             DataContext = _vm = data;
             InitializeComponent();

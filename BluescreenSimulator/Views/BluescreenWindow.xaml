@@ -18,7 +18,7 @@
         Title="BluescreenWindow"
         Topmost="True"
         PreviewKeyDown="Window_PreviewKeyDown"
-        d:DataContext="{d:DesignInstance viewModels:BluescreenDataViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="Foreground">
