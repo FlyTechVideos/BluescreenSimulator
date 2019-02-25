@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using BluescreenSimulator.ViewModels;
-using static System.Windows.Forms.Screen;
-namespace BluescreenSimulator
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+
+namespace BluescreenSimulator.Views
 {
     /// <summary>
     /// Interaction logic for BluescreenWindowWin7.xaml
@@ -32,7 +25,7 @@ namespace BluescreenSimulator
         public BluescreenWindowWin7(Windows7BluescreenViewModel vm = null)
         {            // gets the main screen current Resolution
             DataContext = _vm = vm ?? new Windows7BluescreenViewModel();
-            var primaryScreen = PrimaryScreen;
+            var primaryScreen = Screen.PrimaryScreen;
             _tempHeight = primaryScreen.Bounds.Width; // current
             _tempWidth = primaryScreen.Bounds.Height; // current
             //
@@ -44,7 +37,7 @@ namespace BluescreenSimulator
         private async Task SetupScreen()
         {
             //sets the main screen current res to 800*600
-            Resolution.CResolution ChangeRes = new Resolution.CResolution(FixHeight, FixWidth);
+            var changeRes = new Resolution.CResolution(FixHeight, FixWidth);
             try
             {
                 await _vm.StartProgress(_source.Token);
@@ -59,7 +52,7 @@ namespace BluescreenSimulator
         {
             _source.Cancel(); // cancel the current progress.
             //sets the main screen Resolution to the defualt Resolution so it can reset to it while closing
-            Resolution.CResolution ChangeRes = new Resolution.CResolution(_tempHeight, _tempWidth);
+            var changeRes = new Resolution.CResolution(_tempHeight, _tempWidth);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
