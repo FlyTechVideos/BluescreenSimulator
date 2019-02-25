@@ -95,6 +95,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -127,6 +128,10 @@
     <Compile Include="Views\BluescreenWindow9x.xaml.cs">
       <DependentUpon>BluescreenWindow9x.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BluescreenWin7DataViewModel.cs" />
+    <Compile Include="Views\BluescreenWin7Window.xaml.cs">
+      <DependentUpon>BluescreenWin7Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ColorChooserWindow.xaml.cs">
       <DependentUpon>ColorChooserWindow.xaml</DependentUpon>
     </Compile>
@@ -141,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BluescreenWin7Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
