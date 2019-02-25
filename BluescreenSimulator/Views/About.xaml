@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/frown.ico"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Title="Instructions" Height="490" Width="680">
+        Title="Instructions" Height="523" Width="680">
     <StackPanel>
         <TextBlock Padding="10" FontWeight="Bold">
             BlueScreen Simulator v2.0
@@ -57,6 +57,12 @@
             This software is using the MIT-licensed library 'NDesk.Options'. |
             <Hyperlink NavigateUri="https://opensource.org/licenses/mit-license.php" Click="Hyperlink_Click">MIT License</Hyperlink> |
             <Hyperlink NavigateUri="http://www.ndesk.org/Options" Click="Hyperlink_Click">Project page</Hyperlink>
+        </TextBlock>
+        <TextBlock Padding="10,10,0,0">
+            This software is using the CPOL-licensed library 'Dynamic Screen Resolution'. |
+            <Hyperlink NavigateUri="https://www.codeproject.com/info/cpol10.aspx" Click="Hyperlink_Click">CPOL License</Hyperlink> |
+            <Hyperlink NavigateUri="https://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution" Click="Hyperlink_Click">Project page</Hyperlink>
+
         </TextBlock>
     </StackPanel>
 </Window>
