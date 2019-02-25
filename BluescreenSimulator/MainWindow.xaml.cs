@@ -177,7 +177,8 @@ namespace BluescreenSimulator
 
         private void WarnClose(object sender, CancelEventArgs e)
         {
-            if (delayThread != null) { 
+            if (delayThread != null)
+            {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Do you want to exit? The scheduled BSOD will remain scheduled. If you want to interrupt it, you have to kill the process.",
                     "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -267,7 +268,8 @@ namespace BluescreenSimulator
                     byte red = byte.Parse(BgRed.Text);
                     data.BgRed = red;
                 }
-                catch (OverflowException) {
+                catch (OverflowException)
+                {
                     MessageBox.Show("Background color value for red is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 };
@@ -279,7 +281,8 @@ namespace BluescreenSimulator
                     byte green = byte.Parse(BgGreen.Text);
                     data.BgGreen = green;
                 }
-                catch (OverflowException) {
+                catch (OverflowException)
+                {
                     MessageBox.Show("Background color value for green is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 };
@@ -291,7 +294,8 @@ namespace BluescreenSimulator
                     byte blue = byte.Parse(BgBlue.Text);
                     data.BgBlue = blue;
                 }
-                catch (OverflowException) {
+                catch (OverflowException)
+                {
                     MessageBox.Show("Background color value for blue is invalid! Must be a number between 0 and 255.", "Invalid color value", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 };
@@ -340,7 +344,8 @@ namespace BluescreenSimulator
                 try
                 {
                     int delay = int.Parse(Delay.Text);
-                    if (delay > 86400) {
+                    if (delay > 86400)
+                    {
                         MessageBox.Show("Please enter a number between 0 and 86,400 (= 24 hours)", "Invalid delay", MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
@@ -352,7 +357,7 @@ namespace BluescreenSimulator
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Using a CMD command can be dangerous. " +
                     "I will not be responsible for any data loss or other damage arising from irresponsible or careless use of the CMD command option. " +
-                    "Please re-check your command to make sure that you execute what you intended:\r\n\r\n" + CmdCommand.Text.Trim() + "\r\n\r\n" + "Do you want to proceed?", 
+                    "Please re-check your command to make sure that you execute what you intended:\r\n\r\n" + CmdCommand.Text.Trim() + "\r\n\r\n" + "Do you want to proceed?",
                     "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.No)
                 {
@@ -401,6 +406,7 @@ namespace BluescreenSimulator
             {
                 tb.Text = "";
             }
+
         }
 
         void ClearCheckBox(DependencyObject obj)

@@ -111,6 +111,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BluescreenWin7.xaml.cs">
+      <DependentUpon>BluescreenWin7.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BluescreenWin7Data.cs" />
+    <Compile Include="bluescreenWin7Menu.xaml.cs">
+      <DependentUpon>bluescreenWin7Menu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExeCreator.xaml.cs">
       <DependentUpon>ExeCreator.xaml</DependentUpon>
     </Compile>
@@ -120,6 +127,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Bluescreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BluescreenWin7.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="bluescreenWin7Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

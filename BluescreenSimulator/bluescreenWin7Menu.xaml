@@ -1,0 +1,27 @@
+﻿<Window x:Class="BluescreenSimulator.bluescreenWin7Menu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BluescreenSimulator"
+        mc:Ignorable="d"
+        WindowState="Normal"
+        ResizeMode="NoResize"
+        Icon="frown.ico"
+        WindowStartupLocation="CenterScreen"
+        Title="Windows 7 bluescreen Settings" Height="274.472" Width="393.019">
+    <Grid>
+        <Label Content="Error Code:" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,31,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Width="268" Name="txt_ErrorCode"/>
+        <Label Content="Step 1 (Line 1):" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,62,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Width="268" Name="txt_Step1"/>
+        <Label Content="Step 2 (Line 2):" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,95,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Width="268" Name="txt_Step2"/>
+        <Label Content="Tip:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,123,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Width="268" Name="txt_Tip"/>
+        <Label Content="Stop Code:" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="107,151,0,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Width="268" Name="txt_StopCode"/>
+        <Button Content="Give me Bluescreen" HorizontalAlignment="Left" Margin="133,214,0,0" VerticalAlignment="Top" Width="113" Click="Btn_win7bsod_Click" Name="btn_win7bsod"/>
+
+    </Grid>
+</Window>
