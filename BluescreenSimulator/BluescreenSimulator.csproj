@@ -119,6 +119,7 @@
     <Compile Include="Controls\ColorPickerForm.xaml.cs">
       <DependentUpon>ColorPickerForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\EqualsVisibilityConverter.cs" />
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Models\BluescreenBase.cs" />

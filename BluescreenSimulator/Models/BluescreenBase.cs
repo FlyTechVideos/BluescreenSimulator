@@ -6,9 +6,9 @@ namespace BluescreenSimulator
     {
         public string CmdCommand { get; set; } = null;
 
-        public Color BackgroundColor { get; set; } = Color.FromRgb(10, 112, 169);
+        public virtual Color BackgroundColor { get; set; } = Color.FromRgb(10, 112, 169);
 
-        public Color ForegroundColor { get; set; } = Colors.White;
+        public virtual Color ForegroundColor { get; set; } = Colors.White;
 
         public int Delay { get; set; } = 0;
         public bool EnableUnsafe { get; set; } = false;

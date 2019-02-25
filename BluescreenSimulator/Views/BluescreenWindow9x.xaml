@@ -27,7 +27,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </Setter>
             <Setter Property="Background">
                 <Setter.Value>
-                    <SolidColorBrush Color="DarkBlue"/>
+                    <SolidColorBrush Color="{Binding BackgroundColor}"/>
                 </Setter.Value>
             </Setter>
 
@@ -48,7 +48,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" Foreground="DarkBlue" Background="#aaaaaa" Text="{Binding Header}" Padding="7 0" FontSize="30" Margin="25"/>
+        <TextBlock HorizontalAlignment="Center" Background="#aaaaaa" Text="{Binding Header}" Padding="7 0" FontSize="30" Margin="25">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{Binding BackgroundColor}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="10,0" Width="780">
             <Run Text="{Binding InfoLine1}"/>
             <LineBreak /> <LineBreak />

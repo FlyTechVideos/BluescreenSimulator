@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Windows.Media;
 using System.Windows.Input;
-
 namespace BluescreenSimulator.ViewModels
 {
     public interface IBluescreenViewModel : INotifyPropertyChanged
@@ -16,5 +16,12 @@ namespace BluescreenSimulator.ViewModels
         string CreateCommandParameters();
         bool EnableUnsafe { get; set; }
         string CmdCommand { get; set; }
+
+        Color ForegroundColor { get; set; }
+        Color BackgroundColor { get; set; }
+
+        int Delay { get; set; }
+
+        bool SupportsRainbow { get; }
     }
 }

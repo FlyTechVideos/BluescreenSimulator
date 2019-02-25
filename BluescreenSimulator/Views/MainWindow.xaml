@@ -25,15 +25,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <UniformGrid Grid.Row="1" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
-            <Button Command="{Binding SelectedBluescreen.ResetAllCommand}" Margin="10 0">Reset fields</Button>
-            <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
-            <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
-            <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>
-            <Button Command="{Binding SelectedBluescreen.InterruptCommand}" Margin="10 0"
-                    Visibility="{Binding SelectedBluescreen.IsWaiting, Converter={StaticResource VisibilityConverter}}"
-                    Background="Red" Foreground="White" BorderBrush="White">Cancel BSOD</Button>
-        </UniformGrid>
 
         <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}" SelectedIndex="1">
             <TabControl.ItemTemplate>
@@ -50,10 +41,6 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -92,25 +79,6 @@
                         <Label Grid.Row="6">Stop code</Label>
                         <TextBox Grid.Row="6" Text="{Binding StopCode}"/>
 
-                        <Label Grid.Row="7">Background color</Label>
-                        <DockPanel Grid.Column="1" Grid.Row="7" Margin="5" LastChildFill="True">
-                            <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center">
-                                <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding RainbowMode}" />
-                                <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <controls:ColorPickerForm Color="{Binding BackgroundColor}" DockPanel.Dock="Right" 
-                                          IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
-                        </DockPanel>
-
-                        <Label Grid.Row="8">Foreground color (text)</Label>
-                        <controls:ColorPickerForm Grid.Column="1" Grid.Row="8" Margin="5" Color="{Binding ForegroundColor}"/>
-
-                        <Label Grid.Row="9">Delay (in seconds)</Label>
-                        <TextBox Grid.Row="9" Text="{Binding Delay}"/>
-
-                        <Label Grid.Row="10">Command after complete</Label>
-                        <TextBox Grid.Row="10" Name="CmdCommand" Text="{Binding CmdCommand}"/>
-
                         <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="25 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -129,6 +97,57 @@
                             </StackPanel>
                         </Grid>
                     </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:Windows7BluescreenViewModel}">
+                    <ScrollViewer>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
+                            </Grid.Resources>
+                            <Label Content="Header"/>
+                            <TextBox Text="{Binding Header}"/>
+
+                            <Label Content="Error code" Grid.Row="1"/>
+                            <TextBox Text="{Binding ErrorCode}" Grid.Row="1"/>
+
+                            <Label Content="Steps header" Grid.Row="2"/>
+                            <TextBox Text="{Binding StepsHeader}" Grid.Row="2" TextWrapping="Wrap"/>
+
+                            <Label Content="Steps to follow" Grid.Row="3"/>
+                            <TextBox Text="{Binding Steps}" Grid.Row="3" TextWrapping="Wrap"/>
+
+                            <Label Content="Technical info" Grid.Row="4"/>
+                            <TextBox Text="{Binding TechnicalInfoHeader}" Grid.Row="4"/>
+
+                            <Label Content="Stop code" Grid.Row="5"/>
+                            <TextBox Text="{Binding StopCode}" Grid.Row="5"/>
+
+                            <Label Content="Dump start" Grid.Row="6"/>
+                            <TextBox Text="{Binding DumpStart}" Grid.Row="6"/>
+
+                            <Label Content="Dump progress (&lt;- {0})" Grid.Row="7"/>
+                            <TextBox Text="{Binding DumpProgressEdit}" Grid.Row="7"/>
+
+                            <Label Content="Dump complete" Grid.Row="8"/>
+                            <TextBox Text="{Binding DumpComplete}" Grid.Row="8"/>
+                        </Grid>
+                    </ScrollViewer>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:Windows9xBluescreenViewModel}">
                     <Grid>
@@ -164,11 +183,64 @@
                 </DataTemplate>
             </TabControl.Resources>
         </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
+            </Grid.Resources>
+            <Label>Background color</Label>
+            <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
+                <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox">
+                        <CheckBox.Style>
+                            <Style TargetType="CheckBox">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBluescreen.SupportsRainbow}">
+                                        <Setter Property="IsChecked" Value="{Binding SelectedBluescreen.RainbowMode}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+                    <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
+                </StackPanel>
+                <controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" DockPanel.Dock="Right" 
+                                          IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
+            </DockPanel>
+
+            <Label Grid.Row="1">Foreground color (text)</Label>
+            <controls:ColorPickerForm Grid.Column="1" Grid.Row="1" Margin="5" Color="{Binding SelectedBluescreen.ForegroundColor}"/>
+
+            <Label Grid.Row="2">Delay (in seconds)</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedBluescreen.Delay}"/>
+
+            <Label Grid.Row="3">Command after complete</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}"/>
+        </Grid>
+        <UniformGrid Grid.Row="2" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
+            <Button Command="{Binding SelectedBluescreen.ResetAllCommand}" Margin="10 0">Reset fields</Button>
+            <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
+            <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
+            <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>
+            <Button Command="{Binding SelectedBluescreen.InterruptCommand}" Margin="10 0"
+                    Visibility="{Binding SelectedBluescreen.IsWaiting, Converter={StaticResource VisibilityConverter}}"
+                    Background="Red" Foreground="White" BorderBrush="White">Cancel BSOD</Button>
+        </UniformGrid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
     </Grid>
-    
 </Window>

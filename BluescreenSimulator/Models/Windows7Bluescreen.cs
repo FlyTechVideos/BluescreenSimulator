@@ -1,4 +1,6 @@
-﻿namespace BluescreenSimulator
+﻿using System.Windows.Media;
+
+namespace BluescreenSimulator
 {
     public class Windows7Bluescreen : BluescreenBase
     {
@@ -30,5 +32,8 @@ Beginning dump of physical memory.";
         public string DumpComplete { get; set; } =
             @"Physical memory dump complete.
 Contact your system administator or technical support group for further assistance.";
+
+
+        public override Color BackgroundColor { get; set; } = Colors.DarkBlue;
     }
 }

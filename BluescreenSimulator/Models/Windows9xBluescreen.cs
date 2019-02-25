@@ -1,4 +1,6 @@
-﻿namespace BluescreenSimulator
+﻿using System.Windows.Media;
+
+namespace BluescreenSimulator
 {
     public class Windows9xBluescreen : BluescreenBase
     {
@@ -15,5 +17,8 @@ you will lose any unsaued information in all open applications.";
         public string Error { get; set; } = "Error : 0E : 016F : BFF9B3D4";
 
         public string ToContinue { get; set; } = "Press any key to continue";
+
+
+        public override Color BackgroundColor { get; set; } = Colors.DarkBlue;
     }
 }

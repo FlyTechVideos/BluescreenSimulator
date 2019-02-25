@@ -143,6 +143,8 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value);
         }
 
+        public bool SupportsRainbow => GetType().GetProperty("RainbowMode") != null;
+
         public async Task StartProgress(CancellationToken token = default)
         {
             var r = new Random();
