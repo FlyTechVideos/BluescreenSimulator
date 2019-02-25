@@ -43,8 +43,8 @@ namespace BluescreenSimulator
         private readonly CancellationTokenSource _source = new CancellationTokenSource();
         private async Task SetupScreen()
         {
-            // sets the main screen current res to 800*600
-            // Resolution.CResolution ChangeRes = new Resolution.CResolution(FixHeight, FixWidth);
+            //sets the main screen current res to 800*600
+            Resolution.CResolution ChangeRes = new Resolution.CResolution(FixHeight, FixWidth);
             try
             {
                 await _vm.StartProgress(_source.Token);
@@ -58,8 +58,8 @@ namespace BluescreenSimulator
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _source.Cancel(); // cancel the current progress.
-            // sets the main screen Resolution to the defualt Resolution so it can reset to it while closing
-            // Resolution.CResolution ChangeRes = new Resolution.CResolution(tempHeight, tempWidth);
+            //sets the main screen Resolution to the defualt Resolution so it can reset to it while closing
+            Resolution.CResolution ChangeRes = new Resolution.CResolution(_tempHeight, _tempWidth);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
