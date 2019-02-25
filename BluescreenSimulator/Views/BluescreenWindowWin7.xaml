@@ -21,7 +21,6 @@
     </Window.Foreground>
     <Window.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="17"/>
             <Setter Property="FontFamily" Value="Lucida Console, Consolas"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
