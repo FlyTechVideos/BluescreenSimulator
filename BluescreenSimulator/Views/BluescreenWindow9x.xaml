@@ -54,7 +54,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <Run Text="{Binding InfoLine2}"/>
             <LineBreak /> <LineBreak />
             <Run Text="{Binding Instructions}"/>
-            <LineBreak />
+            <LineBreak /> <LineBreak/>
+            <Run Text="{Binding Error}"/>
+            <LineBreak/>
         </TextBlock>
         <TextBlock Grid.Row="2" Text="{Binding ToContinue}" HorizontalAlignment="Center"/>
     </Grid>
