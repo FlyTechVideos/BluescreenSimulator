@@ -6,14 +6,13 @@
         xmlns:local="clr-namespace:BluescreenSimulator"
         mc:Ignorable="d"
         WindowStyle="None"
-        WindowState="Maximized"
-   
         Background="DarkBlue"
         Cursor="None"
+        WindowState="Maximized"
         Topmost="True"
         FontFamily="Lucida Console"
         WindowStartupLocation="CenterScreen"
-        Title="Bluescreen" Height="500" Width="800" KeyDown="Window_KeyDown">
+        Title="Bluescreen" Height="600" Width="800" KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel>
             <TextBlock Margin="0,10,40,0" FontSize="17" Foreground="White" FontFamily="Lucida Console" HorizontalAlignment="Left" Width="750" TextWrapping="WrapWithOverflow" Text="A problem has been detected and windows has been shutdown to prevent damage to your computer."></TextBlock>
@@ -32,6 +31,15 @@
                 <StackPanel Name="Technical">
                     <TextBlock Margin="0,20,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Technical information:" FontFamily="Lucida Console"></TextBlock>
                     <TextBlock Margin="0,10,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="*** STOP: 0x000000FE (0x00000008, 0x000000006, 0x00000009, 0x847075cc)" FontFamily="Lucida Console" Name="StopCode"></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0">
+                    <TextBlock Margin="0,0,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Collecting data for crash dump..." FontFamily="Lucida Console"></TextBlock>
+                    <TextBlock Margin="0,0,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Initializing disk for crash dump..." FontFamily="Lucida Console"></TextBlock>
+                    <TextBlock Margin="0,0,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Beginning dump of physical memory." FontFamily="Lucida Console"></TextBlock>
+                    <TextBlock Margin="0,0,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Dumping physical memory to disk: 0" FontFamily="Lucida Console" Name="Dump"></TextBlock>
+                    <TextBlock Margin="0,0,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Physical memory dump complete." FontFamily="Lucida Console" Name="DoneDump1"></TextBlock>
+                    <TextBlock Margin="0,0,40,0" FontSize="17" Foreground="White" Width="750" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Contact your system administator or technical support group for further assistance." FontFamily="Lucida Console" Name="DoneDump2"></TextBlock>
+
                 </StackPanel>
             </StackPanel>
         </StackPanel>
