@@ -124,6 +124,7 @@
     <Compile Include="Models\BluescreenBase.cs" />
     <Compile Include="Models\Windows7Bluescreen.cs" />
     <Compile Include="Models\Windows9xBluescreen.cs" />
+    <Compile Include="Resolution.cs" />
     <Compile Include="ViewModels\BluescreenViewModelBase.cs" />
     <Compile Include="ViewModels\IBluescreenViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
