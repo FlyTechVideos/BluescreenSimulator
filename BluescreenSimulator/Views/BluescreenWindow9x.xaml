@@ -11,8 +11,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         FontSize="30"
-        Width="1920"
-        Height="1080"
+        Width="800"
+        Height="600"
         Cursor="None"
         Title="BluescreenWindow"
         Topmost="True"
@@ -38,7 +38,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="/BluescreenSimulator;component/Resources/#Perfect DOS VGA 437 Win"/>
             <Setter Property="RenderOptions.EdgeMode" Value="Aliased"/>
-            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontSize" Value="22"/>
         </Style>
     </Window.Resources>
 
@@ -49,7 +49,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Foreground="DarkBlue" Background="#aaaaaa" Text="{Binding Header}" Padding="7 0" FontSize="30" Margin="25"/>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Center">
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="10,0" Width="780">
             <Run Text="{Binding InfoLine1}"/>
             <LineBreak /> <LineBreak />
             <Run Text="{Binding InfoLine2}"/>
