@@ -7,13 +7,15 @@
         xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
         mc:Ignorable="d"
         WindowStyle="None"
-        Background="DarkBlue"
         Cursor="None"
         WindowState="Maximized"
         Topmost="True"
         d:DataContext="{d:DesignInstance viewModels:Windows7BluescreenViewModel, IsDesignTimeCreatable=True}"
         WindowStartupLocation="CenterScreen"
         Title="Bluescreen" Height="600" Width="800" KeyDown="Window_KeyDown" Closing="Window_Closing">
+    <Window.Background>
+        <SolidColorBrush Color="{Binding BackgroundColor}"/>
+    </Window.Background>
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
