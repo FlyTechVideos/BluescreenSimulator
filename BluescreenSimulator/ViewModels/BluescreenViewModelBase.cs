@@ -86,14 +86,18 @@ namespace BluescreenSimulator.ViewModels
         public string CreateCommandParameters()
         {
             var commandBuilder = new StringBuilder();
-            foreach (var info in GetType().GetProperties().Select(p => new
+            var type = GetType();
+            var @default = Activator.CreateInstance(type);
+            foreach (var info in type.GetProperties().Select(p => new
             {
-                Value = p.PropertyType == typeof(bool) ? "" : p.GetValue(this),
+                DefaultValue = p.GetValue(@default),
+                Value = p.GetValue(this),
                 p.GetCustomAttribute<CmdParameterAttribute>()?.Parameter,
                 IsStandalone = p.PropertyType == typeof(bool),
+                p.Name
             }).Where(p => p.Parameter != null && p.Value != null))
             {
-                if (info.Value is bool b && !b) continue;
+                if (info.Value is false || info.Value == info.DefaultValue) continue; // is default
                 var value = info.Value.ToString();
                 if (value.Contains(' ')) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {value} ");

@@ -34,8 +34,6 @@ namespace BluescreenSimulator.Views
             }
 
             MainWindowFrame.Title = title;
-
-            Closing += WarnClose;
         }
 
         private void ShowBSOD(object sender, RoutedEventArgs e)
@@ -117,22 +115,6 @@ namespace BluescreenSimulator.Views
             var success = CheckData();
             if (!success) return null;
             return CurrentBluescreen.CreateCommandParameters();
-        }
-        private void WarnClose(object sender, CancelEventArgs e)
-        {
-            if (!CurrentBluescreen.IsWaiting)
-            {
-                var messageBoxResult = MessageBox.Show("Do you want to exit? The scheduled BSOD will remain scheduled. If you want to interrupt it, you have to kill the process.",
-                    "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    e.Cancel = false;
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
         }
 
         private bool CheckData()

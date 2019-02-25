@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Media;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
-using static BluescreenSimulator.Views.MainWindow;
 namespace BluescreenSimulator
 {
     public partial class App : Application

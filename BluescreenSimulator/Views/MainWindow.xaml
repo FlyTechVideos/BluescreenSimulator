@@ -26,7 +26,7 @@
     </Window.Resources>
     <Grid>
         <UniformGrid Grid.Row="1" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
-            <Button Command="{Binding SelectedBluescreen.ExecuteCommand}" Margin="10 0">Reset fields</Button>
+            <Button Command="{Binding SelectedBluescreen.ResetAllCommand}" Margin="10 0">Reset fields</Button>
             <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
             <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
             <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>
