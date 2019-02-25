@@ -43,7 +43,7 @@
             Bluescreen Simulator is open source!
         </TextBlock>
         <TextBlock Padding="10,0,0,0">
-            <Hyperlink NavigateUri="https://github.com/FlyTechVideos/BluescreenSimulator" Click="Hyperlink_Github_Click">
+            <Hyperlink NavigateUri="https://github.com/FlyTechVideos/BluescreenSimulator" Click="Hyperlink_Click">
                 Check out our Github repository
             </Hyperlink>
         </TextBlock>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="BluescreenSimulator.Views.BluescreenWindow9x"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BluescreenSimulator"
+        xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        FontSize="30"
+        Width="1920"
+        Height="1080"
+        Title="BluescreenWindow"
+        Topmost="True"
+        d:DataContext="{d:DesignInstance viewModels:BluescreenDataViewModel, IsDesignTimeCreatable=True}">
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="{Binding ForegroundColor}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="DarkBlue"/>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Style>
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="/BluescreenSimulator;component/Resources/#Perfect DOS VGA 437 Win"/>
+            <Setter Property="RenderOptions.EdgeMode" Value="Aliased"/>
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock HorizontalAlignment="Center" Foreground="DarkBlue" Background="#aaaaaa" Text="Windows" Padding="7 0" FontSize="30" />
+            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text1" Margin="0, 40, 1400, 0" />
+            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text2" Margin="0, 70, 1400, 0" />
+
+            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text3" Margin="0, 70, 1400, 0" />
+            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Text4" Margin="0, 0, 1400, 0" />
+
+            <TextBlock HorizontalAlignment="Center" Foreground="White" Text="Error: 34475667435436756734" Margin="0, 70, 1400, 0" />
+        </StackPanel>
+    </Grid>
+</Window>

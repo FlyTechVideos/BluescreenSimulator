@@ -17,6 +17,13 @@ namespace BluescreenSimulator.Views
 {
     public partial class MainWindow : Window
     {
+        public enum BsodStyles
+        {
+            WIN10,
+            WIN7,
+            WIN9x
+        }
+
         private bool enableUnsafe;
         private BluescreenDataViewModel _vm;
         public MainWindow(bool enableUnsafe)
@@ -38,9 +45,25 @@ namespace BluescreenSimulator.Views
 
         private void ShowBSOD(object sender, RoutedEventArgs e)
         {
-            if (CheckData())
+            TabItem tab = Tabs.SelectedItem as TabItem;
+
+            if (tab.Header.ToString() == "Windows 10 Style") // Execute Windows 10 BSOD
             {
-                _vm.ExecuteCommand.Execute(ShowBluescreen);
+                if (CheckData())
+                {
+                    _vm.ExecuteCommand.Execute(ShowBluescreenWin10);
+                }
+            }
+            else if (tab.Header.ToString() == "Windows 7 Style") // Execute Windows 7 BSOD
+            {
+                
+            }
+            else if (tab.Header.ToString() == "Windows 9x Style") // Execute Windows 9x BSOD
+            {
+                if (CheckData())
+                {
+                    _vm.ExecuteCommand.Execute(ShowBluescreenWin9x);
+                }
             }
         }
 
@@ -133,18 +156,33 @@ namespace BluescreenSimulator.Views
             }
         }
 
-        public Action ShowBluescreen => ShowBlueScreenImpl;
-        
-        private void ShowBlueScreenImpl()
+        public Action ShowBluescreenWin10 => ShowBlueScreenImplWin10;
+        public Action ShowBluescreenWin9x => ShowBlueScreenImplWin9x;
+
+        private void ShowBlueScreenImplWin10()
         {
-            ShowBluescreenWindow(_vm);
+            ShowBluescreenWindowWin10(_vm);
         }
 
-        public static void ShowBluescreenWindow(BluescreenDataViewModel vm)
+        public static void ShowBluescreenWindowWin10(BluescreenDataViewModel vm)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var bluescreenView = new BluescreenWindow(vm);
+                bluescreenView.Show();
+            });
+        }
+
+        private void ShowBlueScreenImplWin9x()
+        {
+            ShowBluescreenWindowWin9x(_vm);
+        }
+
+        public static void ShowBluescreenWindowWin9x(BluescreenDataViewModel vm)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var bluescreenView = new BluescreenWindow9x();
                 bluescreenView.Show();
             });
         }

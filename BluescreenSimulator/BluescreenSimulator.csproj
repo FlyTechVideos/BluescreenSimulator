@@ -120,6 +120,9 @@
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="ViewModels\BluescreenDataViewModel.cs" />
+    <Compile Include="Views\BluescreenWindow9x.xaml.cs">
+      <DependentUpon>BluescreenWindow9x.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ColorChooserWindow.xaml.cs">
       <DependentUpon>ColorChooserWindow.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BluescreenWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BluescreenWindow9x.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,6 +204,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Perfect DOS VGA 437 Win.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
