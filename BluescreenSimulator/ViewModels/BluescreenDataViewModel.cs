@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -224,6 +225,7 @@ namespace BluescreenSimulator.ViewModels
                 IsStandalone = p.PropertyType == typeof(bool),
             }).Where(p => p.Parameter != null && p.Value != null))
             {
+                if (info.Value is false) continue;
                 var value = info.Value.ToString();
                 if (value.Contains(' ')) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {value} ");
