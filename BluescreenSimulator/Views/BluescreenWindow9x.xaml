@@ -13,6 +13,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         FontSize="30"
         Width="1920"
         Height="1080"
+        Cursor="None"
         Title="BluescreenWindow"
         Topmost="True"
         d:DataContext="{d:DesignInstance viewModels:Windows9xBluescreenViewModel, IsDesignTimeCreatable=True}">
@@ -37,7 +38,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="/BluescreenSimulator;component/Resources/#Perfect DOS VGA 437 Win"/>
             <Setter Property="RenderOptions.EdgeMode" Value="Aliased"/>
-            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontSize" Value="28"/>
         </Style>
     </Window.Resources>
 
