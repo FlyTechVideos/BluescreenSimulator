@@ -32,6 +32,7 @@ namespace BluescreenSimulator.ViewModels
             if (!(p is Action show)) return;
             Interrupt();
             _source = new CancellationTokenSource();
+            Progress = 0;
             if (Delay <= 0)
             {
                 show();
