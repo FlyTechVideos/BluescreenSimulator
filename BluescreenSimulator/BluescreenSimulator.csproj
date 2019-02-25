@@ -95,6 +95,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -120,7 +121,9 @@
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Models\BluescreenWin7Data.cs" />
+    <Compile Include="Resolution.cs" />
     <Compile Include="ViewModels\BluescreenDataViewModel.cs" />
+    <Compile Include="ViewModels\BluescreenWin7DataViewModel.cs" />
     <Compile Include="Views\BluescreenWin7Window.xaml.cs">
       <DependentUpon>BluescreenWin7Window.xaml</DependentUpon>
     </Compile>
@@ -142,8 +145,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BluescreenWin7Window.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BluescreenWindow.xaml">
       <SubType>Designer</SubType>

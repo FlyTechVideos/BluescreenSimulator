@@ -12,7 +12,7 @@
         Topmost="True"
         FontFamily="Lucida Console"
         WindowStartupLocation="CenterScreen"
-        Title="Bluescreen" Height="600" Width="800" KeyDown="Window_KeyDown">
+        Title="Bluescreen" Height="600" Width="800" KeyDown="Window_KeyDown" Closing="Window_Closing">
     <Grid>
         <StackPanel>
             <TextBlock Margin="0,10,40,0" FontSize="17" Foreground="White" FontFamily="Lucida Console" HorizontalAlignment="Left" Width="750" TextWrapping="WrapWithOverflow" Text="A problem has been detected and windows has been shutdown to prevent damage to your computer."></TextBlock>
