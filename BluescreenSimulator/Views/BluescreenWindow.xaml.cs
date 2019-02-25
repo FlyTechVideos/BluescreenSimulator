@@ -24,9 +24,9 @@ namespace BluescreenSimulator.Views
 
         private void Close(object sender, CancelEventArgs e)
         {
-            _source.Cancel();
+            e.Cancel = true; // no. 
+            Focus();
         }
-
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
         {
             try
