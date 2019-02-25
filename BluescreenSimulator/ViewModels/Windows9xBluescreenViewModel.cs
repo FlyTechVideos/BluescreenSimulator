@@ -1,10 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using BluescreenSimulator.Views;
 
 namespace BluescreenSimulator.ViewModels
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class Windows9xBluescreenViewModel : BaseBluescreenDataViewModel<Windows9xBluescreen>
+    [BluescreenView(typeof(BluescreenWindow9x))]
+    public class Windows9xBluescreenViewModel : BluescreenViewModelBase<Windows9xBluescreen>
     {
+        public override string StyleName => "Windows 9x Style";
+
         public Windows9xBluescreenViewModel() : this(null)
         {
             

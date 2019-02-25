@@ -90,8 +90,7 @@ namespace BluescreenSimulator
                 }
                 else
                 {
-                    void Act() => ShowBluescreenWindowWin10(bluescreenData);
-                    bluescreenData.ExecuteCommand.Execute((Action) Act);
+                    bluescreenData.ShowView();
                 }
             }
             else

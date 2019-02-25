@@ -5,16 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
-
+using BluescreenSimulator;
 namespace BluescreenSimulator.ViewModels
 {
-    public class BaseBluescreenDataViewModel<T> : ViewModelBase<T> where T : BluescreenBase, new()
+    public class BluescreenViewModelBase<T> : ViewModelBase<T>, IBluescreenViewModel where T : BluescreenBase, new()
     {
-        public BaseBluescreenDataViewModel() : this(null)
+        public virtual string StyleName => "Bluescreen";
+
+        public BluescreenViewModelBase() : this(null)
         {
 
         }
-        public BaseBluescreenDataViewModel(T model = null) : base(model)
+        public BluescreenViewModelBase(T model = null) : base(model)
         {
             ExecuteCommand = new DelegateCommand(async p => await Execute(p));
             ResetAllCommand = new DelegateCommand(ResetAll);
@@ -91,7 +93,7 @@ namespace BluescreenSimulator.ViewModels
                 IsStandalone = p.PropertyType == typeof(bool),
             }).Where(p => p.Parameter != null && p.Value != null))
             {
-                if (info.Value is false) continue;
+                if (info.Value is bool b && !b) continue;
                 var value = info.Value.ToString();
                 if (value.Contains(' ')) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {value} ");
@@ -108,7 +110,7 @@ namespace BluescreenSimulator.ViewModels
         }
         private int _progress;
 
-        public int Progress
+        public virtual int Progress
         {
             get => _progress;
             set { _progress = value; OnPropertyChanged(); }

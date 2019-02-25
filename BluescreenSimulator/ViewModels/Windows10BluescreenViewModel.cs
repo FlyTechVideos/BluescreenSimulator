@@ -6,11 +6,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using BluescreenSimulator.Views;
 
 namespace BluescreenSimulator.ViewModels
 {
-    public class Windows10BluescreenViewModel : BaseBluescreenDataViewModel<Windows10Bluescreen>
+    [BluescreenView(typeof(BluescreenWindow))]
+    public class Windows10BluescreenViewModel : BluescreenViewModelBase<Windows10Bluescreen>
     {
+        public override string StyleName => "Windows 10 Style";
+
         public Windows10BluescreenViewModel() : this(null)
         {
 

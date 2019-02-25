@@ -13,5 +13,6 @@
             <GradientStop Color="Blue" Offset="0.7"/>
             <GradientStop Color="Purple" Offset="0.9"/>
         </LinearGradientBrush>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Application.Resources>
 </Application>

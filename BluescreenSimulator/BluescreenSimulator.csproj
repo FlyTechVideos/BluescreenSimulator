@@ -114,6 +114,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BluescreenViewAttribute.cs" />
     <Compile Include="CmdParameterAttribute.cs" />
     <Compile Include="Controls\ColorPickerForm.xaml.cs">
       <DependentUpon>ColorPickerForm.xaml</DependentUpon>
@@ -121,16 +122,19 @@
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Models\BluescreenBase.cs" />
+    <Compile Include="Models\Windows7Bluescreen.cs" />
     <Compile Include="Models\Windows9xBluescreen.cs" />
-    <Compile Include="ViewModels\BaseBluescreenDataViewModel.cs" />
+    <Compile Include="ViewModels\BluescreenViewModelBase.cs" />
+    <Compile Include="ViewModels\IBluescreenViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows10BluescreenViewModel.cs" />
     <Compile Include="ViewModels\Windows9xBluescreenViewModel.cs" />
     <Compile Include="Views\BluescreenWindow9x.xaml.cs">
       <DependentUpon>BluescreenWindow9x.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BluescreenWin7DataViewModel.cs" />
-    <Compile Include="Views\BluescreenWin7Window.xaml.cs">
-      <DependentUpon>BluescreenWin7Window.xaml</DependentUpon>
+    <Compile Include="ViewModels\Windows7BluescreenViewModel.cs" />
+    <Compile Include="Views\BluescreenWindowWin7.xaml.cs">
+      <DependentUpon>BluescreenWindowWin7.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ColorChooserWindow.xaml.cs">
       <DependentUpon>ColorChooserWindow.xaml</DependentUpon>
@@ -149,7 +153,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BluescreenWin7Window.xaml">
+    <Page Include="Views\BluescreenWindowWin7.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

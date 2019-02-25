@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,19 +18,13 @@ namespace BluescreenSimulator.Views
 {
     public partial class MainWindow : Window
     {
-        public enum BsodStyles
-        {
-            WIN10,
-            WIN7,
-            WIN9x
-        }
-
         private bool enableUnsafe;
-        private Windows10BluescreenViewModel _vm;
+        private MainWindowViewModel _vm;
+        private IBluescreenViewModel CurrentBluescreen => _vm.SelectedBluescreen;
         public MainWindow(bool enableUnsafe)
         {
             InitializeComponent();
-            DataContext = _vm = new Windows10BluescreenViewModel();
+            DataContext = _vm = new MainWindowViewModel();
             this.enableUnsafe = enableUnsafe;
 
             var title = "BluescreenSimulator v2.0";
@@ -45,25 +40,9 @@ namespace BluescreenSimulator.Views
 
         private void ShowBSOD(object sender, RoutedEventArgs e)
         {
-            TabItem tab = Tabs.SelectedItem as TabItem;
-
-            if (tab.Header.ToString() == "Windows 10 Style") // Execute Windows 10 BSOD
+            if (CheckData())
             {
-                if (CheckData())
-                {
-                    _vm.ExecuteCommand.Execute(ShowBluescreenWin10);
-                }
-            }
-            else if (tab.Header.ToString() == "Windows 7 Style") // Execute Windows 7 BSOD
-            {
-                
-            }
-            else if (tab.Header.ToString() == "Windows 9x Style") // Execute Windows 9x BSOD
-            {
-                if (CheckData())
-                {
-                    _vm.ExecuteCommand.Execute(ShowBluescreenWin9x);
-                }
+                CurrentBluescreen.ShowView();
             }
         }
 
@@ -137,11 +116,11 @@ namespace BluescreenSimulator.Views
         {
             var success = CheckData();
             if (!success) return null;
-            return _vm.CreateCommandParameters();
+            return CurrentBluescreen.CreateCommandParameters();
         }
         private void WarnClose(object sender, CancelEventArgs e)
         {
-            if (!_vm.IsWaiting)
+            if (!CurrentBluescreen.IsWaiting)
             {
                 var messageBoxResult = MessageBox.Show("Do you want to exit? The scheduled BSOD will remain scheduled. If you want to interrupt it, you have to kill the process.",
                     "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -156,44 +135,13 @@ namespace BluescreenSimulator.Views
             }
         }
 
-        public Action ShowBluescreenWin10 => ShowBlueScreenImplWin10;
-        public Action ShowBluescreenWin9x => ShowBlueScreenImplWin9x;
-
-        private void ShowBlueScreenImplWin10()
-        {
-            ShowBluescreenWindowWin10(_vm);
-        }
-
-        public static void ShowBluescreenWindowWin10(Windows10BluescreenViewModel vm)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var bluescreenView = new BluescreenWindow(vm);
-                bluescreenView.Show();
-            });
-        }
-
-        private void ShowBlueScreenImplWin9x()
-        {
-            ShowBluescreenWindowWin9x(_vm);
-        }
-
-        public static void ShowBluescreenWindowWin9x(Windows10BluescreenViewModel vm)
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var bluescreenView = new BluescreenWindow9x();
-                bluescreenView.Show();
-            });
-        }
-
         private bool CheckData()
         {          
-            if (_vm.EnableUnsafe && !string.IsNullOrEmpty(CmdCommand.Text.Trim()))
+            if (CurrentBluescreen.EnableUnsafe && !string.IsNullOrEmpty(CurrentBluescreen.CmdCommand.Trim()))
             {
                 var messageBoxResult = MessageBox.Show("Using a CMD command can be dangerous. " +
                     "I will not be responsible for any data loss or other damage arising from irresponsible or careless use of the CMD command option. " +
-                    "Please re-check your command to make sure that you execute what you intended:\r\n\r\n" + CmdCommand.Text.Trim() + "\r\n\r\n" + "Do you want to proceed?",
+                    "Please re-check your command to make sure that you execute what you intended:\r\n\r\n" + CurrentBluescreen.CmdCommand.Trim() + "\r\n\r\n" + "Do you want to proceed?",
                     "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.No)
                 {
