@@ -15,6 +15,14 @@
     <Window.Resources>
         <converters:NotConverter x:Key="NotConverter"/>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+        <Style TargetType="Label" x:Key="LabelFormStyle">
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxFormStyle">
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="Margin" Value="4"></Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <UniformGrid Grid.Row="1" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
@@ -27,7 +35,7 @@
                     Background="Red" Foreground="White" BorderBrush="White">Cancel BSOD</Button>
         </UniformGrid>
 
-        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}">
+        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}" SelectedIndex="1">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:IBluescreenViewModel}">
                     <TextBlock Text="{Binding StyleName}"/>
@@ -35,6 +43,7 @@
             </TabControl.ItemTemplate>
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:Windows10BluescreenViewModel}">
+                    <!-- ReSharper disable Xaml.MissingGridIndex -->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
@@ -55,14 +64,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.Resources>
-                            <Style TargetType="Label">
-                                <Setter Property="Grid.Column" Value="0"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Grid.Column" Value="1"/>
-                                <Setter Property="Margin" Value="4"></Setter>
-                            </Style>
+                            <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
                         </Grid.Resources>
                         <Label >Emoticon</Label>
                         <TextBox Name="Emoticon" Grid.Column="1" Text="{Binding Emoticon}"/>
@@ -125,6 +128,38 @@
                                 <CheckBox Margin="6,6,0,0" IsChecked="{Binding HideQR}"/>
                             </StackPanel>
                         </Grid>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:Windows9xBluescreenViewModel}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
+                        </Grid.Resources>
+                        <Label Content="Header"/>
+                        <TextBox Text="{Binding Header}"/>
+                        <Label Grid.Row="1" Content="Information (Line 1)"/>
+                        <TextBox Text="{Binding InfoLine1}" Grid.Row="1"/>
+                        <Label Grid.Row="2" Content="Information (Line 2)"/>
+                        <TextBox Text="{Binding InfoLine2}" Grid.Row="2"/>
+                        <Label Grid.Row="3" Content="Instructions"/>
+                        <TextBox Text="{Binding Instructions}" Grid.Row="3" TextWrapping="Wrap"/>
+                        <Label Grid.Row="4" Content="Error"/>
+                        <TextBox Text="{Binding Error}" Grid.Row="4"/>
+                        <Label Grid.Row="5" Content="Action to continue"/>
+                        <TextBox Grid.Row="5" Text="{Binding ToContinue}"/>
                     </Grid>
                 </DataTemplate>
             </TabControl.Resources>
