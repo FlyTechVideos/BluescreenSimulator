@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Documents;
 
-namespace BluescreenSimulator
+namespace BluescreenSimulator.Views
 {
     public partial class About : Window
     {

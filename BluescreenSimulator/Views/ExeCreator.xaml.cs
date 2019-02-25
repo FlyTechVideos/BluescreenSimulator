@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace BluescreenSimulator
+namespace BluescreenSimulator.Views
 {
     /// <summary>
     /// Interaction logic for ExeCreator.xaml
@@ -12,9 +12,9 @@ namespace BluescreenSimulator
             InitializeComponent();
         }
 
-        private void okButton_Click(object sender, RoutedEventArgs e)
+        private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

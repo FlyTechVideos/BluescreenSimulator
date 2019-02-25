@@ -8,7 +8,7 @@ namespace BluescreenSimulator
 
         public static void ExecuteCmdCommands(params string[] commands)
         {
-            Process cmd = new Process();
+            var cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
@@ -16,7 +16,7 @@ namespace BluescreenSimulator
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
 
-            foreach (string command in commands)
+            foreach (var command in commands)
             {
                 cmd.StandardInput.WriteLine(command);
                 cmd.StandardInput.Flush();

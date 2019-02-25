@@ -1,15 +1,18 @@
-﻿using NDesk.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-
+using System.Windows.Media;
+using BluescreenSimulator.ViewModels;
+using BluescreenSimulator.Views;
+using static BluescreenSimulator.Views.MainWindow;
 namespace BluescreenSimulator
 {
     public partial class App : Application
     {
-        private const int ATTACH_PARENT_PROCESS = -1;
+        private const int AttachParentProcess = -1;
 
         [DllImport("kernel32", SetLastError = true)]
         private static extern bool AttachConsole(int dwProcessId);
@@ -21,14 +24,15 @@ namespace BluescreenSimulator
         private void Application_Startup(object sender, EventArgs e)
         {
 
-            string[] args = Environment.GetCommandLineArgs();
+            var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // #0 is file path
             {
-                BluescreenData bluescreenData = new BluescreenData();
-                bool show_help = false;
-                bool enable_unsafe = false;
+                var bluescreenData = new BluescreenDataViewModel();
+                var showHelp = false;
+                var enableUnsafe = false;
 
-                var p = new OptionSet() {
+                var p = new OptionSet
+                {
                     { "e|emoticon=", "{Text} for Emoticon", t => bluescreenData.Emoticon = t },
                     { "m1|main1=", "{Text} for Main Text (Line 1)", t => bluescreenData.MainText1 = t },
                     { "m2|main2=", "{Text} for Main Text (Line 2)", t => bluescreenData.MainText2 = t },
@@ -36,15 +40,11 @@ namespace BluescreenSimulator
                     { "mi|moreinfo=", "{Text} for More Info", t => bluescreenData.MoreInfo = t },
                     { "s|supportperson=", "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
                     { "sc|stopcode=", "{Text} for Stop code", t => bluescreenData.StopCode = t },
-                    { "br|bgred=", "Background color {value} for red (0-255)", (byte r) => bluescreenData.BgRed = r },
-                    { "bg|bggreen=", "Background color {value} for green (0-255)", (byte g) => bluescreenData.BgGreen = g },
-                    { "bb|bgblue=", "Background color {value} for blue (0-255)", (byte b) => bluescreenData.BgBlue = b },
-                    { "fr|fgred=", "Foreground (text) color {value} for red (0-255)", (byte r) => bluescreenData.FgRed = r },
-                    { "fg|fggreen=", "Foreground (text) color {value} for green (0-255)", (byte g) => bluescreenData.FgGreen = g },
-                    { "fb|fgblue=", "Foreground (text) color {value} for blue (0-255)", (byte b) => bluescreenData.FgBlue = b },
+                    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", (string r) => bluescreenData.BackgroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.BackgroundColor) },
+                    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", (string r) => bluescreenData.ForegroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.ForegroundColor) },
                     { "oq|origqr", "Use original QR code", o => bluescreenData.UseOriginalQR = o != null },
                     { "hq|hideqr", "Hides the QR code", h => bluescreenData.HideQR = h != null },
-                    { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => {
+                    { "d|delay=", "BluescreenWindow Delay {duration} in seconds (0-86400)", (int d) => {
                         if (d > 86400)
                         {
                             throw new OptionException("Delay maximum is 86400 seconds (24 hours)", "d|delay=");
@@ -53,18 +53,18 @@ namespace BluescreenSimulator
                     }},
                     { "c|cmd=", "The {command} to run after complete (Careful!)", c => { bluescreenData.CmdCommand = c; bluescreenData.EnableUnsafe = true; } },
                     { "r|rainbow", "Enable rainbow mode (discards background color settings)", r => bluescreenData.RainbowMode = r != null },
-                    { "u|enable-unsafe",  "Enable unsafe mode (forces GUI mode and discards all other settings)", eu => enable_unsafe = eu != null },
-                    { "h|help",  "Show this message and exit", h => show_help = h != null }
+                    { "u|enable-unsafe",  "Enable unsafe mode (forces GUI mode and discards all other settings)", eu => enableUnsafe = eu != null },
+                    { "h|help",  "Show this message and exit", h => showHelp = h != null }
                 };
 
                 List<string> extra;
                 try
                 {
-                    extra = p.Parse(args);
+                    extra = p.Parse(args); // todo use it actually?
                 }
                 catch (OptionException ex)
                 {
-                    if (AttachConsole(ATTACH_PARENT_PROCESS))
+                    if (AttachConsole(AttachParentProcess))
                     {
                         Console.WriteLine("\n");
                         Console.Write("BluescreenSimulator: ");
@@ -77,35 +77,21 @@ namespace BluescreenSimulator
                     return;
                 }
 
-                if (show_help)
+                if (showHelp)
                 {
                     ShowHelp(p);
                     return;
                 }
 
-                if (enable_unsafe)
+                if (enableUnsafe)
                 {
                     MessageBox.Show("You are entering Unsafe Mode. Be careful!", "Careful", MessageBoxButton.OK, MessageBoxImage.Warning);
                     RunGui(true);
                 }
                 else
                 {
-                    Bluescreen bluescreen = new Bluescreen(bluescreenData);
-                    Thread delayThread = new Thread((() =>
-                    {
-                        try
-                        {
-                            Thread.Sleep(bluescreenData.Delay * 1000);
-                            Application.Current.Dispatcher.Invoke((Action)(() => bluescreen.Show()));
-                        }
-                        catch (ThreadInterruptedException)
-                        {
-                            Application.Current.Dispatcher.Invoke((Action)(() => bluescreen.Close()));
-                        }
-                        bluescreen = null;
-                        delayThread = null;
-                    }));
-                    delayThread.Start();
+                    void Act() => ShowBluescreenWindow(bluescreenData);
+                    bluescreenData.ExecuteCommand.Execute((Action) Act);
                 }
             }
             else
@@ -116,14 +102,14 @@ namespace BluescreenSimulator
 
         private void RunGui(bool enableUnsafe)
         {
-            MainWindow mainWindow = new MainWindow(enableUnsafe);
+            var mainWindow = new MainWindow(enableUnsafe);
             mainWindow.Show();
         }
 
         private void ShowHelp(OptionSet p)
         {
 
-            if (AttachConsole(ATTACH_PARENT_PROCESS))
+            if (AttachConsole(AttachParentProcess))
             {
                 Console.WriteLine("\n");
                 Console.WriteLine("BluescreenSimulator Options:");
