@@ -25,15 +25,17 @@ namespace BluescreenSimulator
         Random r_dump = new Random();
         BluescreenWin7Data Win7Data = null;
 
+        // for Resolution stuff
         private int tempHeight = 0, tempWidth = 0;
         private int FixHeight = 800, FixWidth = 600;
 
         public BluescreenWin7(BluescreenWin7Data win7Data)
-        {
+        {            // gets the main screen current Resolution
             System.Windows.Forms.Screen Srn = System.Windows.Forms.Screen.PrimaryScreen;
-            // gets the main screen current res
             tempHeight = Srn.Bounds.Width;
             tempWidth = Srn.Bounds.Height;
+            //
+
             InitializeComponent();
             this.Win7Data = win7Data;
             SetupScreen();
@@ -41,7 +43,7 @@ namespace BluescreenSimulator
 
         private void SetupScreen()
         {
-            // sets the main screen current res to 500*800
+            // sets the main screen current res to 800*600
             Resolution.CResolution ChangeRes = new Resolution.CResolution(FixHeight, FixWidth);
             DoneDump1.Visibility = Visibility.Hidden; DoneDump2.Visibility = Visibility.Hidden;
 
@@ -78,7 +80,7 @@ namespace BluescreenSimulator
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // sets the main screen res to the defualt res so it can reset to it after whike closing
+            // sets the main screen Resolution to the defualt Resolution so it can reset to it while closing
             Resolution.CResolution ChangeRes = new Resolution.CResolution(tempHeight, tempWidth);
         }
 
