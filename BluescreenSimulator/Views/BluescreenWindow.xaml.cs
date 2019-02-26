@@ -23,16 +23,23 @@ namespace BluescreenSimulator.Views
             InitializeComponent();
             Cursor = Cursors.None;
             Loaded += Bluescreen_Loaded;
-            Closing += Close;
+            Closing += Window_AboutToClose;
             KeyDown += Window_PreviewKeyDown;
             HookKeyboard();
         }
 
-        private void Close(object sender, CancelEventArgs e)
+        private void Window_AboutToClose(object sender, CancelEventArgs e)
         {
             e.Cancel = !_realClose; // no. 
-            _source.Cancel();         
-            if (_realClose) Focus();
+            if (e.Cancel)
+            {
+                _source.Cancel();
+                UnhookWindowsHookEx(hHook);
+            }
+            else
+            {
+                Focus();
+            }
         }
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
         {
@@ -124,12 +131,6 @@ namespace BluescreenSimulator.Views
                         break;
                 }
             return CallNextHookEx(0, nCode, wParam, ref lParam);
-        }
-
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            UnhookWindowsHookEx(hHook); // release keyboard hook
         }
 
         #endregion
