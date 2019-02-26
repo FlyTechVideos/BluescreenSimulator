@@ -7,7 +7,7 @@ using Color = System.Windows.Media.Color;
 namespace BluescreenSimulator.Views
 {
     /// <summary>
-    /// Logique d'interaction pour ColorChooserWindow.xaml
+    /// Wow a color chooser 
     /// </summary>
     public partial class ColorChooserWindow : Window
     {
