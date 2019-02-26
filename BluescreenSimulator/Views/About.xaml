@@ -26,7 +26,7 @@
             • Click "Give me an error" to trigger the BSOD. <LineBreak />
             • To leave the BSOD screen, press Alt + F4 or F7. <LineBreak />
             • If you have specified a delay, you can cancel it by clicking "Cancel BSOD". <LineBreak />
-            • Leaving fields empty will set them to default values, which are set to replicate a Windows 10 BSOD. <LineBreak />
+            • Leaving fields empty will set them to default values, which are set to replicate a Windows 9x/7/10 BSOD. <LineBreak />
             • Delay defaults to 0 and command defaults to "no command". <LineBreak />
             • The progress counter advances automatically. <LineBreak />
             • A command line interface exists. Run <TextBlock FontFamily="Consolas">BluescreenSimulator --help</TextBlock> for more info.
