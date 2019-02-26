@@ -80,6 +80,7 @@ namespace BluescreenSimulator.ViewModels
         public string CreateCommandParameters()
         {
             var commandBuilder = new StringBuilder();
+            commandBuilder.Append("--direct ");
             var type = GetType();
             var @default = Activator.CreateInstance(type);
             foreach (var info in type.GetProperties().Select(p => new
@@ -96,7 +97,7 @@ namespace BluescreenSimulator.ViewModels
                 if (value.Contains(' ') || value.Any(c => !char.IsLetterOrDigit(c))) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {(info.Value is bool ? "" : value)} ");
             }
-            return commandBuilder.ToString();
+            return commandBuilder.ToString().Trim();
         }
         private void ResetAll()
         {
