@@ -20,7 +20,7 @@ namespace BluescreenSimulator.ViewModels
 
         public string DumpProgress
         {
-            get => string.Format(Model.DumpProgress, Progress);
+            get => Model.DumpProgress.Replace("@p", Progress.ToString());
             set => SetModelProperty(value, others: nameof(DumpProgressEdit));
         }
         public string DumpProgressEdit

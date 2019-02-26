@@ -27,7 +27,7 @@ If problems continue, disable or remove any newly installed hardware or software
 Initializing disk for crash dump...
 Beginning dump of physical memory.";
 
-        public string DumpProgress { get; set; } = "Dumping physical memory to disk: {0}";
+        public string DumpProgress { get; set; } = "Dumping physical memory to disk: @p";
 
         public string DumpComplete { get; set; } =
             @"Physical memory dump complete.

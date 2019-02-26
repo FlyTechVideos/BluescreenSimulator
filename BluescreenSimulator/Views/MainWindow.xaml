@@ -141,7 +141,7 @@
                             <Label Content="Dump start" Grid.Row="6"/>
                             <TextBox Text="{Binding DumpStart}" Grid.Row="6"/>
 
-                            <Label Content="Dump progress (&lt;- {0})" Grid.Row="7"/>
+                            <Label Content="Dump progress (@p)" Grid.Row="7"/>
                             <TextBox Text="{Binding DumpProgressEdit}" Grid.Row="7"/>
 
                             <Label Content="Dump complete" Grid.Row="8"/>
