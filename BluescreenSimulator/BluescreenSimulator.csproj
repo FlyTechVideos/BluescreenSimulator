@@ -125,6 +125,21 @@
     <Compile Include="Models\BluescreenBase.cs" />
     <Compile Include="Models\Windows7Bluescreen.cs" />
     <Compile Include="Models\Windows9xBluescreen.cs" />
+    <Compile Include="Properties\Windows10BluescreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Windows10BluescreenResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Windows7BluescreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Windows7BluescreenResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Windows9xBluescreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Windows9xBluescreenResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resolution.cs" />
     <Compile Include="ViewModels\BluescreenViewModelBase.cs" />
     <Compile Include="ViewModels\IBluescreenViewModel.cs" />
@@ -214,6 +229,18 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows10BluescreenResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Windows10BluescreenResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows7BluescreenResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Windows7BluescreenResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows9xBluescreenResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Windows9xBluescreenResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="BluescreenSimulator Key.pfx" />
     <None Include="BluescreenSimulator_TemporaryKey.pfx" />

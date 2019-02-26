@@ -1,22 +1,20 @@
 ﻿using System.Windows.Media;
-
+using Strings = BluescreenSimulator.Properties.Windows9xBluescreenResources;
 namespace BluescreenSimulator
 {
     public class Windows9xBluescreen : BluescreenBase
     {
-        public string Header { get; set; } = "Windows";
+        public string Header { get; set; } = Strings.Header;
 
-        public string InfoLine1 { get; set; } = "An error has occurred. To continue:";
+        public string InfoLine1 { get; set; } = Strings.InfoLine1;
 
-        public string InfoLine2 { get; set; } = "Press Enter to return to Windows, or";
+        public string InfoLine2 { get; set; } = Strings.InfoLine2;
 
-        public string Instructions { get; set; } = 
-        @"Press CTRL+ALT+DEL to restart your computer. If you do this, 
-you will lose any unsaued information in all open applications.";
+        public string Instructions { get; set; } = Strings.Instructions;
 
-        public string Error { get; set; } = "Error : 0E : 016F : BFF9B3D4";
+        public string Error { get; set; } = Strings.Error;
 
-        public string ToContinue { get; set; } = "Press any key to continue";
+        public string ToContinue { get; set; } = Strings.ToContinue;
 
 
         public override Color BackgroundColor { get; set; } = Colors.DarkBlue;
