@@ -17,14 +17,6 @@ namespace BluescreenSimulator.Views
             InitializeComponent();
             DataContext = _vm = new MainWindowViewModel();
             this.enableUnsafe = enableUnsafe;
-
-            var title = "BluescreenSimulator v2.0";
-            if (enableUnsafe)
-            {
-                title += " (Unsafe Mode)";
-            }
-
-            MainWindowFrame.Title = title;
         }
 
         private void ShowBSOD(object sender, RoutedEventArgs e)
