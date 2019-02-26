@@ -9,7 +9,7 @@ using System.Windows;
 [assembly: AssemblyTitle("BluescreenSimulator")]
 [assembly: AssemblyDescription("A program to simulate BSODs with lots of features.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("FlyTech Videos")]
+[assembly: AssemblyCompany("FlyTech Videos")] // mm so now we're an industrial company UHH
 [assembly: AssemblyProduct("BluescreenSimulator")]
 [assembly: AssemblyCopyright("© FlyTech Videos 2019")]
 [assembly: AssemblyTrademark("")]
@@ -50,7 +50,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0")]
-[assembly: AssemblyFileVersion("2.0")]
-[assembly: NeutralResourcesLanguage("")]
-
+[assembly: AssemblyVersion("3.0")]
+[assembly: AssemblyFileVersion("3.0")]
