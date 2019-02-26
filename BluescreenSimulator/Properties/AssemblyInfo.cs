@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -52,3 +51,12 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("3.0")]
 [assembly: AssemblyFileVersion("3.0")]
+
+namespace BluescreenSimulator.Properties
+{
+    public static class AppInfo
+    {
+        public static string AppTitle =>
+            $"BluescreenSimulator v{Assembly.GetEntryAssembly().GetName().Version.ToString(3)}";
+    }
+}

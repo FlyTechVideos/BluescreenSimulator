@@ -10,6 +10,7 @@
         Icon="/frown.ico"
         ResizeMode="NoResize"
         Name="MainWindowFrame"
+        Title="{Binding Title}"
         Height="475" Width="545" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>

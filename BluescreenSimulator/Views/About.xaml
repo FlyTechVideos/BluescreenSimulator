@@ -3,15 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BluescreenSimulator"
+        xmlns:local="clr-namespace:BluescreenSimulator.Properties"
         mc:Ignorable="d"
         Icon="/frown.ico"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         Title="Instructions" Height="523" Width="680">
     <StackPanel>
-        <TextBlock Padding="10" FontWeight="Bold">
-            BlueScreen Simulator v2.0
-        </TextBlock>
+        <TextBlock Padding="10" FontWeight="Bold" Text="{x:Static local:AppInfo.AppTitle}"/>
         <TextBlock Padding="10" TextWrapping="WrapWithOverflow">
             This program simulates a BSOD without any danger or harm for your PC.
         </TextBlock>
