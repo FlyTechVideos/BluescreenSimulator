@@ -200,19 +200,9 @@
             </Grid.Resources>
             <Label>Background color</Label>
             <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
-                <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox">
-                        <CheckBox.Style>
-                            <Style TargetType="CheckBox">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBluescreen.SupportsRainbow}">
-                                        <Setter Property="IsChecked" Value="{Binding SelectedBluescreen.RainbowMode}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </CheckBox.Style>
-                    </CheckBox>
-                    <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
+                <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                    <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding SelectedBluescreen.RainbowMode, Mode=TwoWay}"/>
+                        <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
                 </StackPanel>
                 <controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" DockPanel.Dock="Right" 
                                           IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>

@@ -105,7 +105,7 @@ namespace BluescreenSimulator.Views
                 OnPropertyChanged(nameof(FullSaturationColor));
             }
 
-            public Color FullSaturationColor => ChangeOpacity(HslToRgb(_hue / 100, 1, _lightness / 100));
+            public Color FullSaturationColor => ChangeOpacity(HslToRgb(_hue / 100, 1, 0.5));
 
 
             // Given H,S,L in range of 0-1
