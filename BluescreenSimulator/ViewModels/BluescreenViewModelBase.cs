@@ -32,7 +32,7 @@ namespace BluescreenSimulator.ViewModels
             if (!(p is Action show)) return;
             Interrupt();
             _source = new CancellationTokenSource();
-            Progress = 0;
+            Progress = StartingProgress;
             if (Delay <= 0)
             {
                 show();
@@ -113,6 +113,14 @@ namespace BluescreenSimulator.ViewModels
             get => _progress;
             set { _progress = Math.Min(value, 100); OnPropertyChanged(); }
         }
+        private int _startingProgress;
+
+        public int StartingProgress
+        {
+            get { return _startingProgress; }
+            set { _startingProgress = Math.Min(value, 100); OnPropertyChanged(); }
+        }
+
         public bool EnableUnsafe
         {
             get => Model.EnableUnsafe;

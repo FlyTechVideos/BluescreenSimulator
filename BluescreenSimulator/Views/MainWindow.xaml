@@ -219,7 +219,7 @@
                 <DockPanel HorizontalAlignment="Right" Margin="10 0">
                     <Label>Starting progress</Label>
                     <WrapPanel>
-                        <TextBox Text="{Binding SelectedBluescreen.Progress}" Width="30"/>
+                        <TextBox Text="{Binding SelectedBluescreen.StartingProgress}" Width="30"/>
                         <TextBlock Text="%" VerticalAlignment="Center" Margin="0"/>
                     </WrapPanel>
                 </DockPanel>
