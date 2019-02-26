@@ -40,14 +40,7 @@ namespace BluescreenSimulator.ViewModels
             }
             IsWaiting = true;
             var token = _source.Token;
-            try
-            {
-                await Task.Delay(Delay * 1000, token);
-            }
-            catch (TaskCanceledException)
-            {
-                // ok
-            }
+            await Task.Delay(Delay * 1000, token).ContinueWith(_ => { });
             IsWaiting = false;
             if (token.IsCancellationRequested)
             {
@@ -98,7 +91,7 @@ namespace BluescreenSimulator.ViewModels
                 p.Name
             }).Where(p => p.Parameter != null && p.Value != null))
             {
-                if (info.Value is false || info.Value == info.DefaultValue) continue; // is default
+                if (info.Value is false || info.Value == info.DefaultValue || (info.Value?.Equals(info.DefaultValue) ?? false)) continue; // is default
                 var value = info.Value.ToString();
                 if (value.Contains(' ') || value.Any(c => !char.IsLetterOrDigit(c))) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {(info.Value is bool ? "" : value)} ");
@@ -144,7 +137,12 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value);
         }
 
-        public bool SupportsRainbow => GetType().GetProperty("RainbowMode") != null;
+        public bool RainbowMode
+        {
+            get => Model.RainbowMode;
+            set => SetModelProperty(value);
+        }
+        public virtual bool SupportsRainbow => false;
 
         public async Task StartProgress(CancellationToken token = default)
         {

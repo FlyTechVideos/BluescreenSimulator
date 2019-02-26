@@ -2,16 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using BluescreenSimulator.ViewModels;
 
 namespace BluescreenSimulator.Views
@@ -113,8 +104,23 @@ namespace BluescreenSimulator.Views
         private string GenerateCommand()
         {
             var success = CheckData();
-            if (!success) return null;
+            if (!success) return "";
             return CurrentBluescreen.CreateCommandParameters();
+        }
+
+        private static void ShowOnMonitor(System.Windows.Forms.Screen screen, Window window)
+        {
+            window.WindowStyle = WindowStyle.None;
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            window.WindowState = WindowState.Normal;
+
+            window.Left = screen.Bounds.Left;
+            window.Top = screen.Bounds.Top;
+
+            window.SourceInitialized += (snd, arg) => window.WindowState = WindowState.Maximized;
+
+            window.Show();
         }
 
         private bool CheckData()

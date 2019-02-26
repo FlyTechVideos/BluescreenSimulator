@@ -82,10 +82,6 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value);
         }
 
-        public bool RainbowMode
-        {
-            get => Model.RainbowMode;
-            set => SetModelProperty(value);
-        }
+        public override bool SupportsRainbow => true;
     }
 }

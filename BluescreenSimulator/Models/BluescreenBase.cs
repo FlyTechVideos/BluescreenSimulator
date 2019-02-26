@@ -12,5 +12,7 @@ namespace BluescreenSimulator
 
         public int Delay { get; set; } = 0;
         public bool EnableUnsafe { get; set; } = false;
+
+        public bool RainbowMode { get; set; } = false;
     }
 }

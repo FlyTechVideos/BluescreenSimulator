@@ -23,5 +23,6 @@ namespace BluescreenSimulator.ViewModels
         int Delay { get; set; }
 
         bool SupportsRainbow { get; }
+        bool RainbowMode { get; }
     }
 }
