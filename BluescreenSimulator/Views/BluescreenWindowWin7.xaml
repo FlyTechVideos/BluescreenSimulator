@@ -1,0 +1,56 @@
+﻿<Window x:Class="BluescreenSimulator.Views.BluescreenWindowWin7"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BluescreenSimulator"
+        xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Cursor="None"
+        WindowState="Maximized"
+        Topmost="True"
+        d:DataContext="{d:DesignInstance viewModels:Windows7BluescreenViewModel, IsDesignTimeCreatable=True}"
+        WindowStartupLocation="CenterScreen"
+        Title="Bluescreen" Height="600" Width="800" KeyDown="Window_KeyDown" Closing="Window_Closing">
+    <Window.Background>
+        <SolidColorBrush Color="{Binding BackgroundColor}"/>
+    </Window.Background>
+    <Window.Foreground>
+        <SolidColorBrush Color="{Binding ForegroundColor}"/>
+    </Window.Foreground>
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontFamily" Value="Lucida Console, Consolas"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock Margin="0,0,10,0">
+                <Run Text="{Binding Header}"/>
+                <LineBreak/> <LineBreak/>
+                <Run Text="{Binding ErrorCode}"/>
+                <LineBreak/>
+            </TextBlock>
+            <TextBlock Margin="0,0,50,0">
+                <Run Text="{Binding StepsHeader}"/>
+                <LineBreak/> <LineBreak/>
+                <Run Text="{Binding Steps}"/>
+                <LineBreak/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="{Binding TechnicalInfoHeader}"/>
+                <LineBreak/> <LineBreak/>
+                <Run Text="{Binding StopCode}"/>
+                <LineBreak/> <LineBreak/>
+                <Run Text="{Binding DumpStart}" />
+                <LineBreak/>
+                <Run Text="{Binding DumpProgress}"/>
+            </TextBlock>
+            <TextBlock Text="{Binding DumpComplete}" Visibility="{Binding IsDumpComplete, Converter={StaticResource BoolToVisibilityConverter}}"/>
+        </StackPanel>
+    </Grid>
+</Window>

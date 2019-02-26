@@ -49,7 +49,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0">File name:</Label>
-        <TextBox Name="FileName" Grid.Column="1" Grid.Row="0"></TextBox>
+        <TextBox Name="FileName" Grid.Column="1" Grid.Row="0" ></TextBox>
 
         <Label Grid.Column="0" Grid.Row="1">Used command:</Label>
         <TextBox Name="CommandBox" IsReadOnly="True" Grid.Column="1" Grid.Row="1"/>

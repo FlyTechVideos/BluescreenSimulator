@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 
 namespace BluescreenSimulator.Views
 {
@@ -10,6 +11,7 @@ namespace BluescreenSimulator.Views
         public ExeCreator()
         {
             InitializeComponent();
+            Loaded += (sender, args) => { FileName.Text = Path.GetRandomFileName(); };
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

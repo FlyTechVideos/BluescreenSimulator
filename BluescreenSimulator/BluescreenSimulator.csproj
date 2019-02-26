@@ -114,13 +114,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BluescreenViewAttribute.cs" />
     <Compile Include="CmdParameterAttribute.cs" />
     <Compile Include="Controls\ColorPickerForm.xaml.cs">
       <DependentUpon>ColorPickerForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\EqualsVisibilityConverter.cs" />
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
-    <Compile Include="ViewModels\BluescreenDataViewModel.cs" />
+    <Compile Include="Models\BluescreenBase.cs" />
+    <Compile Include="Models\Windows7Bluescreen.cs" />
+    <Compile Include="Models\Windows9xBluescreen.cs" />
+    <Compile Include="Properties\Windows10BluescreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Windows10BluescreenResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Windows7BluescreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Windows7BluescreenResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Windows9xBluescreenResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Windows9xBluescreenResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resolution.cs" />
+    <Compile Include="ViewModels\BluescreenViewModelBase.cs" />
+    <Compile Include="ViewModels\IBluescreenViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows10BluescreenViewModel.cs" />
+    <Compile Include="ViewModels\Windows9xBluescreenViewModel.cs" />
+    <Compile Include="Views\BluescreenWindow9x.xaml.cs">
+      <DependentUpon>BluescreenWindow9x.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Windows7BluescreenViewModel.cs" />
+    <Compile Include="Views\BluescreenWindowWin7.xaml.cs">
+      <DependentUpon>BluescreenWindowWin7.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ColorChooserWindow.xaml.cs">
       <DependentUpon>ColorChooserWindow.xaml</DependentUpon>
     </Compile>
@@ -138,7 +170,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BluescreenWindowWin7.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BluescreenWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BluescreenWindow9x.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,7 +204,7 @@
     <Compile Include="Views\BluescreenWindow.xaml.cs">
       <DependentUpon>BluescreenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\BluescreenData.cs" />
+    <Compile Include="Models\Windows10Bluescreen.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -190,6 +230,18 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows10BluescreenResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Windows10BluescreenResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows7BluescreenResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Windows7BluescreenResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows9xBluescreenResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Windows9xBluescreenResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="BluescreenSimulator Key.pfx" />
     <None Include="BluescreenSimulator_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
@@ -198,6 +250,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Perfect DOS VGA 437 Win.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

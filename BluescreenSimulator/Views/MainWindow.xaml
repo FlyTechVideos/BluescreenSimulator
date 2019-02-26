@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BluescreenSimulator"
         xmlns:controls="clr-namespace:BluescreenSimulator.Controls"
         xmlns:converters="clr-namespace:BluescreenSimulator.Converters"
         xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
@@ -12,17 +11,179 @@
         ResizeMode="NoResize"
         Name="MainWindowFrame"
         Height="475" Width="545" WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance viewModels:BluescreenDataViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <converters:NotConverter x:Key="NotConverter"/>
-        <BooleanToVisibilityConverter x:Key="VisibilityConverter"></BooleanToVisibilityConverter>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+        <Style TargetType="Label" x:Key="LabelFormStyle">
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxFormStyle">
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="Margin" Value="4"></Setter>
+        </Style>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-        <Grid>
+
+        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}" SelectedIndex="1">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewModels:IBluescreenViewModel}">
+                    <TextBlock Text="{Binding StyleName}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:Windows10BluescreenViewModel}">
+                    <!-- ReSharper disable Xaml.MissingGridIndex -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
+                        </Grid.Resources>
+                        <Label >Emoticon</Label>
+                        <TextBox Name="Emoticon" Grid.Column="1" Text="{Binding Emoticon}"/>
+
+                        <Label Grid.Row="1">Main Text (Line 1)</Label>
+                        <TextBox Name="MainText1" Grid.Row="1" Text="{Binding MainText1}"/>
+
+                        <Label Grid.Row="2">Main Text (Line 2)</Label>
+                        <TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}"/>
+
+                        <Label Grid.Row="3">Progress indicator</Label>
+
+                        <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
+                            <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left"/>
+                            <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center"/>
+                        </DockPanel>
+                        <Label Grid.Row="4">More Info</Label>
+                        <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}"/>
+
+                        <Label Grid.Row="5">Support Person</Label>
+                        <TextBox Name="SupportPerson" Grid.Row="5" Text="{Binding SupportPerson}"/>
+
+                        <Label Grid.Row="6">Stop code</Label>
+                        <TextBox Grid.Row="6" Text="{Binding StopCode}"/>
+
+                        <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="25 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label Width="150">Use original blue QR code</Label>
+                                <CheckBox Margin="6,6,0,0" IsChecked="{Binding UseOriginalQR}" IsEnabled="{Binding ShowQR}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label Width="150">Hide QR code completely</Label>
+                                <CheckBox Margin="6,6,0,0" IsChecked="{Binding HideQR}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:Windows7BluescreenViewModel}">
+                    <ScrollViewer>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
+                            </Grid.Resources>
+                            <Label Content="Header"/>
+                            <TextBox Text="{Binding Header}"/>
+
+                            <Label Content="Error code" Grid.Row="1"/>
+                            <TextBox Text="{Binding ErrorCode}" Grid.Row="1"/>
+
+                            <Label Content="Steps header" Grid.Row="2"/>
+                            <TextBox Text="{Binding StepsHeader}" Grid.Row="2" TextWrapping="Wrap"/>
+
+                            <Label Content="Steps to follow" Grid.Row="3"/>
+                            <TextBox Text="{Binding Steps}" Grid.Row="3" TextWrapping="Wrap"/>
+
+                            <Label Content="Technical info" Grid.Row="4"/>
+                            <TextBox Text="{Binding TechnicalInfoHeader}" Grid.Row="4"/>
+
+                            <Label Content="Stop code" Grid.Row="5"/>
+                            <TextBox Text="{Binding StopCode}" Grid.Row="5"/>
+
+                            <Label Content="Dump start" Grid.Row="6"/>
+                            <TextBox Text="{Binding DumpStart}" Grid.Row="6"/>
+
+                            <Label Content="Dump progress (@p)" Grid.Row="7"/>
+                            <TextBox Text="{Binding DumpProgressEdit}" Grid.Row="7"/>
+
+                            <Label Content="Dump complete" Grid.Row="8"/>
+                            <TextBox Text="{Binding DumpComplete}" Grid.Row="8"/>
+                        </Grid>
+                    </ScrollViewer>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:Windows9xBluescreenViewModel}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
+                        </Grid.Resources>
+                        <Label Content="Header"/>
+                        <TextBox Text="{Binding Header}"/>
+                        <Label Grid.Row="1" Content="Information (Line 1)"/>
+                        <TextBox Text="{Binding InfoLine1}" Grid.Row="1"/>
+                        <Label Grid.Row="2" Content="Information (Line 2)"/>
+                        <TextBox Text="{Binding InfoLine2}" Grid.Row="2"/>
+                        <Label Grid.Row="3" Content="Instructions"/>
+                        <TextBox Text="{Binding Instructions}" Grid.Row="3" TextWrapping="Wrap"/>
+                        <Label Grid.Row="4" Content="Error"/>
+                        <TextBox Text="{Binding Error}" Grid.Row="4"/>
+                        <Label Grid.Row="5" Content="Action to continue"/>
+                        <TextBox Grid.Row="5" Text="{Binding ToContinue}"/>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.Resources>
+        </TabControl>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
@@ -32,95 +193,55 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.Resources>
-                <Style TargetType="Label">
-                    <Setter Property="Grid.Column" Value="0"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="Grid.Column" Value="1"/>
-                    <Setter Property="Margin" Value="4"></Setter>
-                </Style>
+                <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
             </Grid.Resources>
-            <Label >Emoticon</Label>
-            <TextBox Name="Emoticon" Grid.Column="1" Text="{Binding Emoticon}"/>
-
-            <Label Grid.Row="1">Main Text (Line 1)</Label>
-            <TextBox Name="MainText1" Grid.Row="1" Text="{Binding MainText1}"/>
-
-            <Label Grid.Row="2">Main Text (Line 2)</Label>
-            <TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}"/>
-
-            <Label Grid.Row="3">Progress indicator</Label>
-
-            <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
-                <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left"/>
-                <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center"/>
-            </DockPanel>
-            <Label Grid.Row="4">More Info</Label>
-            <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}"/>
-
-            <Label Grid.Row="5">Support Person</Label>
-            <TextBox Name="SupportPerson" Grid.Row="5" Text="{Binding SupportPerson}"/>
-
-            <Label Grid.Row="6">Stop code</Label>
-            <TextBox Grid.Row="6" Text="{Binding StopCode}"/>
-
-            <Label Grid.Row="7">Background color</Label>
-            <DockPanel Grid.Column="1" Grid.Row="7" Margin="5" LastChildFill="True">
-                <StackPanel Margin="5 0">
-                    <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding RainbowMode}" />
-                    <TextBlock Text="Rainbow" FontSize="8" Margin="0 -1"/>
+            <Label>Background color</Label>
+            <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
+                <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                    <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding SelectedBluescreen.RainbowMode, Mode=TwoWay}"/>
+                        <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
                 </StackPanel>
-                <controls:ColorPickerForm Color="{Binding BackgroundColor}" DockPanel.Dock="Right" 
+                <controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" DockPanel.Dock="Right" 
                                           IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
             </DockPanel>
 
-            <Label Grid.Row="8">Foreground color (text)</Label>
-            <controls:ColorPickerForm Grid.Column="1" Grid.Row="8" Margin="5" Color="{Binding ForegroundColor}"/>
+            <Label Grid.Row="1">Foreground color (text)</Label>
+            <controls:ColorPickerForm Grid.Column="1" Grid.Row="1" Margin="5" Color="{Binding SelectedBluescreen.ForegroundColor}"/>
 
-            <Label Grid.Row="9">Delay (in seconds)</Label>
-            <TextBox Grid.Row="9" Text="{Binding Delay}"/>
+            <UniformGrid Grid.Row="2" Grid.ColumnSpan="2" Columns="2" Margin="40 0">
+                <DockPanel>
+                    <Label>Delay (in seconds)</Label>
+                    <TextBox Text="{Binding SelectedBluescreen.Delay}" HorizontalAlignment="Left" Width="50"/>
+                </DockPanel>
+                <DockPanel HorizontalAlignment="Right" Margin="10 0">
+                    <Label>Starting progress</Label>
+                    <WrapPanel>
+                        <TextBox Text="{Binding SelectedBluescreen.StartingProgress}" Width="30"/>
+                        <TextBlock Text="%" VerticalAlignment="Center" Margin="0"/>
+                    </WrapPanel>
+                </DockPanel>
+            </UniformGrid>
 
-            <Label Grid.Row="10">Command after complete</Label>
-            <TextBox Grid.Row="10" Name="CmdCommand" Text="{Binding CmdCommand}"/>
-
-            <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="25 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Label Width="150">Use original blue QR code</Label>
-                    <CheckBox Margin="6,6,0,0" IsChecked="{Binding UseOriginalQR}" IsEnabled="{Binding ShowQR}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Label Width="150">Hide QR code completely</Label>
-                    <CheckBox Margin="6,6,0,0" IsChecked="{Binding HideQR}"/>
-                </StackPanel>
-            </Grid>
+            <Label Grid.Row="3">Command after complete</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}"/>
         </Grid>
-        <UniformGrid Grid.Row="1" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
-            <Button Command="{Binding ResetAllCommand}" Margin="10 0">Reset fields</Button>
+        <UniformGrid Grid.Row="2" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
+            <Button Command="{Binding SelectedBluescreen.ResetAllCommand}" Margin="10 0">Reset fields</Button>
             <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
             <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
-            <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>
-            <Button Command="{Binding InterruptCommand}" Margin="10 0"
-                    Visibility="{Binding IsWaiting, Converter={StaticResource VisibilityConverter}}"
+            <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>
+            <Button Command="{Binding SelectedBluescreen.InterruptCommand}" Margin="10 0"
+                    Visibility="{Binding SelectedBluescreen.IsWaiting, Converter={StaticResource VisibilityConverter}}"
                     Background="Red" Foreground="White" BorderBrush="White">Cancel BSOD</Button>
         </UniformGrid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
     </Grid>
 </Window>

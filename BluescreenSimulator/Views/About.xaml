@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/frown.ico"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Title="Instructions" Height="490" Width="680">
+        Title="Instructions" Height="523" Width="680">
     <StackPanel>
         <TextBlock Padding="10" FontWeight="Bold">
             BlueScreen Simulator v2.0
@@ -26,7 +26,7 @@
             • Click "Give me an error" to trigger the BSOD. <LineBreak />
             • To leave the BSOD screen, press Alt + F4 or F7. <LineBreak />
             • If you have specified a delay, you can cancel it by clicking "Cancel BSOD". <LineBreak />
-            • Leaving fields empty will set them to default values, which are set to replicate a Windows 10 BSOD. <LineBreak />
+            • Leaving fields empty will set them to default values, which are set to replicate a Windows 9x/7/10 BSOD. <LineBreak />
             • Delay defaults to 0 and command defaults to "no command". <LineBreak />
             • The progress counter advances automatically. <LineBreak />
             • A command line interface exists. Run <TextBlock FontFamily="Consolas">BluescreenSimulator --help</TextBlock> for more info.
@@ -43,7 +43,7 @@
             Bluescreen Simulator is open source!
         </TextBlock>
         <TextBlock Padding="10,0,0,0">
-            <Hyperlink NavigateUri="https://github.com/FlyTechVideos/BluescreenSimulator" Click="Hyperlink_Github_Click">
+            <Hyperlink NavigateUri="https://github.com/FlyTechVideos/BluescreenSimulator" Click="Hyperlink_Click">
                 Check out our Github repository
             </Hyperlink>
         </TextBlock>
@@ -57,6 +57,12 @@
             This software is using the MIT-licensed library 'NDesk.Options'. |
             <Hyperlink NavigateUri="https://opensource.org/licenses/mit-license.php" Click="Hyperlink_Click">MIT License</Hyperlink> |
             <Hyperlink NavigateUri="http://www.ndesk.org/Options" Click="Hyperlink_Click">Project page</Hyperlink>
+        </TextBlock>
+        <TextBlock Padding="10,10,0,0">
+            This software is using the CPOL-licensed library 'Dynamic Screen Resolution'. |
+            <Hyperlink NavigateUri="https://www.codeproject.com/info/cpol10.aspx" Click="Hyperlink_Click">CPOL License</Hyperlink> |
+            <Hyperlink NavigateUri="https://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution" Click="Hyperlink_Click">Project page</Hyperlink>
+
         </TextBlock>
     </StackPanel>
 </Window>

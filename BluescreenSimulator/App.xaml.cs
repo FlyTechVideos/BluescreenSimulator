@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
+using System.Windows.Threading;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
-using static BluescreenSimulator.Views.MainWindow;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
+
 namespace BluescreenSimulator
 {
     public partial class App : Application
@@ -23,11 +26,20 @@ namespace BluescreenSimulator
 
         private void Application_Startup(object sender, EventArgs e)
         {
-
+            DispatcherUnhandledException += (o, eventArgs) =>
+            {
+                ShowErrorMessage(eventArgs.Exception);
+                eventArgs.Handled = true;
+            };
+            AppDomain.CurrentDomain.UnhandledException +=
+                delegate (object o, UnhandledExceptionEventArgs eventArgs)
+                {
+                    ShowErrorMessage(eventArgs.ExceptionObject as Exception);
+                };
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // #0 is file path
             {
-                var bluescreenData = new BluescreenDataViewModel();
+                var bluescreenData = new Windows10BluescreenViewModel();
                 var showHelp = false;
                 var enableUnsafe = false;
 
@@ -40,8 +52,8 @@ namespace BluescreenSimulator
                     { "mi|moreinfo=", "{Text} for More Info", t => bluescreenData.MoreInfo = t },
                     { "s|supportperson=", "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
                     { "sc|stopcode=", "{Text} for Stop code", t => bluescreenData.StopCode = t },
-                    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", r => bluescreenData.BackgroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.BackgroundColor) },
-                    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", r => bluescreenData.ForegroundColor = (Color)(ColorConverter.ConvertFromString(r) ?? bluescreenData.ForegroundColor) },
+                    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", r => bluescreenData.BackgroundColor = TryGetColor(r, bluescreenData.BackgroundColor) },
+                    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", r => bluescreenData.ForegroundColor = TryGetColor(r, bluescreenData.ForegroundColor) },
                     { "oq|origqr", "Use original QR code", o => bluescreenData.UseOriginalQR = o != null },
                     { "hq|hideqr", "Hides the QR code", h => bluescreenData.HideQR = h != null },
                     { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => {
@@ -90,8 +102,7 @@ namespace BluescreenSimulator
                 }
                 else
                 {
-                    void Act() => ShowBluescreenWindow(bluescreenData);
-                    bluescreenData.ExecuteCommand.Execute((Action) Act);
+                    bluescreenData.ShowView();
                 }
             }
             else
@@ -100,6 +111,26 @@ namespace BluescreenSimulator
             }
         }
 
+        private static MessageBoxResult ShowErrorMessage(Exception ex)
+        {
+            return MessageBox.Show($"Sorry, some error occured, {ex}", "Oops",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private static Color TryGetColor(string c, Color defaultValue)
+        {
+            if (!c.StartsWith("#")) c = $"#{c}";
+            try
+            {
+                var color = ColorConverter.ConvertFromString(c) as Color?;
+                return color ?? defaultValue;
+            }
+            catch (FormatException e)
+            {
+                MessageBox.Show($"Something bad occured when parsing the color: {c}, \n {e}");
+            }
+            return defaultValue;
+        }
         private void RunGui(bool enableUnsafe)
         {
             var mainWindow = new MainWindow(enableUnsafe);
