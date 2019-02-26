@@ -211,8 +211,19 @@
             <Label Grid.Row="1">Foreground color (text)</Label>
             <controls:ColorPickerForm Grid.Column="1" Grid.Row="1" Margin="5" Color="{Binding SelectedBluescreen.ForegroundColor}"/>
 
-            <Label Grid.Row="2">Delay (in seconds)</Label>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedBluescreen.Delay}"/>
+            <UniformGrid Grid.Row="2" Grid.ColumnSpan="2" Columns="2" Margin="40 0">
+                <DockPanel>
+                    <Label>Delay (in seconds)</Label>
+                    <TextBox Text="{Binding SelectedBluescreen.Delay}" HorizontalAlignment="Left" Width="50"/>
+                </DockPanel>
+                <DockPanel HorizontalAlignment="Right" Margin="10 0">
+                    <Label>Starting progress</Label>
+                    <WrapPanel>
+                        <TextBox Text="{Binding SelectedBluescreen.Progress}" Width="30"/>
+                        <TextBlock Text="%" VerticalAlignment="Center" Margin="0"/>
+                    </WrapPanel>
+                </DockPanel>
+            </UniformGrid>
 
             <Label Grid.Row="3">Command after complete</Label>
             <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}"/>

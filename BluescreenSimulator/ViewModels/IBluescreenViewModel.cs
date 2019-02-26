@@ -21,8 +21,11 @@ namespace BluescreenSimulator.ViewModels
         Color BackgroundColor { get; set; }
 
         int Delay { get; set; }
+        int Progress { get; set; }
 
         bool SupportsRainbow { get; }
         bool RainbowMode { get; }
+
+
     }
 }

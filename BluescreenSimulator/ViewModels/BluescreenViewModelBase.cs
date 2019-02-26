@@ -111,7 +111,7 @@ namespace BluescreenSimulator.ViewModels
         public virtual int Progress
         {
             get => _progress;
-            set { _progress = value; OnPropertyChanged(); }
+            set { _progress = Math.Min(value, 100); OnPropertyChanged(); }
         }
         public bool EnableUnsafe
         {
