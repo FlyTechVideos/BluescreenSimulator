@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,8 +29,8 @@ namespace BluescreenSimulator
         {
             DispatcherUnhandledException += (o, eventArgs) =>
             {
-                ShowErrorMessage(eventArgs.Exception);
-                eventArgs.Handled = true;
+                var m = ShowErrorMessage(eventArgs.Exception);
+                eventArgs.Handled = m != MessageBoxResult.Cancel || m != MessageBoxResult.No;
             };
             AppDomain.CurrentDomain.UnhandledException +=
                 delegate (object o, UnhandledExceptionEventArgs eventArgs)
@@ -110,11 +111,14 @@ namespace BluescreenSimulator
                 RunGui(false);
             }
         }
-
         private static MessageBoxResult ShowErrorMessage(Exception ex)
         {
-            return MessageBox.Show($"Sorry, some error occured, {ex}", "Oops",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+            string MaxLines(string s, int i)
+            {
+                return s.Split('\n').Take(i).Aggregate((first, second) => $"{first}\n{second}");
+            }
+            return MessageBox.Show($"Sorry, some error occured, {ex} ; StackTrace: \n {MaxLines(ex.StackTrace, 4)}\n Do you want the app to continue running?", "Oops",
+                MessageBoxButton.OKCancel, MessageBoxImage.Error);
         }
 
         private static Color TryGetColor(string c, Color defaultValue)
