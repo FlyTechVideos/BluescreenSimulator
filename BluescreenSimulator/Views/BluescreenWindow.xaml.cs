@@ -31,7 +31,7 @@ namespace BluescreenSimulator.Views
         private void Window_AboutToClose(object sender, CancelEventArgs e)
         {
             e.Cancel = !_realClose; // no. 
-            if (e.Cancel)
+            if (!e.Cancel)
             {
                 _source.Cancel();
                 UnhookWindowsHookEx(hHook);

@@ -9,10 +9,10 @@
         WindowStyle="None"
         Cursor="None"
         WindowState="Maximized"
-        Topmost="True"
+        Topmost="True" Width="1920" Height="1080"
         d:DataContext="{d:DesignInstance viewModels:Windows7BluescreenViewModel, IsDesignTimeCreatable=True}"
         WindowStartupLocation="CenterScreen"
-        Title="Bluescreen" Height="600" Width="800" KeyDown="Window_KeyDown" Closing="Window_Closing">
+        Title="Bluescreen" KeyDown="Window_KeyDown" Closing="Window_Closing">
     <Window.Background>
         <SolidColorBrush Color="{Binding BackgroundColor}"/>
     </Window.Background>
@@ -21,21 +21,24 @@
     </Window.Foreground>
     <Window.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="Aliased"/>
+            <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
             <Setter Property="FontFamily" Value="Lucida Console, Consolas"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <StackPanel>
-            <TextBlock Margin="0,0,10,0">
+    <Viewbox>
+        <Grid Width="1280" Height="720">
+            <StackPanel>
+                <TextBlock Margin="0,0,95,0">
                 <Run Text="{Binding Header}"/>
                 <LineBreak/> <LineBreak/>
                 <Run Text="{Binding ErrorCode}"/>
                 <LineBreak/>
             </TextBlock>
-            <TextBlock Margin="0,0,50,0">
+            <TextBlock Margin="0,0,250,0">
                 <Run Text="{Binding StepsHeader}"/>
                 <LineBreak/> <LineBreak/>
                 <Run Text="{Binding Steps}"/>
@@ -53,4 +56,5 @@
             <TextBlock Text="{Binding DumpComplete}" Visibility="{Binding IsDumpComplete, Converter={StaticResource BoolToVisibilityConverter}}"/>
         </StackPanel>
     </Grid>
+    </Viewbox>
 </Window>

@@ -26,14 +26,13 @@ namespace BluescreenSimulator.Views
         {            // gets the main screen current Resolution
             DataContext = _vm = vm ?? new Windows7BluescreenViewModel();
             InitializeComponent();
+            
             Task.Run(SetupScreen);
         }
 
         private readonly CancellationTokenSource _source = new CancellationTokenSource();
         private async Task SetupScreen()
         {
-            //sets the main screen current res to 800*600
-            CResolution.ChangeResolution(FixWidth, FixHeight);
             try
             {
                 await _vm.StartProgress(_source.Token);
@@ -47,8 +46,6 @@ namespace BluescreenSimulator.Views
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _source.Cancel(); // cancel the current progress.
-            //sets the main screen Resolution to the defualt Resolution so it can reset to it while closing
-            CResolution.ResetResolution();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

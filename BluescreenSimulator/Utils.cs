@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace BluescreenSimulator
 {
@@ -8,12 +10,17 @@ namespace BluescreenSimulator
 
         public static void ExecuteCmdCommands(params string[] commands)
         {
-            var cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
+            var cmd = new Process
+            {
+                StartInfo =
+                {
+                    FileName = "cmd.exe",
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                }
+            };
             cmd.Start();
 
             foreach (var command in commands)
@@ -26,5 +33,10 @@ namespace BluescreenSimulator
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
+        public static void SetWindowToScreen(Window window, Screen screen)
+        {
+            window.Left = screen.Bounds.Left + 1;
+            window.Top = 0;
+        } 
     }
 }
