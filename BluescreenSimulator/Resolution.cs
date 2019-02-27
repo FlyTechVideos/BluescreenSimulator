@@ -123,9 +123,7 @@ namespace Resolution
                         }
                         default:
                         {
-                            MessageBox.Show("Description: Failed To Change The Resolution.", "Information",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
+                            throw new SystemException("Couldn't change resolution.");
                             //failed to change
                         }
                     }
