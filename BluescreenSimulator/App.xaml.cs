@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Threading;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
+using Resolution;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 
@@ -31,11 +32,13 @@ namespace BluescreenSimulator
             {
                 var m = ShowErrorMessage(eventArgs.Exception);
                 eventArgs.Handled = m != MessageBoxResult.Cancel || m != MessageBoxResult.No;
+                CResolution.ResetResolution();
             };
             AppDomain.CurrentDomain.UnhandledException +=
                 delegate (object o, UnhandledExceptionEventArgs eventArgs)
                 {
                     ShowErrorMessage(eventArgs.ExceptionObject as Exception);
+                    CResolution.ResetResolution();
                 };
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // #0 is file path

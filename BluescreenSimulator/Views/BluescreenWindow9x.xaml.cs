@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BluescreenSimulator.ViewModels;
+using Resolution;
 using static System.Windows.Forms.Screen;
 
 
@@ -35,13 +36,13 @@ namespace BluescreenSimulator.Views
             _tempWidth = primaryScreen.Bounds.Height; // current
             //
             InitializeComponent();
-            Resolution.CResolution ChangeRes = new Resolution.CResolution(FixHeight, FixWidth);
+            CResolution.ChangeResolution(FixWidth, FixHeight);
             KeyDown += BluescreenWindow9x_KeyDown;
         }
 
         private void BluescreenWindow9x_KeyDown(object sender, KeyEventArgs e)
         {
-            Resolution.CResolution ChangeRes = new Resolution.CResolution(_tempHeight, _tempWidth);
+            CResolution.ResetResolution();
             Close();
         }
     }
