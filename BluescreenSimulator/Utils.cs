@@ -5,8 +5,22 @@ using System.Windows.Forms;
 
 namespace BluescreenSimulator
 {
-    class Utils
+    public static class Utils
     {
+        public static void ShowOnMonitor(this Window window, Screen targetScreen)
+        {
+            window.WindowStyle = WindowStyle.None;
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            window.WindowState = WindowState.Normal;
+
+            window.Left = targetScreen.Bounds.Left;
+            window.Top = targetScreen.Bounds.Top;
+
+            window.SourceInitialized += (snd, arg) => window.WindowState = WindowState.Maximized;
+
+            window.Show();
+        }
 
         public static void ExecuteCmdCommands(params string[] commands)
         {
@@ -37,6 +51,6 @@ namespace BluescreenSimulator
         {
             window.Left = screen.Bounds.Left + 1;
             window.Top = 0;
-        } 
+        }
     }
 }

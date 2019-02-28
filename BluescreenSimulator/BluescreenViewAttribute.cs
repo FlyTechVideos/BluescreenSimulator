@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Forms;
 using BluescreenSimulator.ViewModels;
+using Application = System.Windows.Application;
 
 namespace BluescreenSimulator
 {
@@ -28,7 +30,7 @@ namespace BluescreenSimulator
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     var window = (Window) Activator.CreateInstance(type, bluescreen);
-                    window.Show();
+                    window.ShowOnMonitor(Screen.PrimaryScreen);
                     return window;
                 });
             }

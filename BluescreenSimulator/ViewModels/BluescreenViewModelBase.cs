@@ -19,13 +19,11 @@ namespace BluescreenSimulator.ViewModels
         public BluescreenViewModelBase(T model = null) : base(model)
         {
             ExecuteCommand = new DelegateCommand(async p => await Execute(p));
-            ResetAllCommand = new DelegateCommand(ResetAll);
             InterruptCommand = new DelegateCommand(Interrupt, () => IsWaiting);
         }
 
         public DelegateCommand ExecuteCommand { get; }
         private CancellationTokenSource _source = new CancellationTokenSource();
-        public DelegateCommand ResetAllCommand { get; }
         public DelegateCommand InterruptCommand { get; }
         public async Task Execute(object p)
         {
@@ -99,14 +97,6 @@ namespace BluescreenSimulator.ViewModels
                 commandBuilder.Append($"{info.Parameter} {(info.Value is bool ? "" : value)} ");
             }
             return commandBuilder.ToString().Trim();
-        }
-        private void ResetAll()
-        {
-            Model = new T();
-            foreach (var property in GetType().GetProperties())
-            {
-                OnPropertyChanged(property.Name);
-            }
         }
         private int _progress;
 

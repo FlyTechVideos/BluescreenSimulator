@@ -100,21 +100,7 @@ namespace BluescreenSimulator.Views
             return CurrentBluescreen.CreateCommandParameters();
         }
 
-        private static void ShowOnMonitor(System.Windows.Forms.Screen screen, Window window)
-        {
-            window.WindowStyle = WindowStyle.None;
-            window.WindowStartupLocation = WindowStartupLocation.Manual;
-
-            window.WindowState = WindowState.Normal;
-
-            window.Left = screen.Bounds.Left;
-            window.Top = screen.Bounds.Top;
-
-            window.SourceInitialized += (snd, arg) => window.WindowState = WindowState.Maximized;
-
-            window.Show();
-        }
-
+        
         private bool CheckData()
         {          
             if (CurrentBluescreen.EnableUnsafe && !string.IsNullOrEmpty(CurrentBluescreen.CmdCommand.Trim()))
@@ -130,6 +116,5 @@ namespace BluescreenSimulator.Views
             }
             return true;
         }
-
     }
 }
