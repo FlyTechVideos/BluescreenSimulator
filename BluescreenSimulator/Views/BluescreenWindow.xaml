@@ -5,33 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BluescreenSimulator"
         xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
+        xmlns:converters="clr-namespace:BluescreenSimulator.Converters"
         mc:Ignorable="d"
-        WindowState="Maximized"
-        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        AllowsTransparency="True"
         FontFamily="Segoe UI Light"
         FontWeight="Bold"
         FontSize="30"
-        Width="1920"
-        Height="1080"
-        Title="BluescreenWindow"
-        Topmost="True"
         PreviewKeyDown="Window_PreviewKeyDown"
-        Cursor="None"
+        Background="{converters:ColorBinding BackgroundColor}"
+        Foreground="{converters:ColorBinding ForegroundColor}"
         d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
     <Window.Style>
-        <Style TargetType="Window">
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <SolidColorBrush Color="{Binding ForegroundColor}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="{Binding BackgroundColor}"/>
-                </Setter.Value>
-            </Setter>
+        <Style TargetType="Window" BasedOn="{StaticResource BluescreenWindowStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RainbowMode}" Value="True">
                     <Setter Property="Background" Value="{StaticResource RainbowBrush}"/>
@@ -39,9 +24,6 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="12*" />
@@ -60,7 +42,7 @@
                 <Run Text="{Binding Progress, StringFormat={}{0}%}"/> <Run Text="{Binding Complete}"/>
             </TextBlock>
             <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
-                <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Image.Style>
                         <Style TargetType="Image">
                             <Setter Property="Source" Value="/Resources/qr_transparent.png"/>

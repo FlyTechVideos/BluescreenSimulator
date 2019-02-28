@@ -5,20 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BluescreenSimulator"
         xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
+        xmlns:converters="clr-namespace:BluescreenSimulator.Converters"
         mc:Ignorable="d"
-        WindowStyle="None"
-        Cursor="None"
-        WindowState="Maximized"
-        Topmost="True" Width="1920" Height="1080"
         d:DataContext="{d:DesignInstance viewModels:Windows7BluescreenViewModel, IsDesignTimeCreatable=True}"
-        WindowStartupLocation="CenterScreen"
+        Background="{converters:ColorBinding BackgroundColor}"
+        Foreground="{converters:ColorBinding ForegroundColor}"
+        WindowStartupLocation="CenterScreen" Style="{StaticResource BluescreenWindowStyle}"
         Title="Bluescreen" KeyDown="Window_KeyDown" Closing="Window_Closing">
-    <Window.Background>
-        <SolidColorBrush Color="{Binding BackgroundColor}"/>
-    </Window.Background>
-    <Window.Foreground>
-        <SolidColorBrush Color="{Binding ForegroundColor}"/>
-    </Window.Foreground>
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="23"/>
