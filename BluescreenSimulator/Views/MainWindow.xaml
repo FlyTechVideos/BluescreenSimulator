@@ -10,24 +10,43 @@
         Icon="/frown.ico"
         ResizeMode="NoResize"
         Name="MainWindowFrame"
+        Background="{DynamicResource BackgroundBrush}"
         Title="{Binding Title}"
         Height="475" Width="545" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
+
+
+
     <Window.Resources>
         <converters:NotConverter x:Key="NotConverter"/>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+
         <Style TargetType="Label" x:Key="LabelFormStyle">
             <Setter Property="Grid.Column" Value="0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         </Style>
         <Style TargetType="TextBox" x:Key="TextBoxFormStyle">
             <Setter Property="Grid.Column" Value="1"/>
-            <Setter Property="Margin" Value="4"></Setter>
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="Template" Value="{DynamicResource DarkThemeTextBoxTemplate}" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
+            <Setter Property="Template" Value="{DynamicResource DarkThemeButtonTemplate}" />
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template" Value="{DynamicResource DarkThemeTabItemTemplate}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         </Style>
     </Window.Resources>
     <Grid>
-
-        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}">
+        <UserControl Loaded="UserControlLoaded"></UserControl>
+        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}" Background="{DynamicResource BackgroundBrush}" Style="{DynamicResource DarkThemeTabControl}">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:IBluescreenViewModel}">
                     <TextBlock Text="{Binding StyleName}"/>
@@ -67,9 +86,9 @@
                         <Label Grid.Row="3">Progress indicator</Label>
 
                         <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
-                            <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}" 
+                            <TextBlock Foreground="{DynamicResource TextBrush}" Text="{Binding Progress, StringFormat={}{0:N0}%}" 
                            VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left"/>
-                            <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center" />
                         </DockPanel>
                         <Label Grid.Row="4">More Info</Label>
                         <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}"/>
@@ -203,7 +222,7 @@
             <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
                 <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                     <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding SelectedBluescreen.RainbowMode, Mode=TwoWay}"/>
-                        <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{DynamicResource TextBrush}" Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
                 </StackPanel>
                 <controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" DockPanel.Dock="Right" 
                                           IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
@@ -221,17 +240,17 @@
                     <Label>Starting progress</Label>
                     <WrapPanel>
                         <TextBox Text="{Binding SelectedBluescreen.StartingProgress}" Width="30"/>
-                        <TextBlock Text="%" VerticalAlignment="Center" Margin="0"/>
+                        <TextBlock Foreground="{DynamicResource TextBrush}" Text="%" VerticalAlignment="Center" Margin="0"/>
                     </WrapPanel>
                 </DockPanel>
             </UniformGrid>
 
             <Label Grid.Row="3">Command after complete</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}" Template="{DynamicResource DarkThemeTextBoxTemplate}"/>
         </Grid>
         <UniformGrid Grid.Row="2" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
-            <Button Command="{Binding ResetAllCommand}"  Margin="10 0">Reset fields</Button>
-            <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
+            <Button Command="{Binding ResetAllCommand}" Margin="10 0">Reset fields</Button>
+            <Button Click="OpenAbout" Margin="10 0" Template="{DynamicResource DarkThemeButtonTemplate}">Instructions</Button>
             <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
             <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>
             <Button Command="{Binding SelectedBluescreen.InterruptCommand}" Margin="10 0"

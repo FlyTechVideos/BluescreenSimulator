@@ -3,15 +3,35 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using BluescreenSimulator.ViewModels;
 
 namespace BluescreenSimulator.Views
 {
     public partial class MainWindow : Window
     {
+        private bool darkMode;
         private bool enableUnsafe;
         private MainWindowViewModel _vm;
         private IBluescreenViewModel CurrentBluescreen => _vm.SelectedBluescreen;
+
+        private void UserControlLoaded(object sender, RoutedEventArgs e)
+        {
+            var window = GetWindow(this);
+            window.KeyDown += HandleKeyPress;
+        }
+
+        private void HandleKeyPress(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.F12) // Turn dark mode on/off
+            {
+                if(darkMode)
+                {
+
+                }
+            }
+        }
+
         public MainWindow(bool enableUnsafe)
         {
             InitializeComponent();
