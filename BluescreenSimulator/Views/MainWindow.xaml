@@ -24,10 +24,10 @@
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="Margin" Value="4"></Setter>
         </Style>
+
     </Window.Resources>
     <Grid>
-
-        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}" SelectedIndex="1">
+        <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:IBluescreenViewModel}">
                     <TextBlock Text="{Binding StyleName}"/>
@@ -203,7 +203,7 @@
             <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
                 <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                     <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding SelectedBluescreen.RainbowMode, Mode=TwoWay}"/>
-                        <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
+                    <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
                 </StackPanel>
                 <controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" DockPanel.Dock="Right" 
                                           IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
@@ -230,7 +230,7 @@
             <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}"/>
         </Grid>
         <UniformGrid Grid.Row="2" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
-            <Button Command="{Binding SelectedBluescreen.ResetAllCommand}" Margin="10 0">Reset fields</Button>
+            <Button Command="{Binding ResetAllCommand}"  Margin="10 0">Reset fields</Button>
             <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
             <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
             <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>

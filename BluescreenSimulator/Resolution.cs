@@ -1,5 +1,7 @@
 
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -67,65 +69,66 @@ class User_32
 
 namespace Resolution
 {
-	class CResolution
-	{
-		public CResolution(int a,int b)
-		{
-			Screen screen = Screen.PrimaryScreen;
-			
-			
-			int iWidth =a;
-			int iHeight =b;
-			
+	public static class CResolution
+    {
+        private static readonly Rectangle OriginalBounds = Screen.PrimaryScreen.Bounds;
 
-			DEVMODE1 dm = new DEVMODE1();
-			dm.dmDeviceName = new String (new char[32]);
-			dm.dmFormName = new String (new char[32]);
-			dm.dmSize = (short)Marshal.SizeOf (dm);
+        public static void ResetResolution()
+        {
+            ChangeResolution(OriginalBounds.Width, OriginalBounds.Height);
+        }
+        public static void ChangeResolution(int width, int height)
+        {
+            var screen = Screen.PrimaryScreen;
 
-			if (0 != User_32.EnumDisplaySettings (null, User_32.ENUM_CURRENT_SETTINGS, ref dm))
-			{
-				
-				dm.dmPelsWidth = iWidth;
-				dm.dmPelsHeight = iHeight;
+            var iWidth = width;
+            var iHeight = height;
 
-				int iRet = User_32.ChangeDisplaySettings (ref dm, User_32.CDS_TEST);
 
-				if (iRet == User_32.DISP_CHANGE_FAILED)
-				{
-					MessageBox.Show("Unable to process your request");
-					MessageBox.Show("Description: Unable To Process Your Request. Sorry For This Inconvenience.","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
-				}
-				else
-				{
-					iRet = User_32.ChangeDisplaySettings (ref dm, User_32.CDS_UPDATEREGISTRY);
+            var dm = new DEVMODE1 {dmDeviceName = new string(new char[32]), dmFormName = new string(new char[32])};
+            dm.dmSize = (short) Marshal.SizeOf(dm);
 
-					switch (iRet) 
-					{
-						case User_32.DISP_CHANGE_SUCCESSFUL:
-						{
-							break;
+            if (0 != User_32.EnumDisplaySettings(null, User_32.ENUM_CURRENT_SETTINGS, ref dm))
+            {
+                dm.dmPelsWidth = iWidth;
+                dm.dmPelsHeight = iHeight;
 
-							//successfull change
-						}
-						case User_32.DISP_CHANGE_RESTART:
-						{
-							
-							MessageBox.Show("Description: You Need To Reboot For The Change To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Change Resolution In Safe Mode.","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
-							break;
-							//windows 9x series you have to restart... in .net framework 4.5, sure.
-						}
-						default:
-						{
-							
-							MessageBox.Show("Description: Failed To Change The Resolution.","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
-							break;
-							//failed to change
-						}
-					}
-				}
-				
-			}
-		}
-	}
+                var iRet = User_32.ChangeDisplaySettings(ref dm, User_32.CDS_TEST);
+
+                if (iRet == User_32.DISP_CHANGE_FAILED)
+                {
+                    MessageBox.Show("Unable to process your request");
+                    MessageBox.Show("Description: Unable To Process Your Request. Sorry For This Inconvenience.", "Information",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    iRet = User_32.ChangeDisplaySettings(ref dm, User_32.CDS_UPDATEREGISTRY);
+
+                    switch (iRet)
+                    {
+                        case User_32.DISP_CHANGE_SUCCESSFUL:
+                        {
+                            break;
+
+                            //successfull change
+                        }
+                        case User_32.DISP_CHANGE_RESTART:
+                        {
+                            MessageBox.Show(
+                                "Description: You Need To Reboot For The Change To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Change Resolution In Safe Mode.",
+                                "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                            //windows 9x series you have to restart... in .net framework 4.5, sure.
+                        }
+                        default:
+                        {
+                            throw new SystemException("Couldn't change resolution.");
+                            //failed to change
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

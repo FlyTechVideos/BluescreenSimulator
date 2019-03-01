@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Forms;
 using BluescreenSimulator.ViewModels;
+using BluescreenSimulator.Views;
+using Application = System.Windows.Application;
 
 namespace BluescreenSimulator
 {
@@ -28,7 +32,15 @@ namespace BluescreenSimulator
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     var window = (Window) Activator.CreateInstance(type, bluescreen);
-                    window.Show();
+                    window.ShowOnMonitor(Screen.PrimaryScreen);
+                    window.Activate();
+                    window.Focus();
+                    window.Loaded += (sender, _) => (sender as Window)?.Focus();
+                    foreach (var otherScreen in Screen.AllScreens.Where(s => !Equals(s, Screen.PrimaryScreen)))
+                    {
+                        var blackScreenWindow = new BlackWindow(window);
+                        blackScreenWindow.ShowOnMonitor(otherScreen);
+                    }
                     return window;
                 });
             }

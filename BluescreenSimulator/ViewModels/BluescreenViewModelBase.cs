@@ -19,13 +19,11 @@ namespace BluescreenSimulator.ViewModels
         public BluescreenViewModelBase(T model = null) : base(model)
         {
             ExecuteCommand = new DelegateCommand(async p => await Execute(p));
-            ResetAllCommand = new DelegateCommand(ResetAll);
             InterruptCommand = new DelegateCommand(Interrupt, () => IsWaiting);
         }
 
         public DelegateCommand ExecuteCommand { get; }
         private CancellationTokenSource _source = new CancellationTokenSource();
-        public DelegateCommand ResetAllCommand { get; }
         public DelegateCommand InterruptCommand { get; }
         public async Task Execute(object p)
         {
@@ -67,7 +65,7 @@ namespace BluescreenSimulator.ViewModels
             }
         }
         public bool IsNotWaiting => !IsWaiting;
-        [CmdParameter("-d")]
+        [CmdParameter("-d", Description = "Bluescreen Delay {duration} in seconds (0-86400)", FullAlias = "delay")]
         public int Delay
         {
             get => Model.Delay;
@@ -80,8 +78,9 @@ namespace BluescreenSimulator.ViewModels
         public string CreateCommandParameters()
         {
             var commandBuilder = new StringBuilder();
-            commandBuilder.Append("--direct ");
             var type = GetType();
+            commandBuilder.Append(type.GetCustomAttribute<CmdParameterAttribute>()?.Parameter ?? "--direct");
+            commandBuilder.Append(' ');
             var @default = Activator.CreateInstance(type);
             foreach (var info in type.GetProperties().Select(p => new
             {
@@ -93,19 +92,11 @@ namespace BluescreenSimulator.ViewModels
             }).Where(p => p.Parameter != null && p.Value != null))
             {
                 if (info.Value is false || info.Value == info.DefaultValue || (info.Value?.Equals(info.DefaultValue) ?? false)) continue; // is default
-                var value = info.Value.ToString();
+                var value = info.Value.ToString().Replace(Environment.NewLine, @"\n");
                 if (value.Contains(' ') || value.Any(c => !char.IsLetterOrDigit(c))) value = $@"""{value}"""; // something like `my string with spaces` => "my string with spaces"
                 commandBuilder.Append($"{info.Parameter} {(info.Value is bool ? "" : value)} ");
             }
             return commandBuilder.ToString().Trim();
-        }
-        private void ResetAll()
-        {
-            Model = new T();
-            foreach (var property in GetType().GetProperties())
-            {
-                OnPropertyChanged(property.Name);
-            }
         }
         private int _progress;
 
@@ -114,38 +105,37 @@ namespace BluescreenSimulator.ViewModels
             get => _progress;
             set { _progress = Math.Min(value, 100); OnPropertyChanged(); }
         }
-        private int _startingProgress;
-
+        [CmdParameter("-sp", Description = "The bluescreen progress at start.", FullAlias = "start-progress")]
         public int StartingProgress
         {
-            get { return _startingProgress; }
-            set { _startingProgress = Math.Min(value, 100); OnPropertyChanged(); }
+            get => Model.StartingProgress;
+            set => SetModelProperty(Math.Min(value, 100));
         }
-
+        [CmdParameter("-u", Description = "Enable unsafe mode (forces GUI mode and discards all other settings)", FullAlias = "enable-unsafe")]
         public bool EnableUnsafe
         {
             get => Model.EnableUnsafe;
             set => SetModelProperty(value);
         }
-        [CmdParameter("-c")]
+        [CmdParameter("-c", Description = "The {command} to run after complete (Careful!)", FullAlias = "cmd")]
         public string CmdCommand
         {
             get => Model.CmdCommand;
             set => SetModelProperty(value);
         }
-        [CmdParameter("-f")]
+        [CmdParameter("-f", Description = "Foreground (text) in rgb {value} hex format (#FFFFFF)", FullAlias = "foreground")]
         public Color ForegroundColor
         {
             get => Model.ForegroundColor;
             set => SetModelProperty(value);
         }
-        [CmdParameter("-b")]
+        [CmdParameter("-b", Description = "Background color in rgb {value} hex format (#FFFFFF)", FullAlias = "background")]
         public Color BackgroundColor
         {
             get => Model.BackgroundColor;
             set => SetModelProperty(value);
         }
-
+        [CmdParameter("-r", Description = "Enable rainbow mode (discards background color settings)", FullAlias = "rainbow")]
         public bool RainbowMode
         {
             get => Model.RainbowMode;
@@ -156,6 +146,7 @@ namespace BluescreenSimulator.ViewModels
         public async Task StartProgress(CancellationToken token = default)
         {
             var r = new Random();
+            Progress = StartingProgress;
             while (Progress < 100)
             {
                 if (token.IsCancellationRequested)
@@ -164,7 +155,7 @@ namespace BluescreenSimulator.ViewModels
                     return;
                 }
                 await Task.Delay(r.Next(5000), token);
-                Progress += r.Next(11);
+                Progress += r.Next(2, 11);
                 if (Progress > 100)
                 {
                     Progress = 100;

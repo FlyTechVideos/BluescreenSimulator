@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Threading;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
+using Resolution;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 
@@ -28,51 +30,49 @@ namespace BluescreenSimulator
         {
             DispatcherUnhandledException += (o, eventArgs) =>
             {
-                ShowErrorMessage(eventArgs.Exception);
-                eventArgs.Handled = true;
+                var m = ShowErrorMessage(eventArgs.Exception);
+                eventArgs.Handled = m != MessageBoxResult.Cancel || m != MessageBoxResult.No;
+                CResolution.ResetResolution();
             };
             AppDomain.CurrentDomain.UnhandledException +=
                 delegate (object o, UnhandledExceptionEventArgs eventArgs)
                 {
                     ShowErrorMessage(eventArgs.ExceptionObject as Exception);
+                    CResolution.ResetResolution();
                 };
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // #0 is file path
             {
-                var bluescreenData = new Windows10BluescreenViewModel();
-                var showHelp = false;
-                var enableUnsafe = false;
-
-                var p = new OptionSet
+                bool showHelp = false;
+                void AddHelp(OptionSet set)
                 {
-                    { "e|emoticon=", "{Text} for Emoticon", t => bluescreenData.Emoticon = t },
-                    { "m1|main1=", "{Text} for Main Text (Line 1)", t => bluescreenData.MainText1 = t },
-                    { "m2|main2=", "{Text} for Main Text (Line 2)", t => bluescreenData.MainText2 = t },
-                    { "p|progress=", "{Text} for Progress (\"complete\")", t => bluescreenData.Complete = t },
-                    { "mi|moreinfo=", "{Text} for More Info", t => bluescreenData.MoreInfo = t },
-                    { "s|supportperson=", "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
-                    { "sc|stopcode=", "{Text} for Stop code", t => bluescreenData.StopCode = t },
-                    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", r => bluescreenData.BackgroundColor = TryGetColor(r, bluescreenData.BackgroundColor) },
-                    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", r => bluescreenData.ForegroundColor = TryGetColor(r, bluescreenData.ForegroundColor) },
-                    { "oq|origqr", "Use original QR code", o => bluescreenData.UseOriginalQR = o != null },
-                    { "hq|hideqr", "Hides the QR code", h => bluescreenData.HideQR = h != null },
-                    { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => {
-                        if (d > 86400)
-                        {
-                            throw new OptionException("Delay maximum is 86400 seconds (24 hours)", "d|delay=");
-                        }
-                        bluescreenData.Delay = d;
-                    }},
-                    { "c|cmd=", "The {command} to run after complete (Careful!)", c => { bluescreenData.CmdCommand = c; bluescreenData.EnableUnsafe = true; } },
-                    { "r|rainbow", "Enable rainbow mode (discards background color settings)", r => bluescreenData.RainbowMode = r != null },
-                    { "u|enable-unsafe",  "Enable unsafe mode (forces GUI mode and discards all other settings)", eu => enableUnsafe = eu != null },
-                    { "h|help",  "Show this message and exit", h => showHelp = h != null }
-                };
+                    set.Add("h|help", "Show this message and exit", h => showHelp = h != null);
+                }
 
-                List<string> extra;
+                IBluescreenViewModel data = null;
+                Type type = null;
+                var currentSet = CmdParameterAttribute.GetBaseOptionSet(t => type = t, out var bluescreenOptions);
+                AddHelp(currentSet);
                 try
                 {
-                    extra = p.Parse(args); // todo use it actually?
+                    foreach (var option in bluescreenOptions)
+                    {
+                        if (args.Contains(option.Value))
+                        {
+                            type = option.Key;
+                            break;
+                        }
+                    }
+                    if (type is null)
+                    {
+                        showHelp = true;
+                        goto showHelp;
+                    }
+                    data = (IBluescreenViewModel) Activator.CreateInstance(type);
+                    currentSet = CmdParameterAttribute.GetOptionSetFor(type, data);
+                    if (showHelp) goto showHelp;
+                    AddHelp(currentSet);
+                    currentSet.Parse(args);
                 }
                 catch (OptionException ex)
                 {
@@ -88,21 +88,21 @@ namespace BluescreenSimulator
                     Shutdown(1);
                     return;
                 }
-
+                showHelp:
                 if (showHelp)
                 {
-                    ShowHelp(p);
+                    ShowHelp(currentSet);
                     return;
                 }
 
-                if (enableUnsafe)
+                if (data.EnableUnsafe)
                 {
                     MessageBox.Show("You are entering Unsafe Mode. Be careful!", "Careful", MessageBoxButton.OK, MessageBoxImage.Warning);
                     RunGui(true);
                 }
                 else
                 {
-                    bluescreenData.ShowView();
+                    data.ShowView();
                 }
             }
             else
@@ -110,27 +110,16 @@ namespace BluescreenSimulator
                 RunGui(false);
             }
         }
-
         private static MessageBoxResult ShowErrorMessage(Exception ex)
         {
-            return MessageBox.Show($"Sorry, some error occured, {ex}", "Oops",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+            string MaxLines(string s, int i)
+            {
+                return s.Split('\n').Take(i).Aggregate((first, second) => $"{first}\n{second}");
+            }
+            return MessageBox.Show($"Sorry, some error occured, {ex} ; StackTrace: \n {MaxLines(ex.StackTrace, 4)}\n Do you want the app to continue running?", "Oops",
+                MessageBoxButton.OKCancel, MessageBoxImage.Error);
         }
 
-        private static Color TryGetColor(string c, Color defaultValue)
-        {
-            if (!c.StartsWith("#")) c = $"#{c}";
-            try
-            {
-                var color = ColorConverter.ConvertFromString(c) as Color?;
-                return color ?? defaultValue;
-            }
-            catch (FormatException e)
-            {
-                MessageBox.Show($"Something bad occured when parsing the color: {c}, \n {e}");
-            }
-            return defaultValue;
-        }
         private void RunGui(bool enableUnsafe)
         {
             var mainWindow = new MainWindow(enableUnsafe);
@@ -154,6 +143,5 @@ namespace BluescreenSimulator
             }
             Shutdown();
         }
-
     }
 }

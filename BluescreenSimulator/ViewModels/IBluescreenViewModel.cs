@@ -8,7 +8,6 @@ namespace BluescreenSimulator.ViewModels
         string StyleName { get; }
         DelegateCommand ExecuteCommand { get; }
         DelegateCommand InterruptCommand { get; }
-        DelegateCommand ResetAllCommand { get; }
 
         bool IsWaiting { get; }
         bool IsNotWaiting { get; }

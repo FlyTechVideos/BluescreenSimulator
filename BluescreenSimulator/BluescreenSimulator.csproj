@@ -119,6 +119,7 @@
     <Compile Include="Controls\ColorPickerForm.xaml.cs">
       <DependentUpon>ColorPickerForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ColorBinding.cs" />
     <Compile Include="Converters\EqualsVisibilityConverter.cs" />
     <Compile Include="Converters\NotConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
@@ -146,6 +147,9 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows10BluescreenViewModel.cs" />
     <Compile Include="ViewModels\Windows9xBluescreenViewModel.cs" />
+    <Compile Include="Views\BlackWindow.xaml.cs">
+      <DependentUpon>BlackWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BluescreenWindow9x.xaml.cs">
       <DependentUpon>BluescreenWindow9x.xaml</DependentUpon>
     </Compile>
@@ -167,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BlackWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
