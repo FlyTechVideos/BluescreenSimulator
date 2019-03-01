@@ -14,5 +14,7 @@ namespace BluescreenSimulator
         public bool EnableUnsafe { get; set; } = false;
 
         public bool RainbowMode { get; set; } = false;
+
+        public int StartingProgress { get; set; }
     }
 }
