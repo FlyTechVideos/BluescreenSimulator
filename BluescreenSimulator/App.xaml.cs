@@ -53,31 +53,6 @@ namespace BluescreenSimulator
                 Type type = null;
                 var currentSet = CmdParameterAttribute.GetBaseOptionSet(t => type = t, out var bluescreenOptions);
                 AddHelp(currentSet);
-                //var p = new OptionSet
-                //{
-                //    { "e|emoticon=", "{Text} for Emoticon", t => bluescreenData.Emoticon = t },
-                //    { "m1|main1=", "{Text} for Main Text (Line 1)", t => bluescreenData.MainText1 = t },
-                //    { "m2|main2=", "{Text} for Main Text (Line 2)", t => bluescreenData.MainText2 = t },
-                //    { "p|progress=", "{Text} for Progress (\"complete\")", t => bluescreenData.Complete = t },
-                //    { "mi|moreinfo=", "{Text} for More Info", t => bluescreenData.MoreInfo = t },
-                //    { "s|supportperson=", "{Text} for Support Person", t => bluescreenData.SupportPerson = t },
-                //    { "sc|stopcode=", "{Text} for Stop code", t => bluescreenData.StopCode = t },
-                //    { "b|background=", "Background color in rgb {value} hex format (#FFFFFF)", r => bluescreenData.BackgroundColor = TryGetColor(r, bluescreenData.BackgroundColor) },
-                //    { "f|foreground=", "Foreground (text) in rgb {value} hex format (#FFFFFF)", r => bluescreenData.ForegroundColor = TryGetColor(r, bluescreenData.ForegroundColor) },
-                //    { "oq|origqr", "Use original QR code", o => bluescreenData.UseOriginalQR = o != null },
-                //    { "hq|hideqr", "Hides the QR code", h => bluescreenData.HideQR = h != null },
-                //    { "d|delay=", "Bluescreen Delay {duration} in seconds (0-86400)", (int d) => {
-                //        if (d > 86400)
-                //        {
-                //            throw new OptionException("Delay maximum is 86400 seconds (24 hours)", "d|delay=");
-                //        }
-                //        bluescreenData.Delay = d;
-                //    }},
-                //    { "c|cmd=", "The {command} to run after complete (Careful!)", c => { bluescreenData.CmdCommand = c; bluescreenData.EnableUnsafe = true; } },
-                //    { "r|rainbow", "Enable rainbow mode (discards background color settings)", r => bluescreenData.RainbowMode = r != null },
-                //    { "u|enable-unsafe",  "Enable unsafe mode (forces GUI mode and discards all other settings)", eu => enableUnsafe = eu != null },
-                //    { "h|help",  "Show this message and exit", h => showHelp = h != null }
-                //};
                 try
                 {
                     foreach (var option in bluescreenOptions)
@@ -93,7 +68,7 @@ namespace BluescreenSimulator
                         showHelp = true;
                         goto showHelp;
                     }
-                    data = Activator.CreateInstance(type) as IBluescreenViewModel;
+                    data = (IBluescreenViewModel) Activator.CreateInstance(type);
                     currentSet = CmdParameterAttribute.GetOptionSetFor(type, data);
                     if (showHelp) goto showHelp;
                     AddHelp(currentSet);
@@ -168,6 +143,5 @@ namespace BluescreenSimulator
             }
             Shutdown();
         }
-
     }
 }

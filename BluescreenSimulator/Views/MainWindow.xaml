@@ -24,9 +24,9 @@
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="Margin" Value="4"></Setter>
         </Style>
+
     </Window.Resources>
     <Grid>
-
         <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModels:IBluescreenViewModel}">
@@ -203,7 +203,7 @@
             <DockPanel Grid.Column="1" Margin="5" LastChildFill="True">
                 <StackPanel Margin="5 0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                     <CheckBox HorizontalAlignment="Center" x:Name="RainbowCheckbox" IsChecked="{Binding SelectedBluescreen.RainbowMode, Mode=TwoWay}"/>
-                        <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
+                    <TextBlock Text="Rainbow" FontSize="10" Margin="1" VerticalAlignment="Center"/>
                 </StackPanel>
                 <controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" DockPanel.Dock="Right" 
                                           IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
