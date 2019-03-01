@@ -35,6 +35,7 @@ namespace BluescreenSimulator
                     window.ShowOnMonitor(Screen.PrimaryScreen);
                     window.Activate();
                     window.Focus();
+                    window.Loaded += (sender, _) => (sender as Window)?.Focus();
                     foreach (var otherScreen in Screen.AllScreens.Where(s => !Equals(s, Screen.PrimaryScreen)))
                     {
                         var blackScreenWindow = new BlackWindow(window);
