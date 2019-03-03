@@ -11,7 +11,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         WindowStartupLocation="CenterScreen"
         FontSize="30"
         Title="BluescreenWindow"
-        Background="Black"
+        Background="{converters:ColorBinding BackgroundColor}"
         x:Name="Window"
         Foreground="{converters:ColorBinding ForegroundColor}" Style="{StaticResource BluescreenWindowStyle}"
         d:DataContext="{d:DesignInstance viewModels:Windows9xBluescreenViewModel, IsDesignTimeCreatable=True}">
@@ -22,8 +22,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <Setter Property="FontSize" Value="22"/>
         </Style>
     </Window.Resources>
-    <Viewbox>
-        <Grid Width="800" Height="600" Background="{converters:ColorBinding BackgroundColor}">
+    <Viewbox Stretch="UniformToFill" VerticalAlignment="Center" Margin="75">
+        <Grid Width="800" Height="600">
             <Grid VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
