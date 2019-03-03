@@ -12,11 +12,11 @@
         FontWeight="Bold"
         FontSize="30"
         PreviewKeyDown="Window_PreviewKeyDown"
-        Background="{converters:ColorBinding BackgroundColor}"
         Foreground="{converters:ColorBinding ForegroundColor}"
         d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource BluescreenWindowStyle}">
+            <Setter Property="Background" Value="{converters:ColorBinding BackgroundColor}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RainbowMode}" Value="True">
                     <Setter Property="Background" Value="{StaticResource RainbowBrush}"/>
