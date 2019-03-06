@@ -22,7 +22,7 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
     </Window.Resources>
-    <Viewbox>
+    <Viewbox Margin="12">
         <Grid Width="1280" Height="720">
             <StackPanel>
                 <TextBlock Margin="0,0,95,0">
