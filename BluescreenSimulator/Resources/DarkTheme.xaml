@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:BluescreenSimulator.Resources">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="BackgroundBrush" Color="#1e1e1e"/>
     <SolidColorBrush x:Key="TextBrush" Color="White"/>
@@ -23,7 +22,6 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
 
     <ControlTemplate x:Key="DarkThemeTabItemTemplate" TargetType="{x:Type TabItem}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
@@ -214,7 +212,6 @@
             </MultiDataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
     <ControlTemplate x:Key="DarkThemeButtonTemplate" TargetType="{x:Type ButtonBase}">
         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -229,7 +226,6 @@
                 <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
-
                 <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
                 <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
             </Trigger>
@@ -241,4 +237,29 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <Style TargetType="Control" x:Key="BaseTextControlStyle">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+    </Style>
+    <Style TargetType="TextBoxBase" x:Key="TextBoxStyle" BasedOn="{StaticResource BaseTextControlStyle}">
+        <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="Template" Value="{DynamicResource DarkThemeTextBoxTemplate}" />
+    </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource BaseTextControlStyle}">
+        <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
+        <Setter Property="Template" Value="{DynamicResource DarkThemeButtonTemplate}" />
+    </Style>
+    <Style TargetType="TabItem" BasedOn="{StaticResource BaseTextControlStyle}">
+        <Setter Property="Template" Value="{DynamicResource DarkThemeTabItemTemplate}" />
+    </Style>
+    <Style TargetType="Label" BasedOn="{StaticResource BaseTextControlStyle}">
+        <Setter Property="Grid.Column" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
+    <Style TargetType="Window" BasedOn="{StaticResource BaseTextControlStyle}">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+    </Style>
+    <Style TargetType="TabControl" BasedOn="{StaticResource BaseTextControlStyle}"/>
 </ResourceDictionary>

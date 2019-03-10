@@ -4,39 +4,22 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
 
 namespace BluescreenSimulator.Views
 {
     public partial class MainWindow : Window
     {
-        private bool darkMode;
         private bool enableUnsafe;
         private MainWindowViewModel _vm;
         private IBluescreenViewModel CurrentBluescreen => _vm.SelectedBluescreen;
-
-        private void UserControlLoaded(object sender, RoutedEventArgs e)
-        {
-            var window = GetWindow(this);
-            window.KeyDown += HandleKeyPress;
-        }
-
-        private void HandleKeyPress(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.F12) // Turn dark mode on/off
-            {
-                if(darkMode)
-                {
-
-                }
-            }
-        }
-
         public MainWindow(bool enableUnsafe)
         {
             InitializeComponent();
             DataContext = _vm = new MainWindowViewModel();
             this.enableUnsafe = enableUnsafe;
+            InputBindings.Add(new InputBinding(new DelegateCommand(() => Settings.Default.IsDarkTheme = !Settings.Default.IsDarkTheme), new KeyGesture(Key.F12)));
         }
 
         private void ShowBSOD(object sender, RoutedEventArgs e)
@@ -66,7 +49,7 @@ namespace BluescreenSimulator.Views
             var folder = path.Substring(0, filenameStartIndex);
             var filename = path.Substring(filenameStartIndex);
 
-            var exeCreator = new ExeCreator {Owner = this, CommandBox = {Text = filename + " " + command}};
+            var exeCreator = new ExeCreator { Owner = this, CommandBox = { Text = filename + " " + command } };
             exeCreator.ShowDialog();
 
             if (exeCreator.DialogResult != true)
@@ -120,9 +103,9 @@ namespace BluescreenSimulator.Views
             return CurrentBluescreen.CreateCommandParameters();
         }
 
-        
+
         private bool CheckData()
-        {          
+        {
             if (CurrentBluescreen.EnableUnsafe && !string.IsNullOrEmpty(CurrentBluescreen.CmdCommand.Trim()))
             {
                 var messageBoxResult = MessageBox.Show("Using a CMD command can be dangerous. " +

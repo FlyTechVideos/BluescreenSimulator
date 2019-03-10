@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
 using Resolution;
@@ -25,9 +26,23 @@ namespace BluescreenSimulator
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
 
+        private StatefulResourceDictionary _darkThemeDictionary 
+            => Resources.MergedDictionaries.FirstOrDefault(r => r is StatefulResourceDictionary) as StatefulResourceDictionary;
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            Settings.Default.Save();
+        }
 
         private void Application_Startup(object sender, EventArgs e)
         {
+            void SetTheme() => _darkThemeDictionary.IsEnabled = Settings.Default.IsDarkTheme;
+           
+            Settings.Default.Upgrade();
+            Settings.Default.PropertyChanged +=
+                (_, __) => SetTheme();
+            SetTheme();
             DispatcherUnhandledException += (o, eventArgs) =>
             {
                 var m = ShowErrorMessage(eventArgs.Exception);

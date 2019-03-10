@@ -5,31 +5,13 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               xmlns:fluent="urn:fluent-ribbon"
                               xmlns:views="clr-namespace:BluescreenSimulator.Views"
-                              mc:Ignorable="d" ResizeMode="NoResize" Title="Color picker" WindowStartupLocation="CenterOwner"
-                              Background="{DynamicResource BackgroundBrush}"
+                              mc:Ignorable="d" ResizeMode="NoResize" Title="Color picker" WindowStartupLocation="CenterOwner"  Style="{DynamicResource {x:Type Window}}"
                               d:DataContext="{d:DesignInstance views:ColorChooserWindow+ColorWindowData, IsDesignTimeCreatable=True}" Height="500"
-                              Width="564.468">
+                              Width="565">
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        </Style>
-
-        <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-            <Setter Property="Template" Value="{DynamicResource DarkThemeTextBoxTemplate}" />
-        </Style>
-
-        <Style TargetType="Button">
-            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-            <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
-            <Setter Property="Template" Value="{DynamicResource DarkThemeButtonTemplate}" />
-        </Style>
-
         <ControlTemplate x:Key="RoundedSlider" TargetType="{x:Type Slider}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6"
+            <Border x:Name="border" BorderBrush="Gray"
+                    BorderThickness="1" CornerRadius="1"  UseLayoutRounding="True"
                     Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <Grid>
                     <Grid.RowDefinitions>
