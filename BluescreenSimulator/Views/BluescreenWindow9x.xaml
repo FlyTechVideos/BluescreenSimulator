@@ -11,10 +11,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         WindowStartupLocation="CenterScreen"
         FontSize="30"
         Title="BluescreenWindow"
-        Background="Black"
+        Background="{converters:ColorBinding BackgroundColor}"
         x:Name="Window"
         Foreground="{converters:ColorBinding ForegroundColor}" Style="{StaticResource BluescreenWindowStyle}"
-        d:DataContext="{d:DesignInstance viewModels:Windows9xBluescreenViewModel, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance viewModels:Windows9xBluescreenViewModel, IsDesignTimeCreatable=True}" Height="1057.5" Width="2068.5"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="/BluescreenSimulator;component/Resources/#Perfect DOS VGA 437 Win"/>
@@ -22,20 +23,31 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <Setter Property="FontSize" Value="22"/>
         </Style>
     </Window.Resources>
-    <Viewbox>
-        <Grid Width="800" Height="600" Background="{converters:ColorBinding BackgroundColor}">
-            <Grid VerticalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock HorizontalAlignment="Center" Background="#aaaaaa" Text="{Binding Header}" Padding="7 0" FontSize="30" Margin="25">
-                    <TextBlock.Foreground>
-                        <SolidColorBrush Color="{Binding BackgroundColor}"/>
-                    </TextBlock.Foreground>
-                </TextBlock>
-                <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="10,0">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Viewbox Stretch="UniformToFill" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
+            <Grid Width="800" Height="600">
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" Background="#aaaaaa" Text="{Binding Header}" Padding="7 0" FontSize="30" Margin="25">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{Binding BackgroundColor}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="10,0">
                     <Run Text="{Binding InfoLine1}"/>
                     <LineBreak /> <LineBreak />
                     <Run Text="{Binding InfoLine2}"/>
@@ -44,30 +56,31 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     <LineBreak /> <LineBreak/>
                     <Run Text="{Binding Error}"/>
                     <LineBreak/>
-                </TextBlock>
-                <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding ToContinue}"/>
-                    <Rectangle Fill="{Binding Foreground, ElementName=Window}" Width="20" Height="4" VerticalAlignment="Bottom" Margin="6 4" x:Name="Underscore">
-                        <Rectangle.Style>
-                            <Style TargetType="Rectangle">
-                                <Style.Triggers>
-                                    <EventTrigger RoutedEvent="Loaded">
-                                        <BeginStoryboard>
-                                            <Storyboard RepeatBehavior="Forever">
-                                                <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=Underscore}" Storyboard.TargetProperty="Visibility">
-                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
-                                                    <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{x:Static Visibility.Hidden}"/>
-                                                    <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="{x:Static Visibility.Visible}"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Rectangle.Style>
-                    </Rectangle>
-                </WrapPanel>
+                    </TextBlock>
+                    <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding ToContinue}"/>
+                        <Rectangle Fill="{Binding Foreground, ElementName=Window}" Width="20" Height="4" VerticalAlignment="Bottom" Margin="6 4" x:Name="Underscore">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever">
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=Underscore}" Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                                        <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{x:Static Visibility.Hidden}"/>
+                                                        <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                    </WrapPanel>
+                </Grid>
             </Grid>
-        </Grid>
-    </Viewbox>
+        </Viewbox>
+    </Grid>
 </Window>

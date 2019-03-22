@@ -23,7 +23,6 @@ namespace BluescreenSimulator.Views
     /// </summary>
     public partial class BluescreenWindow9x : Window
     {
-        private const int FixHeight = 800, FixWidth = 600;
         private Windows9xBluescreenViewModel _vm;
         public BluescreenWindow9x(Windows9xBluescreenViewModel vm = null)
         {

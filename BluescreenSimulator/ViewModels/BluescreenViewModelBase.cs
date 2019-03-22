@@ -105,12 +105,11 @@ namespace BluescreenSimulator.ViewModels
             get => _progress;
             set { _progress = Math.Min(value, 100); OnPropertyChanged(); }
         }
-        private int _startingProgress;
-
+        [CmdParameter("-sp", Description = "The bluescreen progress at start.", FullAlias = "start-progress")]
         public int StartingProgress
         {
-            get { return _startingProgress; }
-            set { _startingProgress = Math.Min(value, 100); OnPropertyChanged(); }
+            get => Model.StartingProgress;
+            set => SetModelProperty(Math.Min(value, 100));
         }
         [CmdParameter("-u", Description = "Enable unsafe mode (forces GUI mode and discards all other settings)", FullAlias = "enable-unsafe")]
         public bool EnableUnsafe
@@ -147,6 +146,7 @@ namespace BluescreenSimulator.ViewModels
         public async Task StartProgress(CancellationToken token = default)
         {
             var r = new Random();
+            Progress = StartingProgress;
             while (Progress < 100)
             {
                 if (token.IsCancellationRequested)
@@ -155,7 +155,7 @@ namespace BluescreenSimulator.ViewModels
                     return;
                 }
                 await Task.Delay(r.Next(5000), token);
-                Progress += r.Next(11);
+                Progress += r.Next(2, 11);
                 if (Progress > 100)
                 {
                     Progress = 100;

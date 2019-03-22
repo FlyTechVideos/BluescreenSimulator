@@ -66,8 +66,13 @@ namespace BluescreenSimulator
             try
             {
                 result = Convert.ChangeType(value, targetType);
+                return true;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                // will try on other solutions
+            }
+
             if (value is string s)
             {
                 if (targetType == typeof(bool))

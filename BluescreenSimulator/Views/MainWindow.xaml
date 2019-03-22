@@ -29,6 +29,7 @@
             <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
             <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         </Style>
+
     </Window.Resources>
     <Grid>
         <TabControl Grid.Row="0" Name="Tabs" ItemsSource="{Binding Bluescreens}" SelectedItem="{Binding SelectedBluescreen}">

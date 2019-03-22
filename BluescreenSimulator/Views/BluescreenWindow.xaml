@@ -12,11 +12,11 @@
         FontWeight="Bold"
         FontSize="30"
         PreviewKeyDown="Window_PreviewKeyDown"
-        Background="{converters:ColorBinding BackgroundColor}"
         Foreground="{converters:ColorBinding ForegroundColor}"
         d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource BluescreenWindowStyle}">
+            <Setter Property="Background" Value="{converters:ColorBinding BackgroundColor}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RainbowMode}" Value="True">
                     <Setter Property="Background" Value="{StaticResource RainbowBrush}"/>
@@ -26,40 +26,41 @@
     </Window.Style>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="12*" />
-            <RowDefinition Height="88*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*" />
             <ColumnDefinition Width="90*" />
         </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock FontSize="160" FontFamily="Segoe UI, Arial" FontWeight="Normal" Text="{Binding Emoticon}"/>
-            <TextBlock Margin="0,40,0,0" Text="{Binding MainText1}"/>
-            <TextBlock Margin="0,10,0,0" Text="{Binding MainText2}"/>
-            <TextBlock Margin="0,40,0,0">
+        <Viewbox Grid.Row="1" Grid.Column="1" StretchDirection="DownOnly" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock FontSize="160" FontFamily="Segoe UI, Arial" FontWeight="Normal" Text="{Binding Emoticon}"/>
+                <TextBlock Margin="0,40,0,0" Text="{Binding MainText1}"/>
+                <TextBlock Margin="0,10,0,0" Text="{Binding MainText2}"/>
+                <TextBlock Margin="0,40,0,0">
                 <Run Text="{Binding Progress, StringFormat={}{0}%}"/> <Run Text="{Binding Complete}"/>
-            </TextBlock>
-            <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
-                <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Source" Value="/Resources/qr_transparent.png"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding UseOriginalQR}" Value="True">
-                                    <Setter Property="Source" Value="/Resources/qr.png"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
-                <StackPanel>
-                    <TextBlock TextWrapping="WrapWithOverflow" LineHeight="50" FontSize="18" Text="{Binding MoreInfo}"/>
-                    <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Text="{Binding SupportPerson}"/>
-                    <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15"  Text="{Binding StopCode}"/>
+                </TextBlock>
+                <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
+                    <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="/Resources/qr_transparent.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding UseOriginalQR}" Value="True">
+                                        <Setter Property="Source" Value="/Resources/qr.png"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <StackPanel>
+                        <TextBlock TextWrapping="WrapWithOverflow" LineHeight="50" FontSize="18" Text="{Binding MoreInfo}"/>
+                        <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Text="{Binding SupportPerson}"/>
+                        <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15"  Text="{Binding StopCode}"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Viewbox>
     </Grid>
 </Window>

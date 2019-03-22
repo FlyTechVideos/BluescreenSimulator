@@ -16,11 +16,7 @@ namespace BluescreenSimulator.Views
     public partial class BluescreenWindowWin7 : Window
     {
         //Variables
-        private readonly Random _random = new Random();
-        private Windows7BluescreenViewModel _vm;
-
-        // for Resolution stuff
-        private const int FixHeight = 800, FixWidth = 600;
+        private readonly Windows7BluescreenViewModel _vm;
 
         public BluescreenWindowWin7(Windows7BluescreenViewModel vm = null)
         {            // gets the main screen current Resolution
