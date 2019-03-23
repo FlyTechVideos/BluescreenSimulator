@@ -98,7 +98,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header" xml:space="preserve">
-    <value>A problem has been detected and windows has been shutdown to prevent damage to your computer.</value>
+    <value>A problem has been detected and Windows has been shutdown to prevent damage to your computer.</value>
   </data>
   <data name="ErrorCode" xml:space="preserve">
     <value>IRQL_NOT_LESS_OR_EQUAL</value>

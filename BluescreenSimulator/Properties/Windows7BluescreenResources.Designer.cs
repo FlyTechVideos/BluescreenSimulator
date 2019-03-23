@@ -100,7 +100,7 @@ namespace BluescreenSimulator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A problem has been detected and windows has been shutdown to prevent damage to your computer..
+        ///   Looks up a localized string similar to A problem has been detected and Windows has been shutdown to prevent damage to your computer..
         /// </summary>
         public static string Header {
             get {

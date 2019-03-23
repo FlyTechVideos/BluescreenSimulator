@@ -248,14 +248,17 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows10BluescreenResources.it.resx" />
     <EmbeddedResource Include="Properties\Windows10BluescreenResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Windows10BluescreenResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows7BluescreenResources.it.resx" />
     <EmbeddedResource Include="Properties\Windows7BluescreenResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Windows7BluescreenResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Windows9xBluescreenResources.it.resx" />
     <EmbeddedResource Include="Properties\Windows9xBluescreenResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Windows9xBluescreenResources.Designer.cs</LastGenOutput>
