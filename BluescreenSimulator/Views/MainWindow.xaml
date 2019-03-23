@@ -9,20 +9,25 @@
         mc:Ignorable="d"
         Icon="/frown.ico"
         ResizeMode="NoResize"
-        Name="MainWindowFrame"
-        Title="{Binding Title}"
+        Title="{Binding Title}" Style="{DynamicResource {x:Type Window}}"
         Height="475" Width="545" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
+
     <Window.Resources>
         <converters:NotConverter x:Key="NotConverter"/>
         <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
-        <Style TargetType="Label" x:Key="LabelFormStyle">
+
+        <Style TargetType="Label" x:Key="LabelFormStyle" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="Grid.Column" Value="0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxFormStyle">
+        <Style TargetType="TextBox" x:Key="TextBoxFormStyle" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Grid.Column" Value="1"/>
-            <Setter Property="Margin" Value="4"></Setter>
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         </Style>
 
     </Window.Resources>
@@ -69,7 +74,7 @@
                         <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
                             <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}" 
                            VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left"/>
-                            <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center" />
                         </DockPanel>
                         <Label Grid.Row="4">More Info</Label>
                         <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}"/>
@@ -184,7 +189,7 @@
                 </DataTemplate>
             </TabControl.Resources>
         </TabControl>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
@@ -230,7 +235,7 @@
             <TextBox Grid.Row="3" Grid.Column="1" Name="CmdCommand" Text="{Binding SelectedBluescreen.CmdCommand}"/>
         </Grid>
         <UniformGrid Grid.Row="2" Margin="0 0" VerticalAlignment="Center" Rows="1" Columns="4">
-            <Button Command="{Binding ResetAllCommand}"  Margin="10 0">Reset fields</Button>
+            <Button Command="{Binding ResetAllCommand}" Margin="10 0">Reset fields</Button>
             <Button Click="OpenAbout" Margin="10 0">Instructions</Button>
             <Button Click="GenerateExe" Margin="10 0">Generate EXE/Cmd</Button>
             <Button Click="ShowBSOD" Margin="10 0" Visibility="{Binding SelectedBluescreen.IsNotWaiting, Converter={StaticResource VisibilityConverter}}">Give me an error</Button>

@@ -5,13 +5,13 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               xmlns:fluent="urn:fluent-ribbon"
                               xmlns:views="clr-namespace:BluescreenSimulator.Views"
-                              mc:Ignorable="d" ResizeMode="NoResize" Title="Color picker" WindowStartupLocation="CenterOwner"
+                              mc:Ignorable="d" ResizeMode="NoResize" Title="Color picker" WindowStartupLocation="CenterOwner"  Style="{DynamicResource {x:Type Window}}"
                               d:DataContext="{d:DesignInstance views:ColorChooserWindow+ColorWindowData, IsDesignTimeCreatable=True}" Height="500"
-                              Width="564.468">
+                              Width="565">
     <Window.Resources>
         <ControlTemplate x:Key="RoundedSlider" TargetType="{x:Type Slider}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6"
+            <Border x:Name="border" BorderBrush="Gray"
+                    BorderThickness="1" CornerRadius="1"  UseLayoutRounding="True"
                     Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -152,6 +152,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -178,7 +179,7 @@
                 </Style>
             </StackPanel.Resources>
             <StackPanel>
-                <TextBlock Text="Hue" />
+                <TextBlock Text="Hue" Foreground="{DynamicResource TextBrush}" />
                 <Slider Value="{Binding Hue}">
                     <Slider.Background>
                         <LinearGradientBrush StartPoint="0.0,0.5" EndPoint="1.0, 0.5">
@@ -194,7 +195,7 @@
                 </Slider>
             </StackPanel>
             <StackPanel>
-                <TextBlock Text="Saturation" />
+                <TextBlock Text="Saturation" Foreground="{DynamicResource TextBrush}" />
                 <Slider Value="{Binding Saturation}">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="1,0" StartPoint="0.0,0">
@@ -205,7 +206,7 @@
                 </Slider>
             </StackPanel>
             <StackPanel>
-                <TextBlock Text="Lightness" />
+                <TextBlock Text="Lightness" Foreground="{DynamicResource TextBrush}" />
                 <Slider Value="{Binding Lightness}">
                     <Slider.Background>
                         <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
@@ -216,7 +217,7 @@
                 </Slider>
             </StackPanel>
             <DockPanel>
-                <TextBlock Text="Opacity" Margin="0,5,10,5" />
+                <TextBlock Text="Opacity" Foreground="{DynamicResource TextBrush}" Margin="0,5,10,5" />
                 <Slider Margin="0,1,0,0" IsSnapToTickEnabled="False" VerticalAlignment="Center" Value="{Binding Opacity}" Minimum="0" Maximum="1" Style="{x:Null}" />
             </DockPanel>
             <Grid Height="60" Margin="0,20,0,5">

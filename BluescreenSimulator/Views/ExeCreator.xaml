@@ -11,7 +11,8 @@
         MinWidth="300"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
-        WindowStartupLocation="CenterOwner" 
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BackgroundBrush}"
         Title="EXE Generator">
     <Grid VerticalAlignment="Center">
         <Grid.Resources>
@@ -21,9 +22,14 @@
             <Style TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="0,3,5,5" />
                 <Setter Property="Padding" Value="0,0,0,5" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Margin" Value="0,0,0,5" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="Template" Value="{DynamicResource DarkThemeTextBoxTemplate}" />
             </Style>
             <Style TargetType="{x:Type StackPanel}">
                 <Setter Property="Orientation" Value="Horizontal" />
@@ -34,6 +40,9 @@
                 <Setter Property="Width" Value="70" />
                 <Setter Property="Height" Value="25" />
                 <Setter Property="Margin" Value="5,0,0,0" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}" />
+                <Setter Property="Template" Value="{DynamicResource DarkThemeButtonTemplate}" />
             </Style>
         </Grid.Resources>
 

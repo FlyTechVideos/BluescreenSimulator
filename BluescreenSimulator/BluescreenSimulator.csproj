@@ -142,6 +142,8 @@
       <DependentUpon>Windows9xBluescreenResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resolution.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="StatefulResourceDictionary.cs" />
     <Compile Include="ViewModels\BluescreenViewModelBase.cs" />
     <Compile Include="ViewModels\IBluescreenViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -167,6 +169,14 @@
     <Compile Include="Utils.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="Controls\ColorPickerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DarkTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Empty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,7 +264,7 @@
     <None Include="BluescreenSimulator_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />

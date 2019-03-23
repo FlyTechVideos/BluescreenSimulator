@@ -7,7 +7,24 @@
         mc:Ignorable="d"
         Icon="/frown.ico"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BackgroundBrush}"
         Title="Instructions" Height="523" Width="680">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        </Style>
+        <Style TargetType="Hyperlink">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="TextDecorations" Value="" />
+        </Style>
+    </Window.Resources>
+
     <StackPanel>
         <TextBlock Padding="10" FontWeight="Bold" Text="{x:Static local:AppInfo.AppTitle}"/>
         <TextBlock Padding="10" TextWrapping="WrapWithOverflow">
