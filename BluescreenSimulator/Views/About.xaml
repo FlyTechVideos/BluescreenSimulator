@@ -5,15 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BluescreenSimulator.Properties"
         mc:Ignorable="d"
-        Icon="/frown.ico"
+        Icon="/frown.ico" 
+        Style="{StaticResource {x:Type Window}}"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Background="{DynamicResource BackgroundBrush}"
         Title="Instructions" Height="523" Width="680">
 
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        </Style>
         <Style TargetType="Hyperlink">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
