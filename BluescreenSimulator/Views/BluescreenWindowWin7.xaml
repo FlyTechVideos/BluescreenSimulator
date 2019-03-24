@@ -17,6 +17,7 @@
             <Setter Property="FontSize" Value="23"/>
             <Setter Property="TextOptions.TextRenderingMode" Value="Aliased"/>
             <Setter Property="TextOptions.TextHintingMode" Value="Fixed"/>
+            <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
             <Setter Property="FontFamily" Value="Lucida Console, Consolas"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
