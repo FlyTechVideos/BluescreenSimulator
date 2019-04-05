@@ -1,14 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
+using QRCoder;
 using static System.Windows.Input.Key;
 namespace BluescreenSimulator.Views
 {
@@ -26,6 +31,7 @@ namespace BluescreenSimulator.Views
             Closing += Window_AboutToClose;
             KeyDown += Window_PreviewKeyDown;
             HookKeyboard();
+            SetUpQR();
         }
 
         private void Window_AboutToClose(object sender, CancelEventArgs e)
@@ -40,6 +46,27 @@ namespace BluescreenSimulator.Views
             {
                 Focus();
             }
+        }
+        private void SetUpQR()
+        {
+            if (_vm.StopCode.Equals(Windows10BluescreenResources.StopCode, StringComparison.CurrentCultureIgnoreCase)) return;
+            var generator = new QRCodeGenerator();
+            var data = generator.CreateQrCode(_vm.StopCode, QRCodeGenerator.ECCLevel.Q);
+            var qr = new QRCode(data);
+            var bitmap = qr.GetGraphic(20, System.Drawing.Color.FromArgb(10, 112, 169), System.Drawing.Color.White,
+                true);
+            var source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());         
+            //var encoder = new QrEncoder(ErrorCorrectionLevel.M);
+            //if (!encoder.TryEncode(_vm.StopCode, out var qrCode))
+            //{
+            //    Debug.WriteLine("qr code failed");
+            //    return;
+            //}
+            //var wRenderer = new WriteableBitmapRenderer(new FixedModuleSize(2, QuietZoneModules.Two), Color.FromRgb(10, 112, 169), Colors.White);
+            //var bitmap = new WriteableBitmap(64, 64, 96, 96, PixelFormats.Default, null);
+            //wRenderer.Draw(bitmap, qrCode.Matrix);
+
+            QrCodeImage.Source = source;
         }
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
         {

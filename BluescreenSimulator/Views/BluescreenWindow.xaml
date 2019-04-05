@@ -42,7 +42,8 @@
                 <Run Text="{Binding Progress, StringFormat={}{0}%}"/> <Run Text="{Binding Complete}"/>
                 </TextBlock>
                 <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
-                    <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BoolToVisibilityConverter}}"
+                           x:Name="QrCodeImage">
                         <Image.Style>
                             <Style TargetType="Image">
                                 <Setter Property="Source" Value="/Resources/qr_transparent.png"/>
