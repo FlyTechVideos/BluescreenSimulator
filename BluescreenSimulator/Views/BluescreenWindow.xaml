@@ -14,6 +14,11 @@
         PreviewKeyDown="Window_PreviewKeyDown"
         Foreground="{converters:ColorBinding ForegroundColor}"
         d:DataContext="{d:DesignInstance viewModels:Windows10BluescreenViewModel, IsDesignTimeCreatable=True}">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="MaxWidth" Value="1024"/>
+        </Style>
+    </Window.Resources>
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource BluescreenWindowStyle}">
             <Setter Property="Background" Value="{converters:ColorBinding BackgroundColor}"/>
@@ -56,9 +61,9 @@
                         </Image.Style>
                     </Image>
                     <StackPanel>
-                        <TextBlock TextWrapping="WrapWithOverflow" LineHeight="50" FontSize="18" Text="{Binding MoreInfo}"/>
-                        <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15" Text="{Binding SupportPerson}"/>
-                        <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow" FontSize="15"  Text="{Binding StopCode}"/>
+                        <TextBlock TextWrapping="Wrap" LineHeight="50" FontSize="18" Text="{Binding MoreInfo}"/>
+                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="15" Text="{Binding SupportPerson}"/>
+                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="15" MaxWidth="800" Text="{Binding StopCode}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
