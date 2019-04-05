@@ -26,7 +26,7 @@ namespace BluescreenSimulator
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
 
-        private StatefulResourceDictionary _darkThemeDictionary 
+        private StatefulResourceDictionary DarkThemeDictionary 
             => Resources.MergedDictionaries.FirstOrDefault(r => r is StatefulResourceDictionary) as StatefulResourceDictionary;
 
         protected override void OnExit(ExitEventArgs e)
@@ -37,7 +37,7 @@ namespace BluescreenSimulator
 
         private void Application_Startup(object sender, EventArgs e)
         {
-            void SetTheme() => _darkThemeDictionary.IsEnabled = Settings.Default.IsDarkTheme;
+            void SetTheme() => DarkThemeDictionary.IsEnabled = Settings.Default.IsDarkTheme;
            
             Settings.Default.Upgrade();
             Settings.Default.PropertyChanged +=

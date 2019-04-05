@@ -19,7 +19,11 @@ namespace BluescreenSimulator.Views
             InitializeComponent();
             DataContext = _vm = new MainWindowViewModel();
             this.enableUnsafe = enableUnsafe;
-            InputBindings.Add(new InputBinding(new DelegateCommand(() => Settings.Default.IsDarkTheme = !Settings.Default.IsDarkTheme), new KeyGesture(Key.F12)));
+            InputBindings.Add(new InputBinding(new DelegateCommand(() =>
+            {
+                Settings.Default.IsDarkTheme = !Settings.Default.IsDarkTheme;
+                Settings.Default.Save();
+            }), new KeyGesture(Key.F12)));
         }
 
         private void ShowBSOD(object sender, RoutedEventArgs e)
