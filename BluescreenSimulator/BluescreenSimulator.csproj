@@ -144,7 +144,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Windows9xBluescreenResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resolution.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StatefulResourceDictionary.cs" />
     <Compile Include="ViewModels\BluescreenViewModelBase.cs" />
