@@ -5,7 +5,6 @@ using System.Windows;
 using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
-using Resolution;
 
 namespace BluescreenSimulator
 {
@@ -19,7 +18,7 @@ namespace BluescreenSimulator
         [DllImport("kernel32.dll")]
         private static extern bool FreeConsole();
 
-        private StatefulResourceDictionary DarkThemeDictionary 
+        private StatefulResourceDictionary DarkThemeDictionary
             => Resources.MergedDictionaries.OfType<StatefulResourceDictionary>().FirstOrDefault();
 
         protected override void OnExit(ExitEventArgs e)
@@ -31,7 +30,7 @@ namespace BluescreenSimulator
         private void Application_Startup(object sender, EventArgs e)
         {
             void SetTheme() => DarkThemeDictionary.IsEnabled = Settings.Default.IsDarkTheme;
-           
+
             Settings.Default.Upgrade();
             Settings.Default.PropertyChanged +=
                 (_, __) => SetTheme();
@@ -40,13 +39,11 @@ namespace BluescreenSimulator
             {
                 var m = ShowErrorMessage(eventArgs.Exception);
                 eventArgs.Handled = m != MessageBoxResult.Cancel || m != MessageBoxResult.No;
-                CResolution.ResetResolution();
             };
             AppDomain.CurrentDomain.UnhandledException +=
                 delegate (object o, UnhandledExceptionEventArgs eventArgs)
                 {
                     ShowErrorMessage(eventArgs.ExceptionObject as Exception);
-                    CResolution.ResetResolution();
                 };
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1) // #0 is file path
@@ -76,7 +73,7 @@ namespace BluescreenSimulator
                         showHelp = true;
                         goto showHelp;
                     }
-                    data = (IBluescreenViewModel) Activator.CreateInstance(type);
+                    data = (IBluescreenViewModel)Activator.CreateInstance(type);
                     currentSet = CmdParameterAttribute.GetOptionSetFor(type, data);
                     if (showHelp) goto showHelp;
                     AddHelp(currentSet);
@@ -96,7 +93,7 @@ namespace BluescreenSimulator
                     Shutdown(1);
                     return;
                 }
-                showHelp:
+            showHelp:
                 if (showHelp)
                 {
                     ShowHelp(currentSet);
@@ -118,6 +115,7 @@ namespace BluescreenSimulator
                 RunGui(false);
             }
         }
+
         private static MessageBoxResult ShowErrorMessage(Exception ex)
         {
             string MaxLines(string s, int i)
@@ -136,7 +134,6 @@ namespace BluescreenSimulator
 
         private void ShowHelp(OptionSet p)
         {
-
             if (AttachConsole(AttachParentProcess))
             {
                 Console.WriteLine("\n");
