@@ -1,15 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
+using QRCoder;
 using static System.Windows.Input.Key;
+
 namespace BluescreenSimulator.Views
 {
     public partial class BluescreenWindow : Window
@@ -17,6 +23,7 @@ namespace BluescreenSimulator.Views
         private readonly Windows10BluescreenViewModel _vm;
         private readonly CancellationTokenSource _source = new CancellationTokenSource();
         private bool _realClose;
+
         public BluescreenWindow(Windows10BluescreenViewModel data)
         {
             DataContext = _vm = data;
@@ -26,11 +33,12 @@ namespace BluescreenSimulator.Views
             Closing += Window_AboutToClose;
             KeyDown += Window_PreviewKeyDown;
             HookKeyboard();
+            SetUpQR();
         }
 
         private void Window_AboutToClose(object sender, CancelEventArgs e)
         {
-            e.Cancel = !_realClose; // no. 
+            e.Cancel = !_realClose; // no.
             if (!e.Cancel)
             {
                 _source.Cancel();
@@ -41,6 +49,20 @@ namespace BluescreenSimulator.Views
                 Focus();
             }
         }
+
+        private void SetUpQR()
+        {
+            if (_vm.StopCode.Equals(Windows10BluescreenResources.StopCode, StringComparison.CurrentCultureIgnoreCase)) return;
+            var generator = new QRCodeGenerator();
+            var data = generator.CreateQrCode(_vm.MoreInfo, QRCodeGenerator.ECCLevel.Q);
+            var qr = new QRCode(data);
+            var bitmap = qr.GetGraphic(20, System.Drawing.Color.FromArgb(10, 112, 169), System.Drawing.Color.White,
+                true);
+            var source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+            QrCodeImage.Source = source;
+        }
+
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -55,6 +77,7 @@ namespace BluescreenSimulator.Views
         }
 
         private static readonly Key[] BlockingKeys = { Key.System, F4, LWin, RWin, Tab, LeftAlt, RightAlt };
+
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (_realClose) return;
@@ -70,8 +93,8 @@ namespace BluescreenSimulator.Views
             }
         }
 
-
         #region Windows Api
+
         private void HookKeyboard()
         {
             var hModule = GetModuleHandle(IntPtr.Zero);
@@ -81,15 +104,15 @@ namespace BluescreenSimulator.Views
             {
                 MessageBox.Show("Failed to set hook, error = " + Marshal.GetLastWin32Error());
             }
-
         }
+
         private struct KBDLLHOOKSTRUCT
         {
             public int vkCode;
-            int scanCode;
+            private int scanCode;
             public int flags;
-            int time;
-            int dwExtraInfo;
+            private int time;
+            private int dwExtraInfo;
         }
 
         private delegate int LowLevelKeyboardProcDelegate(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam);
@@ -107,8 +130,9 @@ namespace BluescreenSimulator.Views
         private static extern IntPtr GetModuleHandle(IntPtr path);
 
         private IntPtr hHook;
-        LowLevelKeyboardProcDelegate hookProc; // prevent gc
-        const int WH_KEYBOARD_LL = 13;
+        private LowLevelKeyboardProcDelegate hookProc; // prevent gc
+        private const int WH_KEYBOARD_LL = 13;
+
         private static int LowLevelKeyboardProc(int nCode, int wParam, ref KBDLLHOOKSTRUCT lParam)
         {
             if (nCode >= 0)
@@ -123,8 +147,8 @@ namespace BluescreenSimulator.Views
                             (lParam.vkCode == 0x1b && lParam.flags == 32) || // Alt+Esc
                             (lParam.vkCode == 0x73 && lParam.flags == 32) || // Alt+F4
                             (lParam.vkCode == 0x1b && lParam.flags == 0) || // Ctrl+Esc
-                            (lParam.vkCode == 0x5b && lParam.flags == 1) || // Left Windows Key 
-                            (lParam.vkCode == 0x5c && lParam.flags == 1))    // Right Windows Key 
+                            (lParam.vkCode == 0x5b && lParam.flags == 1) || // Left Windows Key
+                            (lParam.vkCode == 0x5c && lParam.flags == 1))    // Right Windows Key
                         {
                             return 1; //Do not handle key events
                         }
@@ -133,6 +157,6 @@ namespace BluescreenSimulator.Views
             return CallNextHookEx(0, nCode, wParam, ref lParam);
         }
 
-        #endregion
+        #endregion Windows Api
     }
 }

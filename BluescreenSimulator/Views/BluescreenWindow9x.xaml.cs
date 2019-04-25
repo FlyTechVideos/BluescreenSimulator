@@ -12,9 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BluescreenSimulator.ViewModels;
-using Resolution;
 using static System.Windows.Forms.Screen;
-
 
 namespace BluescreenSimulator.Views
 {
@@ -24,6 +22,7 @@ namespace BluescreenSimulator.Views
     public partial class BluescreenWindow9x : Window
     {
         private Windows9xBluescreenViewModel _vm;
+
         public BluescreenWindow9x(Windows9xBluescreenViewModel vm = null)
         {
             DataContext = _vm = vm ?? new Windows9xBluescreenViewModel();
