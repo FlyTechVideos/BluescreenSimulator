@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BluescreenSimulator.Properties"
         mc:Ignorable="d"
-        Icon="/frown.ico" 
+        Icon="/frown.ico"
         Style="{StaticResource {x:Type Window}}"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         Title="Instructions" Height="523" Width="680">
@@ -23,7 +23,7 @@
     </Window.Resources>
 
     <StackPanel>
-        <TextBlock Padding="10" FontWeight="Bold" Text="{x:Static local:AppInfo.AppTitle}"/>
+        <TextBlock Padding="10" FontWeight="Bold" Text="{x:Static local:AppInfo.AppTitle}" />
         <TextBlock Padding="10" TextWrapping="WrapWithOverflow">
             This program simulates a BSOD without any danger or harm for your PC.
         </TextBlock>
@@ -48,7 +48,7 @@
         </TextBlock>
         <TextBlock Padding="10,0,0,0" TextWrapping="Wrap">
             In Unsafe Mode, you can specify a CMD command which will be run after the BSOD "completes" (e.g. a reboot command).
-            Because this is potentially dangerous, you have to explicitly enable this by running the program from the command 
+            Because this is potentially dangerous, you have to explicitly enable this by running the program from the command
             line with the argument "--enable-unsafe", like this: <TextBlock Margin="10,0,0,0" FontFamily="Consolas">BluescreenSimulator --enable-unsafe</TextBlock>
         </TextBlock>
         <TextBlock Padding="10,10,10,0">
@@ -71,10 +71,9 @@
             <Hyperlink NavigateUri="http://www.ndesk.org/Options" Click="Hyperlink_Click">Project page</Hyperlink>
         </TextBlock>
         <TextBlock Padding="10,10,0,0">
-            This software is using the CPOL-licensed library 'Dynamic Screen Resolution'. |
-            <Hyperlink NavigateUri="https://www.codeproject.com/info/cpol10.aspx" Click="Hyperlink_Click">CPOL License</Hyperlink> |
-            <Hyperlink NavigateUri="https://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution" Click="Hyperlink_Click">Project page</Hyperlink>
-
+             This software is using the MIT-licensed library 'QRCoder'. |
+            <Hyperlink NavigateUri="https://opensource.org/licenses/mit-license.php" Click="Hyperlink_Click">MIT License</Hyperlink> |
+            <Hyperlink NavigateUri="https://github.com/codebude/QRCoder" Click="Hyperlink_Click">Project page</Hyperlink>
         </TextBlock>
     </StackPanel>
 </Window>

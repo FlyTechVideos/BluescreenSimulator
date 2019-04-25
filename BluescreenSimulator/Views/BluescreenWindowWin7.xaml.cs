@@ -19,11 +19,12 @@ namespace BluescreenSimulator.Views
         {            // gets the main screen current Resolution
             DataContext = _vm = vm ?? new Windows7BluescreenViewModel();
             InitializeComponent();
-            
+
             Task.Run(SetupScreen);
         }
 
         private readonly CancellationTokenSource _source = new CancellationTokenSource();
+
         private async Task SetupScreen()
         {
             try
