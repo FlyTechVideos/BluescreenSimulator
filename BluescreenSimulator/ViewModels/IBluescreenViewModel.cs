@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Media;
-using System.Windows.Input;
+
 namespace BluescreenSimulator.ViewModels
 {
     public interface IBluescreenViewModel : INotifyPropertyChanged

@@ -1,5 +1,4 @@
-﻿using System.Windows.Media;
-using Strings = BluescreenSimulator.Properties.Windows10BluescreenResources;
+﻿using Strings = BluescreenSimulator.Properties.Windows10BluescreenResources;
 namespace BluescreenSimulator
 {
     public class Windows10Bluescreen : BluescreenBase

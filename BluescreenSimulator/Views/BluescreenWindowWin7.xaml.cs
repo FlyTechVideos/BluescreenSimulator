@@ -1,11 +1,8 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using BluescreenSimulator.ViewModels;
-using Resolution;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace BluescreenSimulator.Views
