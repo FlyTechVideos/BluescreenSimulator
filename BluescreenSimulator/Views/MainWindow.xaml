@@ -6,9 +6,10 @@
         xmlns:controls="clr-namespace:BluescreenSimulator.Controls"
         xmlns:converters="clr-namespace:BluescreenSimulator.Converters"
         xmlns:viewModels="clr-namespace:BluescreenSimulator.ViewModels"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Icon="/frown.ico"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
         Title="{Binding Title}" Style="{DynamicResource {x:Type Window}}"
         Height="475" Width="545" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
@@ -22,6 +23,10 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
             <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+        </Style>
+        <system:Double x:Key="MinGridHeight">200</system:Double>
+        <Style TargetType="ScrollViewer">
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
         <Style TargetType="TextBox" x:Key="TextBoxFormStyle" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Grid.Column" Value="1"/>
@@ -41,72 +46,77 @@
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:Windows10BluescreenViewModel}">
                     <!-- ReSharper disable Xaml.MissingGridIndex -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.Resources>
-                            <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
-                        </Grid.Resources>
-                        <Label >Emoticon</Label>
-                        <TextBox Name="Emoticon" Grid.Column="1" Text="{Binding Emoticon}"/>
-
-                        <Label Grid.Row="1">Main Text (Line 1)</Label>
-                        <TextBox Name="MainText1" Grid.Row="1" Text="{Binding MainText1}"/>
-
-                        <Label Grid.Row="2">Main Text (Line 2)</Label>
-                        <TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}"/>
-
-                        <Label Grid.Row="3">Progress indicator</Label>
-
-                        <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
-                            <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left"/>
-                            <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center" />
-                        </DockPanel>
-                        <Label Grid.Row="4">More Info</Label>
-                        <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}"/>
-
-                        <Label Grid.Row="5">Support Person</Label>
-                        <TextBox Name="SupportPerson" Grid.Row="5" Text="{Binding SupportPerson}"/>
-
-                        <Label Grid.Row="6">Stop code</Label>
-                        <TextBox Grid.Row="6" Text="{Binding StopCode}"/>
-
-                        <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="25 0">
+                    <ScrollViewer>
+                        <Grid MinHeight="{StaticResource MinGridHeight}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Label Width="150">Use original blue QR code</Label>
-                                <CheckBox Margin="6,6,0,0" IsChecked="{Binding UseOriginalQR}" IsEnabled="{Binding ShowQR}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Label Width="150">Hide QR code completely</Label>
-                                <CheckBox Margin="6,6,0,0" IsChecked="{Binding HideQR}"/>
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
+                            <Grid.Resources>
+                                <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}" />
+                                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}" />
+                            </Grid.Resources>
+                            <Label>Emoticon</Label>
+                            <TextBox Name="Emoticon" Grid.Column="1" Text="{Binding Emoticon}" />
+
+                            <Label Grid.Row="1">Main Text (Line 1)</Label>
+                            <TextBox Name="MainText1" Grid.Row="1" Text="{Binding MainText1}" />
+
+                            <Label Grid.Row="2">Main Text (Line 2)</Label>
+                            <TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}" />
+
+                            <Label Grid.Row="3">Progress indicator</Label>
+
+                            <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="True" Margin="5,0,0,0">
+                                <TextBlock Text="{Binding Progress, StringFormat={}{0:N0}%}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           DockPanel.Dock="Left" />
+                                <TextBox Text="{Binding Complete}" VerticalContentAlignment="Center" />
+                            </DockPanel>
+                            <Label Grid.Row="4">More Info</Label>
+                            <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}" />
+
+                            <Label Grid.Row="5">Support Person</Label>
+                            <TextBox Name="SupportPerson" Grid.Row="5" Text="{Binding SupportPerson}" />
+
+                            <Label Grid.Row="6">Stop code</Label>
+                            <TextBox Grid.Row="6" Text="{Binding StopCode}" />
+
+                            <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="25 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                            HorizontalAlignment="Center">
+                                    <Label Width="150">Use original blue QR code</Label>
+                                    <CheckBox Margin="6,6,0,0" IsChecked="{Binding UseOriginalQR}"
+                                              IsEnabled="{Binding ShowQR}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center"
+                                            HorizontalAlignment="Center">
+                                    <Label Width="150">Hide QR code completely</Label>
+                                    <CheckBox Margin="6,6,0,0" IsChecked="{Binding HideQR}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid></ScrollViewer>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:Windows7BluescreenViewModel}">
                     <ScrollViewer>
-                        <Grid>
+                        <Grid MinHeight="{StaticResource MinGridHeight}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="*"/>
@@ -156,36 +166,37 @@
                     </ScrollViewer>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:Windows9xBluescreenViewModel}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.Resources>
-                            <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}"/>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}"/>
-                        </Grid.Resources>
-                        <Label Content="Header"/>
-                        <TextBox Text="{Binding Header}"/>
-                        <Label Grid.Row="1" Content="Information (Line 1)"/>
-                        <TextBox Text="{Binding InfoLine1}" Grid.Row="1"/>
-                        <Label Grid.Row="2" Content="Information (Line 2)"/>
-                        <TextBox Text="{Binding InfoLine2}" Grid.Row="2"/>
-                        <Label Grid.Row="3" Content="Instructions"/>
-                        <TextBox Text="{Binding Instructions}" Grid.Row="3" TextWrapping="Wrap"/>
-                        <Label Grid.Row="4" Content="Error"/>
-                        <TextBox Text="{Binding Error}" Grid.Row="4"/>
-                        <Label Grid.Row="5" Content="Action to continue"/>
-                        <TextBox Grid.Row="5" Text="{Binding ToContinue}"/>
-                    </Grid>
+                    <ScrollViewer>
+                        <Grid MinHeight="{StaticResource MinGridHeight}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Label" BasedOn="{StaticResource LabelFormStyle}" />
+                                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxFormStyle}" />
+                            </Grid.Resources>
+                            <Label Content="Header" />
+                            <TextBox Text="{Binding Header}" />
+                            <Label Grid.Row="1" Content="Information (Line 1)" />
+                            <TextBox Text="{Binding InfoLine1}" Grid.Row="1" />
+                            <Label Grid.Row="2" Content="Information (Line 2)" />
+                            <TextBox Text="{Binding InfoLine2}" Grid.Row="2" />
+                            <Label Grid.Row="3" Content="Instructions" />
+                            <TextBox Text="{Binding Instructions}" Grid.Row="3" TextWrapping="Wrap" />
+                            <Label Grid.Row="4" Content="Error" />
+                            <TextBox Text="{Binding Error}" Grid.Row="4" />
+                            <Label Grid.Row="5" Content="Action to continue" />
+                            <TextBox Grid.Row="5" Text="{Binding ToContinue}" />
+                        </Grid></ScrollViewer>
                 </DataTemplate>
             </TabControl.Resources>
         </TabControl>

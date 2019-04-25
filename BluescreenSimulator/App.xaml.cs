@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
 using BluescreenSimulator.Views;
-using Color = System.Windows.Media.Color;
-using ColorConverter = System.Windows.Media.ColorConverter;
 
 namespace BluescreenSimulator
 {
@@ -26,7 +19,7 @@ namespace BluescreenSimulator
         private static extern bool FreeConsole();
 
         private StatefulResourceDictionary DarkThemeDictionary
-            => Resources.MergedDictionaries.FirstOrDefault(r => r is StatefulResourceDictionary) as StatefulResourceDictionary;
+            => Resources.MergedDictionaries.OfType<StatefulResourceDictionary>().FirstOrDefault();
 
         protected override void OnExit(ExitEventArgs e)
         {

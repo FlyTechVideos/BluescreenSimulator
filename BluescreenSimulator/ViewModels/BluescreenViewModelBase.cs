@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using BluescreenSimulator;
+
 namespace BluescreenSimulator.ViewModels
 {
     public class BluescreenViewModelBase<T> : ViewModelBase<T>, IBluescreenViewModel where T : BluescreenBase, new()
