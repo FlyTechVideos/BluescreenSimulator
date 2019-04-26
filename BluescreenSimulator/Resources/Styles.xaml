@@ -197,7 +197,7 @@
     </ControlTemplate>
     <ControlTemplate x:Key="DarkThemeButtonTemplate" TargetType="{x:Type ButtonBase}">
         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -247,4 +247,8 @@
     <Style TargetType="TabControl" BasedOn="{StaticResource BaseTextControlStyle}">
         <Setter Property="BorderBrush" Value="{DynamicResource TextBrush}"/>
     </Style>
+	<Style TargetType="CheckBox" BasedOn="{StaticResource BaseTextControlStyle}">
+		<Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}" />
+		<Setter Property="Margin" Value="2" />
+	</Style>
 </ResourceDictionary>
