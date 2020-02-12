@@ -92,13 +92,13 @@
 							</Grid.Resources>
 
 							<Label Content="Emoticon" />
-							<TextBox Name="Emoticon" Grid.Row="0" Text="{Binding Emoticon}" />
+                            <TextBox Name="Emoticon" Grid.Row="0" Text="{Binding Emoticon}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Grid.Row="1" Content="Main Text (Line 1)" />
-							<TextBox Name="MainText1" Grid.Row="1" Text="{Binding MainText1}" />
+                            <TextBox Name="MainText1" Grid.Row="1" Text="{Binding MainText1}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Grid.Row="2" Content="Main Text (Line 2)" />
-							<TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}" />
+                            <TextBox Name="MainText2" Grid.Row="2" Text="{Binding MainText2}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Grid.Row="3" Content="Progress indicator" />
 							<DockPanel Grid.Column="2" Grid.Row="3" LastChildFill="True" Margin="2,0,0,0">
@@ -109,13 +109,13 @@
 							</DockPanel>
 
 							<Label Grid.Row="4" Content="More Info" />
-							<TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}" TextWrapping="Wrap" />
+                            <TextBox Name="MoreInfo" Grid.Row="4" Text="{Binding MoreInfo}" TextWrapping="Wrap" AcceptsReturn="True" />
 
 							<Label Grid.Row="5" Content="Support Person" />
-							<TextBox Name="SupportPerson" Grid.Row="5" Text="{Binding SupportPerson}" />
+                            <TextBox Name="SupportPerson" Grid.Row="5" Text="{Binding SupportPerson}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Grid.Row="6" Content="Stop code" />
-							<TextBox Grid.Row="6" Text="{Binding StopCode}" />
+                            <TextBox Grid.Row="6" Text="{Binding StopCode}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<UniformGrid Grid.Row="11" Grid.ColumnSpan="3" Columns="2" Rows="1">
 								<CheckBox IsChecked="{Binding UseOriginalQR}" IsEnabled="{Binding ShowQR}" Content="Use original blue QR code" />
@@ -149,22 +149,22 @@
 							</Grid.Resources>
 							
 							<Label Content="Header"/>
-							<TextBox Text="{Binding Header}"/>
+                            <TextBox Text="{Binding Header}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Content="Error code" Grid.Row="1"/>
-							<TextBox Text="{Binding ErrorCode}" Grid.Row="1"/>
+                            <TextBox Text="{Binding ErrorCode}" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Content="Steps header" Grid.Row="2"/>
-							<TextBox Text="{Binding StepsHeader}" Grid.Row="2" TextWrapping="Wrap"/>
+                            <TextBox Text="{Binding StepsHeader}" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Content="Steps to follow" Grid.Row="3"/>
-							<TextBox Text="{Binding Steps}" Grid.Row="3" TextWrapping="Wrap"/>
+                            <TextBox Text="{Binding Steps}" Grid.Row="3" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Content="Technical info" Grid.Row="4"/>
-							<TextBox Text="{Binding TechnicalInfoHeader}" Grid.Row="4"/>
+                            <TextBox Text="{Binding TechnicalInfoHeader}" Grid.Row="4" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Content="Stop code" Grid.Row="5"/>
-							<TextBox Text="{Binding StopCode}" Grid.Row="5"/>
+                            <TextBox Text="{Binding StopCode}" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Content="Dump start" Grid.Row="6"/>
 							<TextBox Text="{Binding DumpStart}" Grid.Row="6"/>
@@ -173,7 +173,7 @@
 							<TextBox Text="{Binding DumpProgressEdit}" Grid.Row="7"/>
 
 							<Label Content="Dump complete" Grid.Row="8"/>
-							<TextBox Text="{Binding DumpComplete}" Grid.Row="8"/>
+                            <TextBox Text="{Binding DumpComplete}" Grid.Row="8" TextWrapping="Wrap" AcceptsReturn="True"/>
 						</Grid>
 					</ScrollViewer>
 				</DataTemplate>
@@ -199,22 +199,22 @@
 							</Grid.Resources>
 
 							<Label Content="Header" />
-							<TextBox Text="{Binding Header}" />
+                            <TextBox Text="{Binding Header}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Grid.Row="1" Content="Information (Line 1)" />
-							<TextBox Text="{Binding InfoLine1}" Grid.Row="1" />
+                            <TextBox Text="{Binding InfoLine1}" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<Label Grid.Row="2" Content="Information (Line 2)" />
-							<TextBox Text="{Binding InfoLine2}" Grid.Row="2" />
+                            <TextBox Text="{Binding InfoLine2}" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" />
 
 							<Label Grid.Row="3" Content="Instructions" />
-							<TextBox Text="{Binding Instructions}" Grid.Row="3" TextWrapping="Wrap" />
+                            <TextBox Text="{Binding Instructions}" Grid.Row="3" TextWrapping="Wrap" AcceptsReturn="True" />
 
 							<Label Grid.Row="4" Content="Error" />
-							<TextBox Text="{Binding Error}" Grid.Row="4" />
+                            <TextBox Text="{Binding Error}" Grid.Row="4" TextWrapping="Wrap" AcceptsReturn="True" />
 
 							<Label Grid.Row="5" Content="Action to continue" />
-							<TextBox Grid.Row="5" Text="{Binding ToContinue}" />
+                            <TextBox Grid.Row="5" Text="{Binding ToContinue}" TextWrapping="Wrap" AcceptsReturn="True" />
 						</Grid>
 					</ScrollViewer>
 				</DataTemplate>
