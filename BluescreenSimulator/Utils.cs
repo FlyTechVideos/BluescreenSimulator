@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -7,6 +8,7 @@ namespace BluescreenSimulator
 {
     public static class Utils
     {
+
         public static void ShowOnMonitor(this Window window, Screen targetScreen)
         {
             window.WindowStyle = WindowStyle.None;
@@ -24,6 +26,10 @@ namespace BluescreenSimulator
 
         public static void ExecuteCmdCommands(params string[] commands)
         {
+            string log = "";
+
+
+            log = log + "Creating cmd.exe Process variable \n";
             var cmd = new Process
             {
                 StartInfo =
@@ -35,15 +41,21 @@ namespace BluescreenSimulator
                     UseShellExecute = false
                 }
             };
+            log = log + "Starting cmd.exe \n";
             cmd.Start();
-
+            log = log + "writing commands into cmd:  \n";
             foreach (var command in commands)
             {
+                log = log + command + "\n";
                 cmd.StandardInput.WriteLine(command);
                 cmd.StandardInput.Flush();
             }
             cmd.StandardInput.Close();
             cmd.WaitForExit();
+            log = log + "cmd exited, output is following: \n";
+            log = log + cmd.StandardOutput.ReadToEnd() + "\n";
+            log = log + "finished";
+            File.WriteAllText("debug.txt", log);
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
