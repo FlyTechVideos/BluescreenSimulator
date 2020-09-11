@@ -92,7 +92,7 @@ namespace BluescreenSimulator.Views
             var SEDPath = Path.GetTempPath() + "\\optionfile.SED";
 
             File.WriteAllText(SEDPath, iexpressSED);
-            Utils.ExecuteCmdCommands($"iexpress /N {SEDPath}");
+            Utils.ExecuteCmdCommands($"C:\\Windows\\system32\\iexpress.exe /N {SEDPath}");
             File.Delete(SEDPath);
 
             MessageBox.Show("Your EXE-File has been created.", "BluescreenWindow Simulator", MessageBoxButton.OK, MessageBoxImage.Information);

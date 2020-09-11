@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -7,6 +8,7 @@ namespace BluescreenSimulator
 {
     public static class Utils
     {
+
         public static void ShowOnMonitor(this Window window, Screen targetScreen)
         {
             window.WindowStyle = WindowStyle.None;
@@ -24,6 +26,8 @@ namespace BluescreenSimulator
 
         public static void ExecuteCmdCommands(params string[] commands)
         {
+
+
             var cmd = new Process
             {
                 StartInfo =
@@ -36,7 +40,6 @@ namespace BluescreenSimulator
                 }
             };
             cmd.Start();
-
             foreach (var command in commands)
             {
                 cmd.StandardInput.WriteLine(command);

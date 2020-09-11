@@ -10,7 +10,6 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
-using QRCoder;
 using static System.Windows.Input.Key;
 
 namespace BluescreenSimulator.Views
@@ -49,15 +48,15 @@ namespace BluescreenSimulator.Views
 
         private void SetUpQR()
         {
-            if (_vm.StopCode.Equals(Windows10BluescreenResources.StopCode, StringComparison.CurrentCultureIgnoreCase)) return;
+            /*if (_vm.StopCode.Equals(Windows10BluescreenResources.StopCode, StringComparison.CurrentCultureIgnoreCase)) return;
             var generator = new QRCodeGenerator();
             var data = generator.CreateQrCode(_vm.MoreInfo, QRCodeGenerator.ECCLevel.Q);
             var qr = new QRCode(data);
             var bitmap = qr.GetGraphic(20, System.Drawing.Color.FromArgb(10, 112, 169), System.Drawing.Color.White,
                 true);
             var source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-
-            QrCodeImage.Source = source;
+            */
+            QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
 
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
