@@ -56,7 +56,7 @@ namespace BluescreenSimulator.Views
                 true);
             var source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             */
-            QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr_transparent.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
 
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
