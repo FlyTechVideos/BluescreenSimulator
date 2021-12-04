@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -9,14 +10,14 @@ namespace BluescreenSimulator.Views
 {
     public partial class MainWindow : Window
     {
-        private bool enableUnsafe;
+        public static bool EnableUnsafe;
         private MainWindowViewModel _vm;
         private IBluescreenViewModel CurrentBluescreen => _vm.SelectedBluescreen;
         public MainWindow(bool enableUnsafe)
         {
             InitializeComponent();
             DataContext = _vm = new MainWindowViewModel();
-            this.enableUnsafe = enableUnsafe;
+            EnableUnsafe = enableUnsafe;
             InputBindings.Add(new InputBinding(new DelegateCommand(() =>
             {
                 Settings.Default.IsDarkTheme = !Settings.Default.IsDarkTheme;
@@ -66,7 +67,7 @@ namespace BluescreenSimulator.Views
             }
 
             var iexpressSED =
-                $@"
+                            $@"
                 [Version]
                 Class=IEXPRESS
                 SEDVersion=3
@@ -92,7 +93,13 @@ namespace BluescreenSimulator.Views
             var SEDPath = Path.GetTempPath() + "\\optionfile.SED";
 
             File.WriteAllText(SEDPath, iexpressSED);
-            Utils.ExecuteCmdCommands($"C:\\Windows\\system32\\iexpress.exe /N {SEDPath}");
+            Process p = new Process();
+            p.StartInfo.FileName = "C:\\Windows\\system32\\iexpress.exe";
+            p.StartInfo.Arguments = $"/N {SEDPath}";
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            p.Start();
+            p.WaitForExit();
             File.Delete(SEDPath);
 
             MessageBox.Show("Your EXE-File has been created.", "BluescreenWindow Simulator", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -108,7 +115,7 @@ namespace BluescreenSimulator.Views
 
         private bool CheckData()
         {
-            if (CurrentBluescreen.EnableUnsafe && !string.IsNullOrEmpty(CurrentBluescreen.CmdCommand.Trim()))
+            if (EnableUnsafe && !string.IsNullOrEmpty(CurrentBluescreen.CmdCommand.Trim()))
             {
                 var messageBoxResult = MessageBox.Show("Using a CMD command can be dangerous. " +
                     "I will not be responsible for any data loss or other damage arising from irresponsible or careless use of the CMD command option. " +

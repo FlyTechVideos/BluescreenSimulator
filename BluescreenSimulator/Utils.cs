@@ -26,8 +26,6 @@ namespace BluescreenSimulator
 
         public static void ExecuteCmdCommands(params string[] commands)
         {
-
-
             var cmd = new Process
             {
                 StartInfo =
@@ -46,8 +44,6 @@ namespace BluescreenSimulator
                 cmd.StandardInput.Flush();
             }
             cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
         public static void SetWindowToScreen(Window window, Screen screen)

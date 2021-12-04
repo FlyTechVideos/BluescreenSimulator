@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BluescreenSimulator.Views;
+using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -167,7 +169,7 @@ namespace BluescreenSimulator.ViewModels
                 Progress = 0;
                 return;
             }
-            if (EnableUnsafe && !string.IsNullOrWhiteSpace(CmdCommand))
+            if (MainWindow.EnableUnsafe && !string.IsNullOrWhiteSpace(CmdCommand))
             {
                 Utils.ExecuteCmdCommands(CmdCommand);
             }
