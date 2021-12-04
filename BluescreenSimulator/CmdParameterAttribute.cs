@@ -97,6 +97,8 @@ namespace BluescreenSimulator
         private static bool TryGetColor(string c, out Color result)
         {
             if (!c.StartsWith("#")) c = $"#{c}";
+            // Removes the F at the beginning, which makes the resulting hex be 7 chars long, not 6
+            c = $"#{c.Substring(2)}";
             try
             {
                 var color = ColorConverter.ConvertFromString(c) as Color?;
