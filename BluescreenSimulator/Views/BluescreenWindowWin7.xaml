@@ -11,7 +11,7 @@
         Background="{converters:ColorBinding BackgroundColor}"
         Foreground="{converters:ColorBinding ForegroundColor}"
         WindowStartupLocation="CenterScreen" Style="{StaticResource BluescreenWindowStyle}"
-        Title="Bluescreen" KeyDown="Window_KeyDown" Closing="Window_Closing">
+        Title="Bluescreen">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="23"/>

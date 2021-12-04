@@ -64,6 +64,7 @@ namespace BluescreenSimulator.Views
             try
             {
                 await _vm.StartProgress(_source.Token);
+                _realClose = true;
                 Close(); // we're done
             }
             catch (TaskCanceledException)
