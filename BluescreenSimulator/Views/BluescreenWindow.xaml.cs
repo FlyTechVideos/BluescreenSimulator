@@ -54,7 +54,7 @@ namespace BluescreenSimulator.Views
         {
             if (_vm.StopCode.Equals(Windows10BluescreenResources.StopCode, StringComparison.CurrentCultureIgnoreCase)) return;
             var generator = new QRCodeGenerator();
-            var data = generator.CreateQrCode(_vm.MoreInfo, QRCodeGenerator.ECCLevel.Q);
+            var data = generator.CreateQrCode(_vm.StopCode, QRCodeGenerator.ECCLevel.Q);
             var qr = new QRCode(data);
             var bitmap = qr.GetGraphic(20, System.Drawing.Color.FromArgb(10, 112, 169), System.Drawing.Color.White,
                 true);
