@@ -76,6 +76,13 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value);
         }
 
+        [CmdParameter("-td", Description = "Specify Delay For Text Display", FullAlias = "textdelay")]
+        public float TextDelay
+        {
+            get => Model.TextDelay;
+            set => SetModelProperty(value);
+        }
+        
         public override bool SupportsRainbow => true;
     }
 }

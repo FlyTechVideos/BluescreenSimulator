@@ -63,6 +63,7 @@ namespace BluescreenSimulator.Views
         {
             try
             {
+                await BeginTextDelay(_vm.TextDelay);
                 await _vm.StartProgress(_source.Token);
                 _realClose = true;
                 Close(); // we're done
@@ -72,7 +73,27 @@ namespace BluescreenSimulator.Views
                 _vm.Progress = 0;
             }
         }
-
+        private async Task BeginTextDelay(float delay)
+        {
+            //Please find a better way to do it
+            MainText1.Visibility = Visibility.Hidden;
+            MainText2.Visibility = Visibility.Hidden;
+            Progress.Visibility = Visibility.Hidden;
+            Qrcode.Visibility = Visibility.Hidden;
+            MoreInfo.Visibility = Visibility.Hidden;
+            SupportPerson.Visibility = Visibility.Hidden;
+            StopCode.Visibility = Visibility.Hidden;
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            MainText1.Visibility = Visibility.Visible;
+            MainText2.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            Progress.Visibility = Visibility.Visible;
+            MoreInfo.Visibility = Visibility.Visible;
+            SupportPerson.Visibility = Visibility.Visible;
+            StopCode.Visibility = Visibility.Visible;
+            Qrcode.Visibility = Visibility.Visible;
+        }
+        
         private static readonly Key[] BlockingKeys = { Key.System, F4, LWin, RWin, Tab, LeftAlt, RightAlt };
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
