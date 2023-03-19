@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
@@ -52,6 +54,7 @@ namespace BluescreenSimulator.Views
             var folder = path.Substring(0, filenameStartIndex);
             var filename = path.Substring(filenameStartIndex);
             var commandFile = "command";
+            var qrFile = "qr";
 
             File.WriteAllText(commandFile, command);
 
@@ -69,8 +72,57 @@ namespace BluescreenSimulator.Views
                 return;
             }
 
-            var iexpressSED =
-                            $@"
+            var hasCustomQR = false;
+            var customQRPath = "";
+
+            if (command.Contains("--custom-qr-path=") || command.Contains("-cqp="))
+            {
+                hasCustomQR = true;
+                string[] cmdArr = command.Split(' ');
+                foreach (string cmd in cmdArr)
+                {
+                    if (cmd.StartsWith("--custom-qr-path") || command.StartsWith("-cqp="))
+                    {
+                        customQRPath = cmd.Split('=')[0];
+                    }
+                }
+            }
+
+            var iexpressSED = "";
+
+            if (hasCustomQR)
+            {
+                File.Copy(customQRPath, qrFile, true);
+                iexpressSED =
+                                $@"
+                [Version]
+                Class=IEXPRESS
+                SEDVersion=3
+                [Options]
+                PackagePurpose=InstallApp
+                ShowInstallProgramWindow=1
+                HideExtractAnimation=1
+                UseLongFileName=1
+                InsideCompressed=0
+                RebootMode=N
+                TargetName={folder}\{desiredFilename}.exe
+                AppLaunched=cmd /c %FILE0% --read-command-file
+                PostInstallCmd=<None>
+                SourceFiles=SourceFiles
+                [Strings]
+                FILE0=""{filename}""
+                FILE1=""{commandFile}""
+                FILE2=""{qrFile}""
+                [SourceFiles]
+                SourceFiles0 = {folder}
+                [SourceFiles0]
+                %FILE0%=
+                %FILE1%=
+                %FILE2%=";
+            } else
+            {
+                iexpressSED =
+                $@"
                 [Version]
                 Class=IEXPRESS
                 SEDVersion=3
@@ -93,7 +145,7 @@ namespace BluescreenSimulator.Views
                 [SourceFiles0]
                 %FILE0%=
                 %FILE1%=";
-
+            }
 
             var SEDPath = Path.GetTempPath() + "\\optionfile.SED";
 
@@ -107,6 +159,8 @@ namespace BluescreenSimulator.Views
             p.WaitForExit();
             File.Delete(SEDPath);
             File.Delete(commandFile);
+            if (File.Exists(qrFile))
+                File.Delete(qrFile);
             MessageBox.Show("Your EXE-File has been created.", "BluescreenWindow Simulator", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -132,6 +186,24 @@ namespace BluescreenSimulator.Views
                 }
             }
             return true;
+        }
+
+        private void CustomQR_Checked(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog();
+            ofd.Filter = "Image Files (*.jpg, *.png, *.jpeg, *.bmp, *.gif)|*.jpg;*.png;*.jpeg;*.bmp;*.gif";
+            ofd.Title = "Select a image file to use for the QR code (Use an image with 1:1 aspect ratio for best results)";
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Windows10BluescreenViewModel w10b = CurrentBluescreen as Windows10BluescreenViewModel;
+                w10b.CustomQRPath = ofd.FileName;
+            } else
+            {
+                Windows10BluescreenViewModel w10b = CurrentBluescreen as Windows10BluescreenViewModel;
+                w10b.CustomQR = false;
+                w10b.CustomQRPath = "";
+                w10b.UseOriginalQR = true;
+            }
         }
     }
 }

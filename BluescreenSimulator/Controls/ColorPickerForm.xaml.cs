@@ -17,6 +17,8 @@ namespace BluescreenSimulator.Controls
 
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(
             "Color", typeof(Color), typeof(ColorPickerForm), new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty IsWin10BgProperty = DependencyProperty.Register(
+            "IsWin10Bg", typeof(bool), typeof(ColorPickerForm), new FrameworkPropertyMetadata(false));
 
         public Color Color
         {
@@ -24,9 +26,15 @@ namespace BluescreenSimulator.Controls
             set { SetValue(ColorProperty, value); }
         }
 
+        public bool IsWin10Bg
+        {
+            get { return (bool)GetValue(IsWin10BgProperty); }
+            set { SetValue(IsWin10BgProperty, value); }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var window = new ColorChooserWindow(Color)
+            var window = new ColorChooserWindow(Color, IsWin10Bg)
             {
                 Owner = Window.GetWindow(this)
             };

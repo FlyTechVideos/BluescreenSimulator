@@ -53,6 +53,9 @@
                             <Style TargetType="Image">
                                 <Setter Property="Source" Value="/Resources/qr_transparent.png"/>
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CustomQR}" Value="True">
+                                        <Setter Property="Source" Value="{Binding CustomQRPath}"></Setter>
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding UseOriginalQR}" Value="True">
                                         <Setter Property="Source" Value="/Resources/qr.png"></Setter>
                                     </DataTrigger>
