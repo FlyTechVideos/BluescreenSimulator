@@ -19,6 +19,6 @@ namespace BluescreenSimulator
 
         public bool HideQR { get; set; } = false;
 
-        public bool UseOriginalQR { get; set; }
+        public bool UseOriginalQR { get; set; } = true;
     }
 }

@@ -118,8 +118,8 @@
                             <TextBox Grid.Row="6" Text="{Binding StopCode}" TextWrapping="Wrap" AcceptsReturn="True"/>
 
 							<UniformGrid Grid.Row="11" Grid.ColumnSpan="3" Columns="2" Rows="1">
-								<CheckBox IsChecked="{Binding UseOriginalQR}" IsEnabled="{Binding ShowQR}" Content="Use original blue QR code" />
-								<CheckBox IsChecked="{Binding HideQR}" Content="Hide QR code completely" />
+								<RadioButton IsChecked="{Binding UseOriginalQR}" Content="Show QR code" />
+								<RadioButton IsChecked="{Binding HideQR}" Content="Hide QR code" />
 							</UniformGrid>
 						</Grid>
 					</ScrollViewer>
