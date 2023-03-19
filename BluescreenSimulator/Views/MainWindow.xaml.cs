@@ -51,6 +51,9 @@ namespace BluescreenSimulator.Views
             var filenameStartIndex = path.LastIndexOf('\\') + 1;
             var folder = path.Substring(0, filenameStartIndex);
             var filename = path.Substring(filenameStartIndex);
+            var commandFile = "command";
+
+            File.WriteAllText(commandFile, command);
 
             var exeCreator = new ExeCreator { Owner = this, CommandBox = { Text = filename + " " + command } };
             exeCreator.ShowDialog();
@@ -79,15 +82,17 @@ namespace BluescreenSimulator.Views
                 InsideCompressed=0
                 RebootMode=N
                 TargetName={folder}\{desiredFilename}.exe
-                AppLaunched=cmd /c %FILE0% {command}
+                AppLaunched=cmd /c %FILE0% --read-command-file
                 PostInstallCmd=<None>
                 SourceFiles=SourceFiles
                 [Strings]
                 FILE0=""{filename}""
+                FILE1=""{commandFile}""
                 [SourceFiles]
                 SourceFiles0 = {folder}
                 [SourceFiles0]
-                %FILE0%=";
+                %FILE0%=
+                %FILE1%=";
 
 
             var SEDPath = Path.GetTempPath() + "\\optionfile.SED";
@@ -101,7 +106,7 @@ namespace BluescreenSimulator.Views
             p.Start();
             p.WaitForExit();
             File.Delete(SEDPath);
-
+            File.Delete(commandFile);
             MessageBox.Show("Your EXE-File has been created.", "BluescreenWindow Simulator", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

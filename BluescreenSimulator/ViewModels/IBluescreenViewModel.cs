@@ -26,6 +26,5 @@ namespace BluescreenSimulator.ViewModels
         bool SupportsRainbow { get; }
         bool RainbowMode { get; }
 
-
     }
 }
