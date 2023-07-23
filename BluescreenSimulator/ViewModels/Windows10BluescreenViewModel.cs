@@ -68,20 +68,6 @@ namespace BluescreenSimulator.ViewModels
             set => SetModelProperty(value, others: nameof(ShowQR));
         }
 
-        [CmdParameter("-cq", Description = "Use a custom QR code", FullAlias = "customqr")]
-        public bool CustomQR
-        {
-            get => Model.CustomQR;
-            set => SetModelProperty(value);
-        }
-
-        [CmdParameter("-cqp", Description = "The path to the custom QR code", FullAlias = "customqrpath")]
-        public string CustomQRPath
-        {
-            get => Model.CustomQRPath;
-            set => SetModelProperty(value);
-        }
-
         public bool ShowQR => !HideQR;
         [CmdParameter("-oq", Description = "Use original QR code", FullAlias = "origqr")]
         public bool UseOriginalQR

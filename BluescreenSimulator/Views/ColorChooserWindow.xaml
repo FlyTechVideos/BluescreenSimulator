@@ -231,9 +231,8 @@
                      KeyDown="ColorTextKeyDown" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"
                      FontFamily="Consolas" />
         </StackPanel>
-        <UniformGrid Columns="3" Grid.Row="3" Height="40" Margin="25,10">
+        <UniformGrid Columns="2" Grid.Row="2" Height="40" Margin="25,10">
             <Button Margin="15,5" Content="Ok" Click="Ok_Click" />
-            <Button Margin="15,5" Content="Revert to default" Click="Default_Click"/>
             <Button Margin="15,5" Content="Cancel" Click="Cancel_Click" />
         </UniformGrid>
     </Grid>

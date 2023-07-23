@@ -119,14 +119,12 @@
 
                             <UniformGrid Grid.Row="11" Grid.ColumnSpan="5" Columns="3" Rows="2">
                                 <RadioButton IsChecked="True" Content="Show QR code" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <RadioButton IsChecked="{Binding UseOriginalQR}" Content="Use original QR code" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <RadioButton IsChecked="{Binding CustomQR}" Content="Use custom QR code" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="CustomQR_Checked" />
+                                <RadioButton IsChecked="{Binding UseOriginalQR}" Content="Use QR code with blue background" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <RadioButton IsChecked="{Binding HideQR}" Content="Hide QR code completely" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Text Delay (in seconds)" />
+                                    <Label Content="Text Delay (in seconds)"/>
 									<TextBox Text="{Binding TextDelay}" MinWidth="30" />
 								</StackPanel>
-                                <TextBox Name="QRPathTextBox" Text="{Binding CustomQRPath}" Visibility="Hidden"/>
 							</UniformGrid>
 						</Grid>
 					</ScrollViewer>
@@ -232,7 +230,7 @@
 		<DockPanel Grid.Column="2" Grid.Row="1" LastChildFill="True"
 					Visibility="{Binding SelectedBluescreen.SupportsRainbow, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
 			<CheckBox x:Name="RainbowCheckbox" Content="Rainbow" Padding="3,0,0,0" FontSize="10" VerticalAlignment="Center" IsChecked="{Binding SelectedBluescreen.RainbowMode, Mode=TwoWay}"/>
-			<controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" IsWin10Bg="true" Margin="3"
+			<controls:ColorPickerForm Color="{Binding SelectedBluescreen.BackgroundColor}" Margin="3"
 									  IsEnabled="{Binding IsChecked, ElementName=RainbowCheckbox, Converter={StaticResource NotConverter}}"/>
 		</DockPanel>
 
