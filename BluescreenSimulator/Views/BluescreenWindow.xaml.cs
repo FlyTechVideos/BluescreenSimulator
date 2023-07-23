@@ -56,13 +56,21 @@ namespace BluescreenSimulator.Views
                 true);
             var source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             */
-            QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr_transparent.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            if (_vm.UseOriginalQR)
+            {
+                QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            else
+            {
+                QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr_transparent.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
         }
 
         private async void Bluescreen_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
+                await BeginTextDelay(_vm.TextDelay);
                 await _vm.StartProgress(_source.Token);
                 _realClose = true;
                 Close(); // we're done
@@ -72,7 +80,27 @@ namespace BluescreenSimulator.Views
                 _vm.Progress = 0;
             }
         }
-
+        private async Task BeginTextDelay(float delay)
+        {
+            //Please find a better way to do it
+            MainText1.Visibility = Visibility.Hidden;
+            MainText2.Visibility = Visibility.Hidden;
+            Progress.Visibility = Visibility.Hidden;
+            Qrcode.Visibility = Visibility.Hidden;
+            MoreInfo.Visibility = Visibility.Hidden;
+            SupportPerson.Visibility = Visibility.Hidden;
+            StopCode.Visibility = Visibility.Hidden;
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            MainText1.Visibility = Visibility.Visible;
+            MainText2.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            Progress.Visibility = Visibility.Visible;
+            MoreInfo.Visibility = Visibility.Visible;
+            SupportPerson.Visibility = Visibility.Visible;
+            StopCode.Visibility = Visibility.Visible;
+            Qrcode.Visibility = Visibility.Visible;
+        }
+        
         private static readonly Key[] BlockingKeys = { Key.System, F4, LWin, RWin, Tab, LeftAlt, RightAlt };
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)

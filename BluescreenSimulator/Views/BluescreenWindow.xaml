@@ -41,12 +41,12 @@
         <Viewbox Grid.Row="1" Grid.Column="1" StretchDirection="DownOnly" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel>
                 <TextBlock FontSize="160" FontFamily="Segoe UI, Arial" FontWeight="Normal" Text="{Binding Emoticon}"/>
-                <TextBlock Margin="0,40,0,0" Text="{Binding MainText1}"/>
-                <TextBlock Margin="0,10,0,0" Text="{Binding MainText2}"/>
-                <TextBlock Margin="0,40,0,0">
-                <Run Text="{Binding Progress, StringFormat={}{0}%}"/> <Run Text="{Binding Complete}"/>
+                <TextBlock Name="MainText1" Margin="0,40,0,0" Text="{Binding MainText1}"/>
+                <TextBlock Name="MainText2" Margin="0,10,0,0" Text="{Binding MainText2}"/>
+                <TextBlock Name="Progress" Margin="0,40,0,0">
+                <Run  Text="{Binding Progress, StringFormat={}{0}%}"/> <Run Text="{Binding Complete}"/>
                 </TextBlock>
-                <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
+                <StackPanel Name="Qrcode" Margin="0,40,0,0" Orientation="Horizontal">
                     <Image Margin="0,0,20,0" Height="116" Width="116" Visibility="{Binding ShowQR, Converter={StaticResource BoolToVisibilityConverter}}"
                            x:Name="QrCodeImage">
                         <Image.Style>
@@ -61,9 +61,9 @@
                         </Image.Style>
                     </Image>
                     <StackPanel>
-                        <TextBlock TextWrapping="Wrap" LineHeight="50" FontSize="18" Text="{Binding MoreInfo}"/>
-                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="15" Text="{Binding SupportPerson}"/>
-                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="15" MaxWidth="800" Text="{Binding StopCode}"/>
+                        <TextBlock Name="MoreInfo" TextWrapping="Wrap" LineHeight="50" FontSize="18" Text="{Binding MoreInfo}"/>
+                        <TextBlock Name="SupportPerson" Margin="0,10,0,0" TextWrapping="Wrap" FontSize="15" Text="{Binding SupportPerson}"/>
+                        <TextBlock Name="StopCode" Margin="0,10,0,0" TextWrapping="Wrap" FontSize="15" MaxWidth="800" Text="{Binding StopCode}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

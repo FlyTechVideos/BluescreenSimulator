@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -53,6 +55,17 @@ namespace BluescreenSimulator
                 {
                     set.Add("h|help", "Show this message and exit", h => showHelp = h != null);
                 }
+                if (args[1] == "--read-command-file")
+                {
+                    Process p = new Process();
+                    p.StartInfo.FileName = args[0];
+                    p.StartInfo.Arguments = File.ReadAllText("command");
+                    //p.StartInfo.CreateNoWindow = true;
+                    //p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();
+                    p.WaitForExit();
+                    Environment.Exit(0);
+                }
 
                 IBluescreenViewModel data = null;
                 Type type = null;
@@ -68,6 +81,7 @@ namespace BluescreenSimulator
                             break;
                         }
                     }
+                    
                     if (type is null)
                     {
                         showHelp = true;

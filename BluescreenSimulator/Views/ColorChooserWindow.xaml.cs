@@ -12,9 +12,11 @@ namespace BluescreenSimulator.Views
     public partial class ColorChooserWindow : Window
     {
         private readonly ColorWindowData _data;
-        public ColorChooserWindow(Color? color = null)
+        public ColorChooserWindow(Color? color = null, bool isWin10Background = false)
         {
             _data = new ColorWindowData();
+            if (isWin10Background)
+                _data.DefaultColor = ColorTranslator.FromHtml("#FF0970A9");
             if (color != null)
             {
                 var drawingColor =
@@ -29,6 +31,13 @@ namespace BluescreenSimulator.Views
             public ColorWindowData()
             {
 
+            }
+
+            private System.Drawing.Color _defaultColor = ColorTranslator.FromHtml("#FFFFFFFF");
+            public System.Drawing.Color DefaultColor
+            {
+                get => _defaultColor;
+                set => _defaultColor = value;
             }
             private double _hue;
 
@@ -209,6 +218,11 @@ namespace BluescreenSimulator.Views
                 Keyboard.ClearFocus();
                 MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             }
+        }
+
+        private void Default_Click(object sender, RoutedEventArgs e)
+        {
+            _data.SetValueFromDrawingColor(_data.DefaultColor);
         }
     }
     public class ColorRequestEventArgs : EventArgs
