@@ -29,7 +29,7 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
-    <Grid>
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
             <RowDefinition Height="90*" />
