@@ -237,17 +237,30 @@
 		<Label Grid.Row="2" Content="Foreground color (text)" />
         <controls:ColorPickerForm Grid.Column="2" Grid.Row="2" Margin="3" IsWin10Bg="false" Color="{Binding SelectedBluescreen.ForegroundColor}"/>
 		
-		<UniformGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Columns="2" Rows="1">
+		<UniformGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Columns="2" Rows="3">
 			<StackPanel Orientation="Horizontal">
 				<Label Content="Delay (in seconds)" />
 				<TextBox Text="{Binding SelectedBluescreen.Delay}" MinWidth="30" />
 			</StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Progress start delay (in seconds)" />
+                <TextBox Text="{Binding SelectedBluescreen.ProgressStartDelay}" MinWidth="30" />
+            </StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Label Content="Starting progress" />
 				<TextBox Text="{Binding SelectedBluescreen.StartingProgress}" MinWidth="30" />
 				<TextBlock Text="%" VerticalAlignment="Center" />
 			</StackPanel>
-		</UniformGrid>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Progress delay factor (lower is faster)" />
+                <TextBox Text="{Binding SelectedBluescreen.ProgressFactor}" MinWidth="30" />
+                <TextBlock Text="x" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Closing delay after completion (in seconds)" />
+                <TextBox Text="{Binding SelectedBluescreen.ClosingAfterFinishDelay}" MinWidth="30" />
+            </StackPanel>
+        </UniformGrid>
 
 		<Label Grid.Row="4" Content="Command after complete" />
 		<TextBox Name="CmdCommand" Grid.Row="4" Grid.Column="2" Text="{Binding SelectedBluescreen.CmdCommand}" />

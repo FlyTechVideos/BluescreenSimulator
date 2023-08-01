@@ -20,7 +20,7 @@ namespace BluescreenSimulator.ViewModels
             SelectedBluescreen = @new;
         }
 
-        public string Title => AppInfo.AppTitle + $"{(SelectedBluescreen.EnableUnsafe ? "- Unsafe" : "")}";
+        public string Title => AppInfo.AppTitle;
         public ObservableCollection<IBluescreenViewModel> Bluescreens { get; set; } = new ObservableCollection<IBluescreenViewModel>
         {
             new Windows10BluescreenViewModel(),

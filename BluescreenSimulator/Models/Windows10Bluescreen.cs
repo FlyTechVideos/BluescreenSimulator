@@ -21,6 +21,6 @@ namespace BluescreenSimulator
 
         public bool UseOriginalQR { get; set; } = true;
 		
-        public float TextDelay { get; set; }
+        public double TextDelay { get; set; }
     }
 }

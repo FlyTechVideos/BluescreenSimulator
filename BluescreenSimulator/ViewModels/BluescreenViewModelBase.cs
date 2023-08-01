@@ -1,6 +1,4 @@
-﻿using BluescreenSimulator.Views;
-using System;
-using System.IO;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -40,7 +38,7 @@ namespace BluescreenSimulator.ViewModels
             }
             IsWaiting = true;
             var token = _source.Token;
-            await Task.Delay(Delay * 1000, token).ContinueWith(_ => { });
+            await Task.Delay((int)(Delay * 1000), token).ContinueWith(_ => { });
             IsWaiting = false;
             if (token.IsCancellationRequested)
             {
@@ -68,7 +66,7 @@ namespace BluescreenSimulator.ViewModels
         }
         public bool IsNotWaiting => !IsWaiting;
         [CmdParameter("-d", Description = "Bluescreen Delay {duration} in seconds (0-86400)", FullAlias = "delay")]
-        public int Delay
+        public double Delay
         {
             get => Model.Delay;
             set
@@ -111,13 +109,7 @@ namespace BluescreenSimulator.ViewModels
         public int StartingProgress
         {
             get => Model.StartingProgress;
-            set => SetModelProperty(Math.Min(value, 100));
-        }
-        [CmdParameter("-u", Description = "Enable unsafe mode (forces GUI mode and discards all other settings)", FullAlias = "enable-unsafe")]
-        public bool EnableUnsafe
-        {
-            get => Model.EnableUnsafe;
-            set => SetModelProperty(value);
+            set => SetModelProperty(Math.Max(0, Math.Min(value, 100)));
         }
         [CmdParameter("-c", Description = "The {command} to run after complete (Careful!)", FullAlias = "cmd")]
         public string CmdCommand
@@ -143,12 +135,31 @@ namespace BluescreenSimulator.ViewModels
             get => Model.RainbowMode;
             set => SetModelProperty(value);
         }
+        [CmdParameter("-pf", Description = "Factor to scale the progress speed with, e.g., 2.1x (min 0.1, max 10)", FullAlias = "progress-factor")]
+        public double ProgressFactor
+        {
+            get => Model.ProgressFactor;
+            set => SetModelProperty(Math.Max(0.1, Math.Min(value, 10.0)));
+        }
+        [CmdParameter("-psd", Description = "Seconds to wait before the progress starts counting up", FullAlias = "progress-start-delay")]
+        public double ProgressStartDelay
+        {
+            get => Model.ProgressStartDelay;
+            set => SetModelProperty(Math.Max(0,value));
+        }
+        [CmdParameter("-cafd", Description = "Seconds to wait after progress bar completion before closing the BSOD", FullAlias = "closing-after-start-delay")]
+        public double ClosingAfterFinishDelay
+        {
+            get => Model.ClosingAfterFinishDelay;
+            set => SetModelProperty(Math.Max(0, value));
+        }
         public virtual bool SupportsRainbow => false;
 
         public async Task StartProgress(CancellationToken token = default)
         {
             var r = new Random();
             Progress = StartingProgress;
+            await Task.Delay((int)(ProgressStartDelay * 1000), token);
             while (Progress < 100)
             {
                 if (token.IsCancellationRequested)
@@ -156,20 +167,20 @@ namespace BluescreenSimulator.ViewModels
                     Progress = 0;
                     return;
                 }
-                await Task.Delay(r.Next(5000), token);
+                await Task.Delay((int)(r.Next(5000) * ProgressFactor), token);
                 Progress += r.Next(2, 11);
                 if (Progress > 100)
                 {
                     Progress = 100;
                 }
             }
-            await Task.Delay(3000, token);
+            await Task.Delay((int)(ClosingAfterFinishDelay * 1000), token);
             if (token.IsCancellationRequested)
             {
                 Progress = 0;
                 return;
             }
-            if (MainWindow.EnableUnsafe && !string.IsNullOrWhiteSpace(CmdCommand))
+            if (!string.IsNullOrWhiteSpace(CmdCommand))
             {
                 Utils.ExecuteCmdCommands(CmdCommand);
             }
