@@ -10,8 +10,12 @@ namespace BluescreenSimulator
 
         public virtual Color ForegroundColor { get; set; } = Colors.White;
 
-        public int Delay { get; set; } = 0;
-        public bool EnableUnsafe { get; set; } = false;
+        public double Delay { get; set; } = 0.0;
+
+        public double ProgressFactor { get; set; } = 1.0;
+
+        public double ProgressStartDelay { get; set; } = 0.0;
+        public double ClosingAfterFinishDelay { get; set; } = 3.0;
 
         public bool RainbowMode { get; set; } = false;
 

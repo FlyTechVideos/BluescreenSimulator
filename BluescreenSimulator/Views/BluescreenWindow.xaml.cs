@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using BluescreenSimulator.Properties;
 using BluescreenSimulator.ViewModels;
 using static System.Windows.Input.Key;
 
@@ -16,6 +15,12 @@ namespace BluescreenSimulator.Views
 {
     public partial class BluescreenWindow : Window
     {
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
+        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        private const int MOUSEEVENTF_LEFTUP = 0x04;
+
+
         private readonly Windows10BluescreenViewModel _vm;
         private readonly CancellationTokenSource _source = new CancellationTokenSource();
         private bool _realClose;
@@ -48,14 +53,6 @@ namespace BluescreenSimulator.Views
 
         private void SetUpQR()
         {
-            /*if (_vm.StopCode.Equals(Windows10BluescreenResources.StopCode, StringComparison.CurrentCultureIgnoreCase)) return;
-            var generator = new QRCodeGenerator();
-            var data = generator.CreateQrCode(_vm.MoreInfo, QRCodeGenerator.ECCLevel.Q);
-            var qr = new QRCode(data);
-            var bitmap = qr.GetGraphic(20, System.Drawing.Color.FromArgb(10, 112, 169), System.Drawing.Color.White,
-                true);
-            var source = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            */
             if (_vm.UseOriginalQR)
             {
                 QrCodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.qr.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
@@ -70,6 +67,8 @@ namespace BluescreenSimulator.Views
         {
             try
             {
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+
                 await BeginTextDelay(_vm.TextDelay);
                 await _vm.StartProgress(_source.Token);
                 _realClose = true;
@@ -80,7 +79,7 @@ namespace BluescreenSimulator.Views
                 _vm.Progress = 0;
             }
         }
-        private async Task BeginTextDelay(float delay)
+        private async Task BeginTextDelay(double delay)
         {
             //Please find a better way to do it
             MainText1.Visibility = Visibility.Hidden;

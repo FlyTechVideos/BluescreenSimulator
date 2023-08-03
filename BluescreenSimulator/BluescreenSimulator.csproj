@@ -88,7 +88,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>BluescreenSimulator Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -267,8 +268,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Windows9xBluescreenResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="BluescreenSimulator Key.pfx" />
-    <None Include="BluescreenSimulator_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

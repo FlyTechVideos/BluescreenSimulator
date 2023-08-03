@@ -77,7 +77,7 @@ namespace BluescreenSimulator.ViewModels
         }
 
         [CmdParameter("-td", Description = "Specify Delay For Text Display", FullAlias = "textdelay")]
-        public float TextDelay
+        public double TextDelay
         {
             get => Model.TextDelay;
             set => SetModelProperty(value);

@@ -111,13 +111,6 @@ namespace BluescreenSimulator
                 if (showHelp)
                 {
                     ShowHelp(currentSet);
-                    return;
-                }
-
-                if (data.EnableUnsafe)
-                {
-                    MessageBox.Show("You are entering Unsafe Mode. Be careful!", "Careful", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    RunGui(true);
                 }
                 else
                 {
@@ -126,7 +119,7 @@ namespace BluescreenSimulator
             }
             else
             {
-                RunGui(false);
+                RunGui();
             }
         }
 
@@ -140,9 +133,9 @@ namespace BluescreenSimulator
                 MessageBoxButton.OKCancel, MessageBoxImage.Error);
         }
 
-        private void RunGui(bool enableUnsafe)
+        private void RunGui()
         {
-            var mainWindow = new MainWindow(enableUnsafe);
+            var mainWindow = new MainWindow();
             mainWindow.Show();
         }
 

@@ -10,14 +10,12 @@ namespace BluescreenSimulator.Views
 {
     public partial class MainWindow : Window
     {
-        public static bool EnableUnsafe;
         private MainWindowViewModel _vm;
         private IBluescreenViewModel CurrentBluescreen => _vm.SelectedBluescreen;
-        public MainWindow(bool enableUnsafe)
+        public MainWindow()
         {
             InitializeComponent();
             DataContext = _vm = new MainWindowViewModel();
-            EnableUnsafe = enableUnsafe;
             InputBindings.Add(new InputBinding(new DelegateCommand(() =>
             {
                 Settings.Default.IsDarkTheme = !Settings.Default.IsDarkTheme;
@@ -120,7 +118,7 @@ namespace BluescreenSimulator.Views
 
         private bool CheckData()
         {
-            if (EnableUnsafe && !string.IsNullOrEmpty(CurrentBluescreen.CmdCommand.Trim()))
+            if (!string.IsNullOrWhiteSpace(CurrentBluescreen.CmdCommand))
             {
                 var messageBoxResult = MessageBox.Show("Using a CMD command can be dangerous. " +
                     "I will not be responsible for any data loss or other damage arising from irresponsible or careless use of the CMD command option. " +

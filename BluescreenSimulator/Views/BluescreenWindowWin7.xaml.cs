@@ -23,7 +23,7 @@ namespace BluescreenSimulator.Views
 
 
         public BluescreenWindowWin7(Windows7BluescreenViewModel vm = null)
-        {            // gets the main screen current Resolution
+        {
             DataContext = _vm = vm ?? new Windows7BluescreenViewModel();
             InitializeComponent();
             Cursor = Cursors.None;
